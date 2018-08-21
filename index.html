@@ -267,6 +267,67 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-酷炫的圆周动画" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/21/酷炫的圆周动画/" class="article-date">
+      <time datetime="2018-08-21T06:27:54.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/21/酷炫的圆周动画/">酷炫的圆周动画</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>先上效果图：</p>
+<p>主要代码分析：</p>
+<p>总体来说代码还是比较简单的，这边简单的介绍一下，码字太累，可下载看注释，在上面的applyTransformation方法中，参数interpolatedTime代表当前方法掉用时，动画进行的一个时间点，这个值的范围是0到1，也就是说动画刚开始的时候传进来的interpolatedTime为0，动画进行中的时候，传进来的是0到1之间的小数，动画结束的时候传进来的是1。</p>
+<p>Transformation:代表补间动画在不同时刻对图形或组建的变形程度。该对象中封装了一个Matrix对象，对它所包含的Matrix对象进行位移、倾斜、旋转等变换时，Transformation将会控制对应的图片或视图进行相应的变换。</p>
+<p>根据getNewLocation方法（代码中有注释，可以自行github上下载），使matrix.preTranslate（）进行平移</p>
+<p>下载地址：GitHub - ruanjiankeji/CicleAnimation: 圆周运动的简单动画。可以顺时针，可以逆时针 </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -338,7 +399,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016-2017 黄尘
+                2016-2018 黄尘
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
