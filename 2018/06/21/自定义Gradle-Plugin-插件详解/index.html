@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="黄尘" />
+
+
+
+<meta name="description" content="自定义Gradle-Plugin 插件官方文档给出了详细的实现步骤，笔者 将参考官方文档：通过自定义插件实现lint文件输出，本文按照以下三个方面进行讲解：
+
+插件基础介绍
+三种插件的打包方式
+实例Demo
+
+插件基础介绍
+官方介绍：A Gradle plugin packages up reusable pieces of build logic, which can be used acros">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义Gradle-Plugin 插件详解">
+<meta property="og:url" content="http://yoursite.com/2018/06/21/自定义Gradle-Plugin-插件详解/index.html">
+<meta property="og:site_name" content="黄尘的博客">
+<meta property="og:description" content="自定义Gradle-Plugin 插件官方文档给出了详细的实现步骤，笔者 将参考官方文档：通过自定义插件实现lint文件输出，本文按照以下三个方面进行讲解：
+
+插件基础介绍
+三种插件的打包方式
+实例Demo
+
+插件基础介绍
+官方介绍：A Gradle plugin packages up reusable pieces of build logic, which can be used acros">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-14b60942e81409ca.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-0c019686af10f2ab.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-08-21T07:19:24.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义Gradle-Plugin 插件详解">
+<meta name="twitter:description" content="自定义Gradle-Plugin 插件官方文档给出了详细的实现步骤，笔者 将参考官方文档：通过自定义插件实现lint文件输出，本文按照以下三个方面进行讲解：
+
+插件基础介绍
+三种插件的打包方式
+实例Demo
+
+插件基础介绍
+官方介绍：A Gradle plugin packages up reusable pieces of build logic, which can be used acros">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1870398-14b60942e81409ca.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="黄尘的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>自定义Gradle-Plugin 插件详解 | 黄尘的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">黄尘</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/photo">相册</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Androd进阶/">Androd进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android进阶/">Android进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC机制/">GC机制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-虚拟机/">Java 虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java并发/">Java并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java进阶/">Java进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信小程序/">微信小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构和算法/">数据结构和算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义View/">自定义View</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">黄尘</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">黄尘</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/photo">相册</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-自定义Gradle-Plugin-插件详解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/21/自定义Gradle-Plugin-插件详解/" class="article-date">
+      <time datetime="2018-06-21T14:00:40.000Z" itemprop="datePublished">2018-06-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自定义Gradle-Plugin 插件详解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="自定义Gradle-Plugin-插件"><a href="#自定义Gradle-Plugin-插件" class="headerlink" title="自定义Gradle-Plugin 插件"></a>自定义Gradle-Plugin 插件</h2><p><a href="https://docs.gradle.org/current/userguide/custom_plugins.html" target="_blank" rel="external">官方文档</a>给出了详细的实现步骤，笔者 将参考官方文档：通过自定义插件实现lint文件输出，本文按照以下三个方面进行讲解：</p>
+<ul>
+<li>插件基础介绍</li>
+<li>三种插件的打包方式</li>
+<li>实例Demo</li>
+</ul>
+<h3 id="插件基础介绍"><a href="#插件基础介绍" class="headerlink" title="插件基础介绍"></a>插件基础介绍</h3><blockquote>
+<p>官方介绍：A Gradle plugin packages up reusable pieces of build logic, which can be used across many different projects and builds. Gradle allows you to implement your own plugins, so you can reuse your build logic, and share it with others.</p>
+<p>You can implement a Gradle plugin in any language you like, provided the implementation ends up compiled as bytecode. In our examples, we are going to use Groovy as the implementation language. Groovy, Java or Kotlin are all good choices as the language to use to implement a plugin, as the Gradle API has been designed to work well with these languages. In general, a plugin implemented using Java or Kotlin, which are statically typed, will perform better than the same plugin implemented using Groovy.</p>
+</blockquote>
+<p>大体意思：插件打包了可重用的构建逻辑，可以适用不同的项目和构建。</p>
+<p>Gradle 提供了很多官方插件，用于支持Java、Groovy等工程的构建和打包。同时也提供了自定义插件机制，让每个人都可以通过插件来实现特定的构建逻辑，并可以把这些逻辑打包起来，分享给其他人。</p>
+<p>您可以实现一个Gradle插件用你喜欢任何语言,提供了实现最终编译成字节码。官方例子中,使用Groovy实现语言。Groovy、Java或Kotlin都是不错的选择。深入理解可以参考上一篇文章：<a href="https://www.jianshu.com/p/dbbbe2bf1f7b" target="_blank" rel="external">Android中Gradle深入理解</a></p>
+<p>Gradle自定义插件三种方式：</p>
+<blockquote>
+<p>There are several places where you can put the source for the plugin.</p>
+<h4 id="Build-script"><a href="#Build-script" class="headerlink" title="Build script"></a>Build script</h4><p>You can include the source for the plugin directly in the build script. This has the benefit that the plugin is automatically compiled and included in the classpath of the build script without you having to do anything. However, the plugin is not visible outside the build script, and so you cannot reuse the plugin outside the build script it is defined in.</p>
+<h4 id="buildSrc-project"><a href="#buildSrc-project" class="headerlink" title="buildSrc project"></a>buildSrc project</h4><p>You can put the source for the plugin in the rootProjectDir/buildSrc/src/main/groovy directory. Gradle will take care of compiling and testing the plugin and making it available on the classpath of the build script. The plugin is visible to every build script used by the build. However, it is not visible outside the build, and so you cannot reuse the plugin outside the build it is defined in.</p>
+<p><a href="https://docs.gradle.org/current/userguide/organizing_gradle_projects.html" target="_blank" rel="external">See Organizing Gradle</a> Projects for more details about the buildSrc project.</p>
+<h5 id="Standalone-project"><a href="#Standalone-project" class="headerlink" title="Standalone project"></a>Standalone project</h5><p>You can create a separate project for your plugin. This project produces and publishes a JAR which you can then use in multiple builds and share with others. Generally, this JAR might include some plugins, or bundle several related task classes into a single library. Or some combination of the two.</p>
+</blockquote>
+<h4 id="大体意思总结为下3点："><a href="#大体意思总结为下3点：" class="headerlink" title="大体意思总结为下3点："></a>大体意思总结为下3点：</h4><blockquote>
+<p>1.build.gradle脚本中直接使用。这种方式就是直接在Android Studio app moudle的build.gradle 中进行插件的编写，优点就是不用再上传插件到maven或者其它地方，项目就可以直接使用；缺点也是很明显，就是只能在自己的项目中使用，不能复用，这个不是我们今天要说的。</p>
+<p>buildSrc中使用。这种方式需要在项目中新建一个moudle命名为buildSrc，这个目录就用来存放自定义插件。然后在src/main中建立两个目录，一个就是存放代码的groovy目录，一个是存放自定义插件名称的resources目录。这种定义方式也是只能在我们项目中进行使用，不好复用。</p>
+<p>3.独立Module中使用。这种方式就是完全独立开发一个Module，可以随便用。</p>
+</blockquote>
+<p>Build Script</p>
+<p>把插件写在build.gradle 文件中，一般用于简单的逻辑，只在改build.gradle 文件中可见，这里直接贴出Demo代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 插件入口类</div><div class="line"> */</div><div class="line">class TestPlugin implements Plugin&lt;Project&gt; &#123;</div><div class="line">    @Override</div><div class="line">    void apply(Project project) &#123;</div><div class="line">        //do something</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">apply plugin: TestPlugin</div></pre></td></tr></table></figure>
+<h4 id="buildSrc"><a href="#buildSrc" class="headerlink" title="buildSrc"></a>buildSrc</h4><blockquote>
+<h4 id="Use-buildSrc-to-abstract-imperative-logic"><a href="#Use-buildSrc-to-abstract-imperative-logic" class="headerlink" title="Use buildSrc to abstract imperative logic"></a>Use buildSrc to abstract imperative logic</h4><p>Complex build logic is usually a good candidate for being encapsulated either as custom task or binary plugin. Custom task and plugin implementations should not live in the build script. It is very convenient to use buildSrc for that purpose as long as the code does not need to be shared among multiple, independent projects.<br>有兴趣可参考：<a href="https://docs.gradle.org/current/userguide/organizing_gradle_projects.html#sec:build_sources" target="_blank" rel="external">buildSrc介绍</a></p>
+</blockquote>
+<p>总得来说：只对该项目中可见，适用于逻辑较为复杂，但又不需要外部可见的插件</p>
+<h4 id="独立项目"><a href="#独立项目" class="headerlink" title="独立项目"></a>独立项目</h4><p>先来一个整体代码感受：<br><img src="http://upload-images.jianshu.io/upload_images/1870398-14b60942e81409ca.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<ol>
+<li>在Android Studio中新建 Java Library module uploader（moduleName 不重要，根据实际情况定义）</li>
+</ol>
+<ol>
+<li>修改项目文件夹</li>
+</ol>
+<ul>
+<li>[x] 移除java文件夹，因为在这个项目中用不到java代码</li>
+<li>[x] 添加Groovy文件夹，主要的代码文件放在这里</li>
+<li>[x] 添加resource文件夹，存放用于标识gradle插件的meta-data</li>
+</ul>
+<ol>
+<li>修改build.gradle 文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">apply plugin: &apos;groovy&apos;</div><div class="line"></div><div class="line"></div><div class="line">dependencies&#123;</div><div class="line">    //gradle sdk</div><div class="line">    compile gradleApi()</div><div class="line">    //groovy sdk</div><div class="line">    compile localGroovy()</div><div class="line">&#125;</div><div class="line">//以上配置比较固定</div><div class="line">//以下内容主要用来上传插件</div><div class="line">apply plugin: &apos;maven&apos;</div><div class="line">repositories &#123;</div><div class="line">    mavenCentral()</div><div class="line">&#125;</div><div class="line"></div><div class="line">group = &apos;com.charles.plugin&apos;</div><div class="line">version = &apos;1.0.0&apos;</div><div class="line"></div><div class="line"></div><div class="line">uploadArchives&#123;</div><div class="line">    repositories &#123;</div><div class="line">        mavenDeployer&#123;</div><div class="line">            repository(url: uri(&apos;./../repo&apos;))</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>创建Groovy脚本</li>
+</ol>
+<p>接下来，在groovy目录下，创建一个Groovy类（与Java类似，可以带包名，但Groovy类以.grovvy结尾，所以groovy文件的创建是new-&gt;file-&gt;custom.groovy）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//插件是一个类 继承Plugin</div><div class="line">class LintPlugin implements Plugin&lt;Project&gt; &#123;</div><div class="line"></div><div class="line">//重载 void apply(Project project)方法，这个方法将会传入使用这个插件的 project 的实例，这是一个重要的 context。</div><div class="line">    @Override</div><div class="line">    void apply(Project project) &#123;</div><div class="line">        /*project.task(&apos;lintOutputsTask&apos;) &#123;</div><div class="line">            doLast &#123;</div><div class="line">                println(&quot;lint outputs task start...&quot;)</div><div class="line">            &#125;</div><div class="line">        &#125;*/</div><div class="line">        project.afterEvaluate &#123;</div><div class="line">            project.android.lintOptions.xmlOutput=new File(project.buildDir,&quot;lintResult.xml&quot;)</div><div class="line">        &#125;</div><div class="line">        project.tasks.create(&apos;cleanTest&apos;,CleanTestTask)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>创建resources<br>resources目录是标识整个插件的目录，也是后面apply plugin的内容。</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-0c019686af10f2ab.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">implementation-class=com.charles.plugin.LintPlugin</div></pre></td></tr></table></figure>
+<ol>
+<li>在主项目中使用插件<br>在主项目的build.gradle文件中，通过apply指令来加载自定义的插件，脚本如下所示：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apply plugin: &apos;com.charles.plugin&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    ext.kotlin_version = &apos;1.2.30&apos;</div><div class="line">    repositories &#123;</div><div class="line">        google()</div><div class="line">        jcenter()</div><div class="line">        maven &#123;</div><div class="line">            url uri(&apos;./../repo&apos;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;com.android.tools.build:gradle:3.1.3&apos;</div><div class="line">        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;</div><div class="line">        classpath &apos;com.charles.plugin:lintplugin:1.0.0&apos;</div><div class="line"></div><div class="line">        // NOTE: Do not place your application dependencies here; they belong</div><div class="line">        // in the individual module build.gradle files</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对比：<br>在buildSrc中创建自定义Gradle插件只能在当前项目中使用，因此，对于具有普遍性的插件来说，通常是建立一个独立的Module来创建自定义Gradle插件。</p>
+<p>区别在于：</p>
+<ul>
+<li>不需要进行model的名称的写死，也就是你可以随意的命名</li>
+<li>buildSrc会自动的编译和加入到classpath中，这里我们需要手动依赖</li>
+<li>需要上传到maven仓库中</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/dbbbe2bf1f7b" target="_blank" rel="external">Android中Gradle深入理解</a></li>
+<li><a href="https://blog.csdn.net/huachao1001/article/details/51810328" target="_blank" rel="external">在AndroidStudio中自定义Gradle插件</a>，</li>
+<li><a href="https://blog.csdn.net/eclipsexys/article/details/50973205" target="_blank" rel="external">Gradle自定义插件</a></li>
+<li><a href="https://www.jianshu.com/p/66b8eafc2d04" target="_blank" rel="external">一步步自定义Gradle插</a></li>
+<li><a href="https://juejin.im/post/5a523dd56fb9a01cbf382ce9" target="_blank" rel="external">自定义Gradle-Plugin 插件</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/organizing_gradle_projects.html#sec:build_sources" target="_blank" rel="external">Gradle官方文档</a></li>
+<li><a href="https://www.jianshu.com/p/03eb55536298" target="_blank" rel="external">Gradle自定义插件详解</a></li>
+<li>自己Demo代码</li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/21/自定义Gradle-Plugin-插件详解/">自定义Gradle-Plugin 插件详解</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">黄尘</a></p>
+        <p><span>发布时间:</span>2018-06-21, 22:00:40</p>
+        <p><span>最后更新:</span>2018-08-21, 15:19:24</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/21/自定义Gradle-Plugin-插件详解/" title="自定义Gradle-Plugin 插件详解">http://yoursite.com/2018/06/21/自定义Gradle-Plugin-插件详解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/06/21/自定义Gradle-Plugin-插件详解/　　作者: 黄尘" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/07/13/强引用、软引用、弱引用、幻象引用再不理解就晚了/">
+                    强引用、软引用、弱引用、幻象引用再不理解就晚了
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/05/30/Android进阶–动态代理是基于什么原理？/">
+                    Android进阶–动态代理是基于什么原理？
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义Gradle-Plugin-插件"><span class="toc-number">1.</span> <span class="toc-text">自定义Gradle-Plugin 插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#插件基础介绍"><span class="toc-number">1.1.</span> <span class="toc-text">插件基础介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Build-script"><span class="toc-number">1.1.1.</span> <span class="toc-text">Build script</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#buildSrc-project"><span class="toc-number">1.1.2.</span> <span class="toc-text">buildSrc project</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Standalone-project"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">Standalone project</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#大体意思总结为下3点："><span class="toc-number">1.1.3.</span> <span class="toc-text">大体意思总结为下3点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#buildSrc"><span class="toc-number">1.1.4.</span> <span class="toc-text">buildSrc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-buildSrc-to-abstract-imperative-logic"><span class="toc-number">1.1.5.</span> <span class="toc-text">Use buildSrc to abstract imperative logic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#独立项目"><span class="toc-number">1.1.6.</span> <span class="toc-text">独立项目</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"自定义Gradle-Plugin 插件详解　| 黄尘的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/07/13/强引用、软引用、弱引用、幻象引用再不理解就晚了/" title="上一篇: 强引用、软引用、弱引用、幻象引用再不理解就晚了">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/05/30/Android进阶–动态代理是基于什么原理？/" title="下一篇: Android进阶–动态代理是基于什么原理？">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/19/Android底层知识Window和WindowManager深入分析/">Android底层知识Window和WindowManager深入分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/15/接口和抽象类的理解，Java8做了啥修改？/">接口和抽象类的理解，Java8做了啥修改？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/">Activity底层知识之PMS及App安装过程透彻分析.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？/">如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/04/Activity底层知识之Binder透彻分析/">Activity底层知识之Binder透彻分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/Activity底层知识之Activity启动透彻分析/">Activity底层知识之Activity启动透彻分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/31/深入理解并发类库中提供线程安全队列/">深入理解并发类库中提供线程安全队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/25/对Android类加载器最全面的分析/">对Android类加载器最全面的分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/16/红黑树的理解（硬骨头也会变成软骨头）/">红黑树的理解（硬骨头也会变成软骨头）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/13/强引用、软引用、弱引用、幻象引用再不理解就晚了/">强引用、软引用、弱引用、幻象引用再不理解就晚了</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/21/自定义Gradle-Plugin-插件详解/">自定义Gradle-Plugin 插件详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/Android进阶–动态代理是基于什么原理？/">Android进阶–动态代理是基于什么原理？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/21/Android–进阶对Java平台的理解？Java是解释执行吗？/">Android–进阶对Java平台的理解？Java是解释执行吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Android进阶–Exception和Error的理解/">Android进阶–Exception和Error的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/">Android进阶–String、StringBuffer、StringBuilder的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/Android进阶–final、finally、finalize的理解/">Android进阶–final、finally、finalize的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/21/Kotlin单例模式多种写法大分析/">Kotlin单例模式多种写法大分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/30/synchronized和ReentrantLock的理解（上）/">synchronized和ReentrantLock的理解（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/Java并发类库提供的线程池有哪几种？分别有什么特点？/">Java并发类库提供的线程池有哪几种？分别有什么特点？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/Android进阶–int和Integer的理解/">Android进阶–int和Integer的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/10/Java文件拷贝方式？哪一种最高效？/">Java文件拷贝方式？哪一种最高效？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/FTP-作为Android开发，你应当了解/">FTP-作为Android开发，你应当了解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/25/HashMap、HashTable、TreeMap的理解/">HashMap、HashTable、TreeMap的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/21/Android中Gradle深入理解/">Android中Gradle深入理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/10/HashMap源码1-7分析/">HashMap源码1.7分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/21/Vector、ArrayList、LinkedList的理解/">Vector、ArrayList、LinkedList的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/23/为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？/">为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/22/微信小程序公开内测了/">微信小程序公开内测了</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/22/微信小程序-应用号-微信-web-开发者工具破解版/">微信小程序 (应用号) 微信 web 开发者工具破解版</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/事件分发机制之-Button的onTouch-事件分析/">事件分发机制之-Button的onTouch()事件分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/24/Android-实现文字按照路径曲线显示/">Android 实现文字按照路径曲线显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/酷炫的圆周动画/">酷炫的圆周动画</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 黄尘
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

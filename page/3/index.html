@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="黄尘" />
+
+
+    
+    
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="黄尘的博客">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="黄尘的博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="黄尘的博客">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="黄尘的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <style> .article { opacity: 0;} </style>
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>黄尘的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: true,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">黄尘</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/photo">相册</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Androd进阶/">Androd进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android进阶/">Android进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC机制/">GC机制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-虚拟机/">Java 虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java并发/">Java并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java进阶/">Java进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信小程序/">微信小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构和算法/">数据结构和算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义View/">自定义View</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">黄尘</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">黄尘</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/photo">相册</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-Java文件拷贝方式？哪一种最高效？" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/10/Java文件拷贝方式？哪一种最高效？/" class="article-date">
+      <time datetime="2018-01-10T15:01:35.000Z" itemprop="datePublished">2018-01-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/10/Java文件拷贝方式？哪一种最高效？/">Java文件拷贝方式？哪一种最高效？</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><p>Java有几种文件拷贝方式？哪一种最高效？</p>
+<h3 id="知识点补充："><a href="#知识点补充：" class="headerlink" title="知识点补充："></a>知识点补充：</h3><ol>
+<li>拷贝实现机制分析</li>
+<li><img src="http://upload-images.jianshu.io/upload_images/1870398-d8ca9a683be64da8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></li>
+</ol>
+<p>从上图可知，当我们使用输入输出流进行读写时，实际上是进行了多次上下文切换，比如应用读取数据时，先在内核态讲数据从磁盘读取到内核缓存，再切换到用户态将数据从内核缓存读取到用户缓存。写入操作类似。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-7c3b62d4456904a0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>而基于NIO transferTo的实现方式，在Linux和Unix上，会使用零拷贝技术，数据传输并不需要用户态参与，省去了上下午切换的开销和不必要的内存拷贝，进而可提高应用拷贝性能。</p>
+<blockquote>
+<p>注意：transferTo不仅仅是可以用在文件拷贝中，与其类似的，例如读取磁盘文件，然后进行Socket发送，同样可以享受这种机制带来的性能和扩展性提高。突然想到日志开发中使用到的mmap和其类似，又不一样，有兴趣可以参考：<a href="https://www.cnblogs.com/huxiao-tee/p/4660352.html" target="_blank" rel="external">认真分析mmap：是什么 为什么 怎么用</a></p>
+</blockquote>
+<h3 id="回答问题："><a href="#回答问题：" class="headerlink" title="回答问题："></a>回答问题：</h3><p>Java有多种比较典型的文件拷贝实现方式，比如：<br>利用java.io类库，直接为源文件构建一个FileInputStream读取，然后再为目标文件构建一个FileOutputStream，完成写入工作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public static void copyFileByStream(File source,File dest) throws IOException&#123;</div><div class="line">        try(InputStream inputStream = new FileInputStream(source);</div><div class="line">            OutputStream outputStream = new FileOutputStream(dest))&#123;</div><div class="line">            byte[] buffer = new byte[1024];</div><div class="line">            int length;</div><div class="line">            while ((length = inputStream.read(buffer))&gt;0)&#123;</div><div class="line">                outputStream.write(buffer,0,length);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>或者，利用java.nio类库提供的transferTo或者transferFrom方法实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * 复制文件,使用nio以提高性能</div><div class="line">     *</div><div class="line">     * @param src  - 源文件</div><div class="line">     * @param dest - 目标文件</div><div class="line">     */</div><div class="line">    public static void copyFile(File src, File dest) &#123;</div><div class="line">        FileInputStream fis = null;</div><div class="line">        FileOutputStream fos = null;</div><div class="line">        FileChannel in = null;</div><div class="line">        FileChannel out = null;</div><div class="line">        try &#123;</div><div class="line">            fis = new FileInputStream(src);</div><div class="line">            fos = new FileOutputStream(dest);</div><div class="line">            in = fis.getChannel(); // 得到对应的文件通道</div><div class="line">            out = fos.getChannel(); // 得到对应的文件通道</div><div class="line">            in.transferTo(0, in.size(), out); // 连接两个通道，并且从in通道读取，然后写入out通道</div><div class="line">        &#125; catch (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; finally &#123;</div><div class="line">            IoUtils.closeQuietly(fis);</div><div class="line">            IoUtils.closeQuietly(in);</div><div class="line">            IoUtils.closeQuietly(fos);</div><div class="line">            IoUtils.closeQuietly(out);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>当然，Java标准类库本身已经提供了几种File.copy方法的实现（我在Android目前还没用到），或者使用使用Apache Commons IO提供的提供了一个FileUtils.copyFile(File from, File to)方法用于文件复制，如果项目里使用到了这个类库，使用这个方法是个不错的选择。它的内部也是使用Java NIO的FileChannel实现的（我在Android目前还没用到）。有兴趣可以参考：<a href="https://juejin.im/entry/57615c6a816dfa00543ceb8d" target="_blank" rel="external">文件复制的 4 种实现方式及性能对比</a></p>
+<p>对于Copy的效率，这个其实与操作系统和配置等情况有关。总体来说，<strong>NIO transferTo/From的方式可能更快，因为它更能利用现在操作系统底层机制，避免不必要的拷贝和上下文切换</strong>。</p>
+<p>参考：</p>
+<ul>
+<li>项目中部分代码</li>
+<li><a href="https://juejin.im/entry/57615c6a816dfa00543ceb8d" target="_blank" rel="external">文件复制的 4 种实现方式及性能对比</a></li>
+<li><a href="https://www.cnblogs.com/huxiao-tee/p/4660352.html" target="_blank" rel="external">认真分析mmap：是什么 为什么 怎么用</a></li>
+<li>极客时间APP核心技术第九讲|  Java文件拷贝方式？哪一种最高效？</li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java进阶/">Java进阶</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-FTP-作为Android开发，你应当了解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/28/FTP-作为Android开发，你应当了解/" class="article-date">
+      <time datetime="2017-11-28T14:07:13.000Z" itemprop="datePublished">2017-11-28</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/28/FTP-作为Android开发，你应当了解/">FTP-作为Android开发，你应当了解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>很久没更新文档了，1 : 确实很忙；2.自己学习的路还很长，知其然不知所以然的东西还很多。</p>
+<h2 id="知识点回顾"><a href="#知识点回顾" class="headerlink" title="知识点回顾"></a>知识点回顾</h2><p>  首先，我们来看下FTP相关定义：</p>
+<ul>
+<li>文件传输协议（英文：File Transfer Protocol，缩写：FTP）是用于在网络上进行文件传输的一套标准协议，使用客户/服务器模式。它属于网络传输协议的应用层。我们要分清文件传送（file transfer）和文件访问（file access）之间的区别，前者是FTP提供的，后者是如NFS等应用系统提供的。</li>
+<li>FTP是一个8位的客户端-服务器协议，能操作任何类型的文件而不需要进一步处理，就像MIME或Unicode一样。但是，FTP有着极高的延时，这意味着，从开始请求到第一次接收需求数据之间的时间，会非常长；并且不时的必须执行一些冗长的登录进程。</li>
+<li>FTP虽然可以被终端用户直接使用，但是它是设计成被FTP客户端程序所控制。</li>
+<li>运行FTP服务的许多站点都开放匿名服务，在这种设置下，用户不需要帐号就可以登录服务器，默认情况下，匿名用户的用户名是：“anonymous”。这个帐号不需要密码，虽然通常要求输入用户的邮件地址作为认证密码，但这只是一些细节或者此邮件地址根本不被确定，而是依赖于FTP服务器的配置情况。</li>
+</ul>
+</blockquote>
+<h2 id="Android中使用"><a href="#Android中使用" class="headerlink" title="Android中使用"></a>Android中使用</h2><p>在Android中我们可以使用第三方的库来操作FTP,比如Apache的包，commons-net-3.6.jar。下载地址<a href="http://note.youdao.com/" target="_blank" rel="external">http://commons.apache.org/proper/commons-net/download_net.cgi。</a></p>
+<h5 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h5><ol>
+<li>初始化FTPClinet,代码如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ftpClient = new FTPClient();</div></pre></td></tr></table></figure>
+<p>2.设置登录地址和端口号，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ftpClient.connect(TrackConstants.FTP_URL, TrackConstants.FTP_PORT);</div></pre></td></tr></table></figure>
+<p>3.设置登录用户名和密码，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ftpClient.login(TrackConstants.FTP_USERNAME, TrackConstants.FTP_PWD);</div></pre></td></tr></table></figure></p>
+<p>4.设置文件类型和采用被动传输方式，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ftpClient.setFileType(FTP.BINARY_FILE_TYPE);</div></pre></td></tr></table></figure></p>
+<p>5.传输文件，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//文件上传吧～</div><div class="line">FileInputStream fileInputStream = new FileInputStream(FilePath);</div><div class="line">ftpClient.storeFile(FileName, fileInputStream);</div></pre></td></tr></table></figure>
+<p>6.关闭连接，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//关闭文件流</div><div class="line">fileInputStream.close();</div><div class="line"></div><div class="line">//退出登陆FTP，关闭ftpCLient的连接</div><div class="line">ftpClient.logout();</div><div class="line">ftpClient.disconnect();</div></pre></td></tr></table></figure>
+<h2 id="小提醒"><a href="#小提醒" class="headerlink" title="小提醒"></a>小提醒</h2><p>主动模式的FTP是指服务器主动连接客户端的数据端口，被动模式的FTP是指服务器被动地等待客户端连接自己的数据端口。</p>
+<h5 id="Android-FTP客户端核心代码如下："><a href="#Android-FTP客户端核心代码如下：" class="headerlink" title="Android FTP客户端核心代码如下："></a>Android FTP客户端核心代码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">new Thread() &#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                super.run();</div><div class="line">                try &#123;</div><div class="line">                    //1.要连接的FTP服务器Url,Port</div><div class="line">                    ftpClient.connect(TrackConstants.FTP_URL, TrackConstants.FTP_PORT);</div><div class="line"></div><div class="line">                    //2.登陆FTP服务器</div><div class="line">                    ftpClient.login(TrackConstants.FTP_USERNAME, TrackConstants.FTP_PWD);</div><div class="line"></div><div class="line">                    //3.看返回的值是不是230，如果是，表示登陆成功</div><div class="line">                    int reply = ftpClient.getReplyCode();</div><div class="line"></div><div class="line">                    if (!FTPReply.isPositiveCompletion(reply)) &#123;</div><div class="line">                        //断开</div><div class="line">                        ftpClient.disconnect();</div><div class="line">                        return;</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    //设置存储路径</div><div class="line">                    ftpClient.makeDirectory(&quot;/data/&quot; + directory );</div><div class="line">                    ftpClient.changeWorkingDirectory(&quot;/data/&quot; + directory);</div><div class="line"></div><div class="line">                    //设置上传文件需要的一些基本信息</div><div class="line">                    ftpClient.setBufferSize(1024);</div><div class="line">                    ftpClient.setControlEncoding(&quot;UTF-8&quot;);</div><div class="line">//                    ftpClient.enterLocalPassiveMode();</div><div class="line">                    ftpClient.setFileType(FTP.BINARY_FILE_TYPE);</div><div class="line"></div><div class="line">                    //文件上传吧～</div><div class="line">                    FileInputStream fileInputStream = new FileInputStream(FilePath);</div><div class="line">                    ftpClient.storeFile(FileName, fileInputStream);</div><div class="line"></div><div class="line">                    //关闭文件流</div><div class="line">                    fileInputStream.close();</div><div class="line"></div><div class="line">                    //退出登陆FTP，关闭ftpCLient的连接</div><div class="line">                    ftpClient.logout();</div><div class="line">                    ftpClient.disconnect();</div><div class="line"></div><div class="line"></div><div class="line">                &#125; catch (SocketException e) &#123;</div><div class="line">                    // TODO Auto-generated catch block</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125; catch (IOException e) &#123;</div><div class="line">                    // TODO Auto-generated catch block</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125; catch (Exception e) &#123;</div><div class="line">                    // TODO Auto-generated catch block</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;.start();</div></pre></td></tr></table></figure>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"><br>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android进阶/">Android进阶</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-HashMap、HashTable、TreeMap的理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/25/HashMap、HashTable、TreeMap的理解/" class="article-date">
+      <time datetime="2017-10-25T15:04:26.000Z" itemprop="datePublished">2017-10-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/25/HashMap、HashTable、TreeMap的理解/">HashMap、HashTable、TreeMap的理解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h4 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h4><p>对比HashMap、HashTable、TreeMap有什么区别？</p>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><ol>
+<li>Map相关的简单类图<br><img src="http://upload-images.jianshu.io/upload_images/1870398-3c12a467a3aa5446.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></li>
+<li>hashcode、equals的一些约定</li>
+</ol>
+<ul>
+<li>[x] equals相等，hashcode一定相等。</li>
+<li>[x] 重写hashcode方法，也要重写equals方法。</li>
+<li>[x] <strong>hashcode要保持一致性，状态改变后返回的哈希值仍然要一致。</strong></li>
+<li>[x] <strong>equals的对称、反射、传递等特性</strong>。</li>
+</ul>
+<ol>
+<li><strong>HashMap源码分析，后续文章会专门介绍（以及并发的时候无线循环占用CPU，size计算不准确等）</strong><br>部分核心精彩源码：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * Implements Map.put and related methods</div><div class="line">     *</div><div class="line">     * @param hash hash for key</div><div class="line">     * @param key the key</div><div class="line">     * @param value the value to put</div><div class="line">     * @param onlyIfAbsent if true, don&apos;t change existing value</div><div class="line">     * @param evict if false, the table is in creation mode.</div><div class="line">     * @return previous value, or null if none</div><div class="line">     */</div><div class="line">    final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</div><div class="line">                   boolean evict) &#123;</div><div class="line">        Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;</div><div class="line">        if ((tab = table) == null || (n = tab.length) == 0)</div><div class="line">            n = (tab = resize()).length;</div><div class="line">        if ((p = tab[i = (n - 1) &amp; hash]) == null)</div><div class="line">            tab[i] = newNode(hash, key, value, null);</div><div class="line">        else &#123;</div><div class="line">            Node&lt;K,V&gt; e; K k;</div><div class="line">            if (p.hash == hash &amp;&amp;</div><div class="line">                ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</div><div class="line">                e = p;</div><div class="line">            else if (p instanceof TreeNode)</div><div class="line">                e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</div><div class="line">            else &#123;</div><div class="line">                for (int binCount = 0; ; ++binCount) &#123;</div><div class="line">                    if ((e = p.next) == null) &#123;</div><div class="line">                        p.next = newNode(hash, key, value, null);</div><div class="line">                        if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</div><div class="line">                            treeifyBin(tab, hash);</div><div class="line">                        break;</div><div class="line">                    &#125;</div><div class="line">                    if (e.hash == hash &amp;&amp;</div><div class="line">                        ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</div><div class="line">                        break;</div><div class="line">                    p = e;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            if (e != null) &#123; // existing mapping for key</div><div class="line">                V oldValue = e.value;</div><div class="line">                if (!onlyIfAbsent || oldValue == null)</div><div class="line">                    e.value = value;</div><div class="line">                afterNodeAccess(e);</div><div class="line">                return oldValue;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        ++modCount;</div><div class="line">        if (++size &gt; threshold)</div><div class="line">            resize();</div><div class="line">        afterNodeInsertion(evict);</div><div class="line">        return null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="回答问题："><a href="#回答问题：" class="headerlink" title="回答问题："></a>回答问题：</h4><p>HashMap、HashTable、TreeMap都是常见的一些Map实现、是以键值对的形式存储和操作数据的容器类型。</p>
+<p>HashTable是早期的Java类库提供的一个哈希表实现，本身是同步的，不支持null键和值，由于同步导致的性能开销，所以已经很少被推荐使用。</p>
+<p>HashMap是应用更加广泛的哈希表的实现，行为上大致与HashTable一致，主要区别在于HashTable不是同步的，支持null值和键。通常情况下，HashMap进行put或者get操作，可以达到常数时间的性能，所以它是绝大部分利用键值对存取场景的首选。</p>
+<p>TreeMap是基于红黑树的一种提供顺序访问的Map，和HashMap不同，它的get、put、remove之类操作都是O（log(n))的时间复杂度，具体顺序可以由指定的Comparator来决定，或者根据键的自然顺序来判断。</p>
+<p>参考：</p>
+<ul>
+<li>集合中部分源码</li>
+<li>极客时间APP核心技术第九讲|  对比Hashtable、HashMap、TreeMap有什么区别？</li>
+<li>自己写的Demo中部分代码</li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android进阶/">Android进阶</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android中Gradle深入理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/21/Android中Gradle深入理解/" class="article-date">
+      <time datetime="2017-10-21T15:00:55.000Z" itemprop="datePublished">2017-10-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/21/Android中Gradle深入理解/">Android中Gradle深入理解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="Gradle基础知识："><a href="#Gradle基础知识：" class="headerlink" title="Gradle基础知识："></a>Gradle基础知识：</h3><ul>
+<li>Groovy，由于它基于Java，所以我们仅介绍Java之外的东西。了解Groovy语言是掌握Gradle的基础。</li>
+<li>Gradle作为一个工具，它的行话和它“为人处事”的原则。</li>
+</ul>
+<h4 id="Groovy定义："><a href="#Groovy定义：" class="headerlink" title="Groovy定义："></a>Groovy定义：</h4><blockquote>
+<p>百度百科：Groovy是一种基于JVM（Java虚拟机）的敏捷开发语言，它结合了Python、Ruby和Smalltalk的许多强大的特性，Groovy 代码能够与 Java 代码很好地结合，也能用于扩展现有代码。由于其运行在 JVM 上的特性，Groovy 可以使用其他 Java 语言编写的库。</p>
+</blockquote>
+<h4 id="Groovy介绍："><a href="#Groovy介绍：" class="headerlink" title="Groovy介绍："></a>Groovy介绍：</h4><p><img src="http://upload-images.jianshu.io/upload_images/1870398-10fd08ed9dc1adc3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>发现了没？它和Java一样，也运行于Java虚拟机中！实际上，由于Groovy Code在真正执行的时候已经变成了Java字节码，所以JVM根本不知道自己运行的是Groovy代码。</p>
+<h4 id="Groovy入门："><a href="#Groovy入门：" class="headerlink" title="Groovy入门："></a>Groovy入门：</h4><p>请跳转：<a href="https://www.w3cschool.cn/groovy/groovy_closures.html" target="_blank" rel="external">Groovy入门</a></p>
+<h5 id="这里重点讲一下闭包："><a href="#这里重点讲一下闭包：" class="headerlink" title="这里重点讲一下闭包："></a>这里重点讲一下闭包：</h5><p>闭包，英文叫Closure，是Groovy中非常重要的一个数据类型或者说一种概念了。闭包的历史来源，种种好处我就不说了。我们直接看怎么使用它！</p>
+<p>闭包，是一种数据类型，它代表了一段可执行的代码。其外形如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def aClosure = &#123;//闭包是一段代码，所以需要用花括号括起来..</div><div class="line">    Stringparam1, int param2 -&gt;  //这个箭头很关键。箭头前面是参数定义，箭头后面是代码</div><div class="line">    println&quot;this is code&quot; //这是代码，最后一句是返回值，</div><div class="line">   //也可以使用return，和Groovy中普通函数一样</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果闭包没定义参数的话，则隐含有一个参数，这个参数名字叫it，和this的作用类似。it代表闭包的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">比如：</div><div class="line">def greeting = &#123; &quot;Hello, $it!&quot; &#125;</div><div class="line">assert greeting(&apos;Patrick&apos;) == &apos;Hello, Patrick!&apos;</div><div class="line">等同于：</div><div class="line">def greeting = &#123; it -&gt; &quot;Hello, $it!&quot;&#125;</div><div class="line">assert greeting(&apos;Patrick&apos;) == &apos;Hello, Patrick!&apos;</div><div class="line">但是，如果在闭包定义时，采用下面这种写法，则表示闭包没有参数！</div><div class="line">def noParamClosure = &#123; -&gt; true &#125;</div><div class="line">这个时候，我们就不能给noParamClosure传参数了！</div><div class="line">noParamClosure (&quot;test&quot;)  &lt;==报错喔！</div></pre></td></tr></table></figure>
+<p>闭包在Groovy中大量使用，比如很多类都定义了一些函数，这些函数最后一个参数都是一个闭包。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public static &lt;T&gt; List&lt;T&gt;each(List&lt;T&gt; self, Closure closure)</div><div class="line">上面这个函数表示针对List的每一个元素都会调用closure做一些处理。这里的closure，就有点回调函数的感觉。但是，在使用这个each函数的时候，我们传递一个怎样的Closure进去呢？比如：</div><div class="line">def iamList = [1,2,3,4,5]  //定义一个List</div><div class="line">iamList.each&#123; //调用它的each，这段代码的格式看不懂了吧？each是个函数，圆括号去哪了？</div><div class="line">      println it</div><div class="line">&#125;</div><div class="line">上面代码有两个知识点：</div><div class="line">l each函数调用的圆括号不见了！原来，Groovy中，当函数的最后一个参数是闭包的话，可以省略圆括号。比如</div><div class="line">def testClosure(int a1,String b1, Closure closure)&#123;</div><div class="line">      //dosomething</div><div class="line">     closure() //调用闭包</div><div class="line">&#125;</div><div class="line">那么调用的时候，就可以免括号！</div><div class="line">testClosure (4, &quot;test&quot;, &#123;</div><div class="line">   println&quot;i am in closure&quot;</div><div class="line">&#125; )  //红色的括号可以不写..</div></pre></td></tr></table></figure>
+<p>如经常使用到的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// apk output setting</div><div class="line">    applicationVariants.all &#123; variant -&gt;</div><div class="line">        variant.outputs.all &#123; output -&gt;</div><div class="line">            if (publish.equals(&apos;false&apos;) ) &#123;</div><div class="line">                return</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            def releaseApkName = &apos;yhshop-&apos; + variant.productFlavors[0].name + &apos;-v&apos; + versionName + &apos;-&apos; + versionCode + &apos;.apk&apos;</div><div class="line"></div><div class="line">            println(&quot;output name======&quot; + releaseApkName)</div><div class="line">            outputFileName = releaseApkName</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="Android-应用模块的默认项目结构"><a href="#Android-应用模块的默认项目结构" class="headerlink" title="Android 应用模块的默认项目结构"></a>Android 应用模块的默认项目结构</h4><p>[站外图片上传中…(image-5ebded-1533465873627)]</p>
+<p>Gradle工作流程：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-ef479d8cddf6a7f7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>我们以上图应用模块的默认项目结构来介绍</p>
+<ul>
+<li>首先是初始化阶段。就比如执行如上图settings.gradle。<br>Initiliazation phase的下一个阶段是Configration阶段。</li>
+<li>Configration阶段的目标是解析每个project中的build.gradle。比如multi-project build例子中，解析每个子目录中的build.gradle。在这两个阶段之间，我们可以加一些定制化的Hook。这当然是通过API来添加的。<br>Configuration阶段完了后，整个build的project以及内部的Task关系就确定了，一个Project包含很多Task，每个Task之间有依赖关系。Configuration会建立一个有向图来描述Task之间的依赖关系。所以，我们可以添加一个HOOK，即当Task关系图建立好后，执行一些操作。</li>
+<li>最后一个阶段就是执行任务了。当然，任务执行完后，我们还可以加Hook。</li>
+</ul>
+<p>接下来就是具体API使用了：</p>
+<p>Gradle 里的几乎任何东西都是基于这两个基础概念:</p>
+<ul>
+<li>task</li>
+<li>project<br>掌握了这两个，你就掌握了一大半的 Gradle 知识了。<br>具体可以参考：<a href="https://www.kymjs.com/code/2018/02/25/01/" target="_blank" rel="external">掌控 Android Gradle</a></li>
+</ul>
+<p>这里我贴一下我自己Demo中的几个使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">apply from: &apos;../signature.gradle&apos;</div><div class="line">apply from: &apos;../config.gradle&apos;</div><div class="line">apply plugin: &apos;kotlin-android&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if (project.hasProperty(&quot;product&quot;) ? &quot;true&quot; : &quot;false&quot;) &#123;</div><div class="line">    bugly &#123;</div><div class="line">       //do something</div><div class="line">    &#125;</div><div class="line">&#125; else &#123;</div><div class="line">    bugly &#123;</div><div class="line">       //do something</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (rootProject.ext.compileProject) &#123;</div><div class="line">           //不同APP依赖不同模块</div><div class="line">        &#125; else &#123;</div><div class="line">            //不同APP依赖不同模块</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.w3cschool.cn/groovy/groovy_closures.html" target="_blank" rel="external">Groovy入门</a>，</li>
+<li>百度百科Groovy介绍</li>
+<li>自己Demo代码</li>
+<li><a href="https://www.kymjs.com/code/2018/02/25/01/" target="_blank" rel="external">掌控 Android Gradle</a></li>
+<li><a href="https://blog.csdn.net/Innost/article/details/48228651" target="_blank" rel="external">深入理解Android之Gradle</a></li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-HashMap源码1-7分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/10/HashMap源码1-7分析/" class="article-date">
+      <time datetime="2017-10-10T15:04:01.000Z" itemprop="datePublished">2017-10-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/10/HashMap源码1-7分析/">HashMap源码1.7分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>HashMap 在 Java 和 Android 开发中非常常见。今天，我将带来HashMap 的全部源码分析，希望你们会喜欢。</p>
+<blockquote>
+<p>本文基于版本 JDK 1.7，即 Java 7 </p>
+</blockquote>
+<h4 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h4><h6 id="1-类定义"><a href="#1-类定义" class="headerlink" title="1. 类定义"></a>1. 类定义</h6><p><img src="http://upload-images.jianshu.io/upload_images/944365-96ff078888852186.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Hash table based implementation of the &lt;tt&gt;Map&lt;/tt&gt; interface.  This</div><div class="line"> * implementation provides all of the optional map operations, and permits</div><div class="line"> * &lt;tt&gt;null&lt;/tt&gt; values and the &lt;tt&gt;null&lt;/tt&gt; key.  (The &lt;tt&gt;HashMap&lt;/tt&gt;</div><div class="line"> * class is roughly equivalent to &lt;tt&gt;Hashtable&lt;/tt&gt;, except that it is</div><div class="line"> * unsynchronized and permits nulls.)  This class makes no guarantees as to</div><div class="line"> * the order of the map; in particular, it does not guarantee that the order</div><div class="line"> * will remain constant over time.</div><div class="line"> *</div><div class="line"> * &lt;p&gt;This implementation provides constant-time performance for the basic</div><div class="line"> * operations (&lt;tt&gt;get&lt;/tt&gt; and &lt;tt&gt;put&lt;/tt&gt;), assuming the hash function</div><div class="line"> * disperses the elements properly among the buckets.  Iteration over</div><div class="line"> * collection views requires time proportional to the &quot;capacity&quot; of the</div><div class="line"> * &lt;tt&gt;HashMap&lt;/tt&gt; instance (the number of buckets) plus its size (the number</div><div class="line"> * of key-value mappings).  Thus, it&apos;s very important not to set the initial</div><div class="line"> * capacity too high (or the load factor too low) if iteration performance is</div><div class="line"> * important.</div><div class="line"> *</div><div class="line"> * &lt;p&gt;An instance of &lt;tt&gt;HashMap&lt;/tt&gt; has two parameters that affect its</div><div class="line"> * performance: &lt;i&gt;initial capacity&lt;/i&gt; and &lt;i&gt;load factor&lt;/i&gt;.  The</div><div class="line"> * &lt;i&gt;capacity&lt;/i&gt; is the number of buckets in the hash table, and the initial</div><div class="line"> * capacity is simply the capacity at the time the hash table is created.  The</div><div class="line"> * &lt;i&gt;load factor&lt;/i&gt; is a measure of how full the hash table is allowed to</div><div class="line"> * get before its capacity is automatically increased.  When the number of</div><div class="line"> * entries in the hash table exceeds the product of the load factor and the</div><div class="line"> * current capacity, the hash table is &lt;i&gt;rehashed&lt;/i&gt; (that is, internal data</div><div class="line"> * structures are rebuilt) so that the hash table has approximately twice the</div><div class="line"> * number of buckets.</div><div class="line"> *</div><div class="line"> * &lt;p&gt;As a general rule, the default load factor (.75) offers a good</div><div class="line"> * tradeoff between time and space costs.  Higher values decrease the</div><div class="line"> * space overhead but increase the lookup cost (reflected in most of</div><div class="line"> * the operations of the &lt;tt&gt;HashMap&lt;/tt&gt; class, including</div><div class="line"> * &lt;tt&gt;get&lt;/tt&gt; and &lt;tt&gt;put&lt;/tt&gt;).  The expected number of entries in</div><div class="line"> * the map and its load factor should be taken into account when</div><div class="line"> * setting its initial capacity, so as to minimize the number of</div><div class="line"> * rehash operations.  If the initial capacity is greater than the</div><div class="line"> * maximum number of entries divided by the load factor, no rehash</div><div class="line"> * operations will ever occur.</div><div class="line"> *</div><div class="line"> * &lt;p&gt;If many mappings are to be stored in a &lt;tt&gt;HashMap&lt;/tt&gt;</div><div class="line"> * instance, creating it with a sufficiently large capacity will allow</div><div class="line"> * the mappings to be stored more efficiently than letting it perform</div><div class="line"> * automatic rehashing as needed to grow the table.  Note that using</div><div class="line"> * many keys with the same &#123;@code hashCode()&#125; is a sure way to slow</div><div class="line"> * down performance of any hash table. To ameliorate impact, when keys</div><div class="line"> * are &#123;@link Comparable&#125;, this class may use comparison order among</div><div class="line"> * keys to help break ties.</div><div class="line"> *</div><div class="line"> * &lt;p&gt;&lt;strong&gt;Note that this implementation is not synchronized.&lt;/strong&gt;</div><div class="line"> * If multiple threads access a hash map concurrently, and at least one of</div><div class="line"> * the threads modifies the map structurally, it &lt;i&gt;must&lt;/i&gt; be</div><div class="line"> * synchronized externally.  (A structural modification is any operation</div><div class="line"> * that adds or deletes one or more mappings; merely changing the value</div><div class="line"> * associated with a key that an instance already contains is not a</div><div class="line"> * structural modification.)  This is typically accomplished by</div><div class="line"> * synchronizing on some object that naturally encapsulates the map.</div><div class="line"> *</div><div class="line"> * If no such object exists, the map should be &quot;wrapped&quot; using the</div><div class="line"> * &#123;@link Collections#synchronizedMap Collections.synchronizedMap&#125;</div><div class="line"> * method.  This is best done at creation time, to prevent accidental</div><div class="line"> * unsynchronized access to the map:&lt;pre&gt;</div><div class="line"> *   Map m = Collections.synchronizedMap(new HashMap(...));&lt;/pre&gt;</div><div class="line"> *</div><div class="line"> * &lt;p&gt;The iterators returned by all of this class&apos;s &quot;collection view methods&quot;</div><div class="line"> * are &lt;i&gt;fail-fast&lt;/i&gt;: if the map is structurally modified at any time after</div><div class="line"> * the iterator is created, in any way except through the iterator&apos;s own</div><div class="line"> * &lt;tt&gt;remove&lt;/tt&gt; method, the iterator will throw a</div><div class="line"> * &#123;@link ConcurrentModificationException&#125;.  Thus, in the face of concurrent</div><div class="line"> * modification, the iterator fails quickly and cleanly, rather than risking</div><div class="line"> * arbitrary, non-deterministic behavior at an undetermined time in the</div><div class="line"> * future.</div><div class="line"> *</div><div class="line"> * &lt;p&gt;Note that the fail-fast behavior of an iterator cannot be guaranteed</div><div class="line"> * as it is, generally speaking, impossible to make any hard guarantees in the</div><div class="line"> * presence of unsynchronized concurrent modification.  Fail-fast iterators</div><div class="line"> * throw &lt;tt&gt;ConcurrentModificationException&lt;/tt&gt; on a best-effort basis.</div><div class="line"> * Therefore, it would be wrong to write a program that depended on this</div><div class="line"> * exception for its correctness: &lt;i&gt;the fail-fast behavior of iterators</div><div class="line"> * should be used only to detect bugs.&lt;/i&gt;</div><div class="line"> *</div><div class="line"> * &lt;p&gt;This class is a member of the</div><div class="line"> * &lt;a href=&quot;&#123;@docRoot&#125;openjdk-redirect.html?v=8&amp;path=/technotes/guides/collections/index.html&quot;&gt;</div><div class="line"> * Java Collections Framework&lt;/a&gt;.</div><div class="line"> *</div><div class="line"> * @param &lt;K&gt; the type of keys maintained by this map</div><div class="line"> * @param &lt;V&gt; the type of mapped values</div><div class="line"> *</div><div class="line"> * @author  Doug Lea</div><div class="line"> * @author  Josh Bloch</div><div class="line"> * @author  Arthur van Hoff</div><div class="line"> * @author  Neal Gafter</div><div class="line"> * @see     Object#hashCode()</div><div class="line"> * @see     Collection</div><div class="line"> * @see     Map</div><div class="line"> * @see     TreeMap</div><div class="line"> * @see     Hashtable</div><div class="line"> * @since   1.2</div><div class="line"> */</div><div class="line">public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt;</div><div class="line">    implements Map&lt;K,V&gt;, Cloneable, Serializable &#123;</div></pre></td></tr></table></figure></p>
+<h6 id="主要介绍"><a href="#主要介绍" class="headerlink" title="主要介绍"></a>主要介绍</h6><p><img src="http://upload-images.jianshu.io/upload_images/944365-086b58aeee2d00cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h4 id="2-数据结构"><a href="#2-数据结构" class="headerlink" title="2.数据结构"></a>2.数据结构</h4><h6 id="2-1-具体描述"><a href="#2-1-具体描述" class="headerlink" title="2.1 具体描述"></a>2.1 具体描述</h6><p>HashMap 采用的数据结构 = 数组（主） + 单链表（副），具体描述如下：</p>
+<blockquote>
+<p>该数据结构方式也称：拉链法 有兴趣可以参考：<a href="https://blog.csdn.net/cy_cai/article/details/53939174" target="_blank" rel="external">开放定址法(线性探测)，拉链法 -Hash算法</a></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-4bf32082bf297dd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h6 id="2-2-具体描述"><a href="#2-2-具体描述" class="headerlink" title="2.2 具体描述"></a>2.2 具体描述</h6><p><img src="http://upload-images.jianshu.io/upload_images/944365-37470dbec0adc57a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h6 id="2-3-存储流程"><a href="#2-3-存储流程" class="headerlink" title="2.3 存储流程"></a>2.3 存储流程</h6><p><img src="http://upload-images.jianshu.io/upload_images/944365-524548a1f5087115.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h6 id="2-4-数组元素-amp-链表节点的-实现类"><a href="#2-4-数组元素-amp-链表节点的-实现类" class="headerlink" title="2.4 数组元素 &amp; 链表节点的 实现类"></a>2.4 数组元素 &amp; 链表节点的 实现类</h6><ul>
+<li>HashMap中的数组元素 &amp; 链表节点 采用 Entry类 实现，如下图所示：</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-61fe915232ad487e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<blockquote>
+<ol>
+<li>即 HashMap的本质 = 1个存储Entry类对象的数组 + 多个单链表</li>
+<li>Entry对象本质 = 1个映射（键 - 值对），属性包括：键（key）、值（value） &amp; 下1节点( next) = 单链表的指针 = 也是一个Entry对象，用于解决hash冲突</li>
+</ol>
+</blockquote>
+<ul>
+<li>该类的源码分析如下 <blockquote>
+<p>具体分析请看注释</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">/** </div><div class="line"> * Entry类实现了Map.Entry接口</div><div class="line"> * 即 实现了getKey()、getValue()、equals(Object o)和hashCode()等方法</div><div class="line">**/  </div><div class="line">static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</div><div class="line">    final K key;  // 键</div><div class="line">    V value;  // 值</div><div class="line">    Entry&lt;K,V&gt; next; // 指向下一个节点 ，也是一个Entry对象，从而形成解决hash冲突的单链表</div><div class="line">    int hash;  // hash值</div><div class="line"></div><div class="line">    /** </div><div class="line">     * 构造方法，创建一个Entry </div><div class="line">     * 参数：哈希值h，键值k，值v、下一个节点n </div><div class="line">     */  </div><div class="line">    Entry(int h, K k, V v, Entry&lt;K,V&gt; n) &#123;  </div><div class="line">        value = v;  </div><div class="line">        next = n;  </div><div class="line">        key = k;  </div><div class="line">        hash = h;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    // 返回 与 此项 对应的键</div><div class="line">    public final K getKey() &#123;  </div><div class="line">        return key;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    // 返回 与 此项 对应的值</div><div class="line">    public final V getValue() &#123;  </div><div class="line">        return value;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    public final V setValue(V newValue) &#123;  </div><div class="line">        V oldValue = value;  </div><div class="line">        value = newValue;  </div><div class="line">        return oldValue;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">   /** </div><div class="line">     * equals（）</div><div class="line">     * 作用：判断2个Entry是否相等，必须key和value都相等，才返回true  </div><div class="line">     */ </div><div class="line">      public final boolean equals(Object o) &#123;  </div><div class="line">        if (!(o instanceof Map.Entry))  </div><div class="line">            return false;  </div><div class="line">        Map.Entry e = (Map.Entry)o;  </div><div class="line">        Object k1 = getKey();  </div><div class="line">        Object k2 = e.getKey();  </div><div class="line">        if (k1 == k2 || (k1 != null &amp;&amp; k1.equals(k2))) &#123;  </div><div class="line">            Object v1 = getValue();  </div><div class="line">            Object v2 = e.getValue();  </div><div class="line">            if (v1 == v2 || (v1 != null &amp;&amp; v1.equals(v2)))  </div><div class="line">                return true;  </div><div class="line">        &#125;  </div><div class="line">        return false;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    /** </div><div class="line">     * hashCode（） </div><div class="line">     */ </div><div class="line">    public final int hashCode() &#123; </div><div class="line">        return Objects.hashCode(getKey()) ^ Objects.hashCode(getValue());  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    public final String toString() &#123;  </div><div class="line">        return getKey() + &quot;=&quot; + getValue();  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    /** </div><div class="line">     * 当向HashMap中添加元素时，即调用put(k,v)时， </div><div class="line">     * 对已经在HashMap中k位置进行v的覆盖时，会调用此方法 </div><div class="line">     * 此处没做任何处理 </div><div class="line">     */  </div><div class="line">    void recordAccess(HashMap&lt;K,V&gt; m) &#123;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    /** </div><div class="line">     * 当从HashMap中删除了一个Entry时，会调用该函数 </div><div class="line">     * 此处没做任何处理 </div><div class="line">     */  </div><div class="line">    void recordRemoval(HashMap&lt;K,V&gt; m) &#123;  </div><div class="line">    &#125; </div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h4><h6 id="3-1-主要使用API（方法、函数）"><a href="#3-1-主要使用API（方法、函数）" class="headerlink" title="3.1 主要使用API（方法、函数）"></a>3.1 主要使用API（方法、函数）</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">V get(Object key); // 获得指定键的值</div><div class="line">V put(K key, V value);  // 添加键值对</div><div class="line">void putAll(Map&lt;? extends K, ? extends V&gt; m);  // 将指定Map中的键值对 复制到 此Map中</div><div class="line">V remove(Object key);  // 删除该键值对</div><div class="line"></div><div class="line">boolean containsKey(Object key); // 判断是否存在该键的键值对；是 则返回true</div><div class="line">boolean containsValue(Object value);  // 判断是否存在该值的键值对；是 则返回true</div><div class="line"></div><div class="line">Set&lt;K&gt; keySet();  // 单独抽取key序列，将所有key生成一个Set</div><div class="line">Collection&lt;V&gt; values();  // 单独value序列，将所有value生成一个Collection</div><div class="line"></div><div class="line">void clear(); // 清除哈希表中的所有键值对</div><div class="line">int size();  // 返回哈希表中所有 键值对的数量 = 数组中的键值对 + 链表中的键值对</div><div class="line">boolean isEmpty(); // 判断HashMap是否为空；size == 0时 表示为 空</div></pre></td></tr></table></figure>
+<h6 id="3-2-使用流程"><a href="#3-2-使用流程" class="headerlink" title="3.2 使用流程"></a>3.2 使用流程</h6><p>在具体使用时，主要流程是：</p>
+<pre><code>- [x] 声明1个 HashMap的对象
+- [x] 向 HashMap 添加数据（成对 放入 键 - 值对）
+- [x] 获取 HashMap 的某个数据
+- [x] 获取 HashMap 的全部数据：遍历HashMap
+</code></pre><p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">import java.util.Collection;</div><div class="line">import java.util.HashMap;</div><div class="line">import java.util.Iterator;</div><div class="line">import java.util.Map;</div><div class="line">import java.util.Set;</div><div class="line"></div><div class="line">public class HashMapTest &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">      /**</div><div class="line">        * 1. 声明1个 HashMap的对象</div><div class="line">        */</div><div class="line">        Map&lt;String, Integer&gt; map = new HashMap&lt;String, Integer&gt;();</div><div class="line"></div><div class="line">      /**</div><div class="line">        * 2. 向HashMap添加数据（成对 放入 键 - 值对）</div><div class="line">        */</div><div class="line">        map.put(&quot;Android&quot;, 1);</div><div class="line">        map.put(&quot;Java&quot;, 2);</div><div class="line">        map.put(&quot;iOS&quot;, 3);</div><div class="line">        map.put(&quot;数据挖掘&quot;, 4);</div><div class="line">        map.put(&quot;产品经理&quot;, 5);</div><div class="line"></div><div class="line">       /**</div><div class="line">        * 3. 获取 HashMap 的某个数据</div><div class="line">        */</div><div class="line">        System.out.println(&quot;key = 产品经理时的值为：&quot; + map.get(&quot;产品经理&quot;));</div><div class="line"></div><div class="line">      /**</div><div class="line">        * 4. 获取 HashMap 的全部数据：遍历HashMap</div><div class="line">        * 核心思想：</div><div class="line">        * 步骤1：获得key-value对（Entry） 或 key 或 value的Set集合</div><div class="line">        * 步骤2：遍历上述Set集合(使用for循环 、 迭代器（Iterator）均可)</div><div class="line">        * 方法共有3种：分别针对 key-value对（Entry） 或 key 或 value</div><div class="line">        */</div><div class="line"></div><div class="line">        // 方法1：获得key-value的Set集合 再遍历</div><div class="line">        System.out.println(&quot;方法1&quot;);</div><div class="line">        // 1. 获得key-value对（Entry）的Set集合</div><div class="line">        Set&lt;Map.Entry&lt;String, Integer&gt;&gt; entrySet = map.entrySet();</div><div class="line"></div><div class="line">        // 2. 遍历Set集合，从而获取key-value</div><div class="line">        // 2.1 通过for循环</div><div class="line">        for(Map.Entry&lt;String, Integer&gt; entry : entrySet)&#123;</div><div class="line">            System.out.print(entry.getKey());</div><div class="line">            System.out.println(entry.getValue());</div><div class="line">        &#125;</div><div class="line">        System.out.println(&quot;----------&quot;);</div><div class="line">        // 2.2 通过迭代器：先获得key-value对（Entry）的Iterator，再循环遍历</div><div class="line">        Iterator iter1 = entrySet.iterator();</div><div class="line">        while (iter1.hasNext()) &#123;</div><div class="line">            // 遍历时，需先获取entry，再分别获取key、value</div><div class="line">            Map.Entry entry = (Map.Entry) iter1.next();</div><div class="line">            System.out.print((String) entry.getKey());</div><div class="line">            System.out.println((Integer) entry.getValue());</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        // 方法2：获得key的Set集合 再遍历</div><div class="line">        System.out.println(&quot;方法2&quot;);</div><div class="line"></div><div class="line">        // 1. 获得key的Set集合</div><div class="line">        Set&lt;String&gt; keySet = map.keySet();</div><div class="line"></div><div class="line">        // 2. 遍历Set集合，从而获取key，再获取value</div><div class="line">        // 2.1 通过for循环</div><div class="line">        for(String key : keySet)&#123;</div><div class="line">            System.out.print(key);</div><div class="line">            System.out.println(map.get(key));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        System.out.println(&quot;----------&quot;);</div><div class="line"></div><div class="line">        // 2.2 通过迭代器：先获得key的Iterator，再循环遍历</div><div class="line">        Iterator iter2 = keySet.iterator();</div><div class="line">        String key = null;</div><div class="line">        while (iter2.hasNext()) &#123;</div><div class="line">            key = (String)iter2.next();</div><div class="line">            System.out.print(key);</div><div class="line">            System.out.println(map.get(key));</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        // 方法3：获得value的Set集合 再遍历</div><div class="line">        System.out.println(&quot;方法3&quot;);</div><div class="line"></div><div class="line">        // 1. 获得value的Set集合</div><div class="line">        Collection valueSet = map.values();</div><div class="line"></div><div class="line">        // 2. 遍历Set集合，从而获取value</div><div class="line">        // 2.1 获得values 的Iterator</div><div class="line">        Iterator iter3 = valueSet.iterator();</div><div class="line">        // 2.2 通过遍历，直接获取value</div><div class="line">        while (iter3.hasNext()) &#123;</div><div class="line">            System.out.println(iter3.next());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">// 注：对于遍历方式，推荐使用针对 key-value对（Entry）的方式：效率高</div><div class="line">// 原因：</div><div class="line">   // 1. 对于 遍历keySet 、valueSet，实质上 = 遍历了2次：1 = 转为 iterator 迭代器遍历、2 = 从 HashMap 中取出 key 的 value 操作（通过 key 值 hashCode 和 equals 索引）</div><div class="line">   // 2. 对于 遍历 entrySet ，实质 = 遍历了1次 = 获取存储实体Entry（存储了key 和 value ）</div></pre></td></tr></table></figure>
+<h4 id="基础知识：HashMap中的重要参数（变量）"><a href="#基础知识：HashMap中的重要参数（变量）" class="headerlink" title="基础知识：HashMap中的重要参数（变量）"></a>基础知识：HashMap中的重要参数（变量）</h4><ul>
+<li>在进行真正的源码分析前，先讲解HashMap中的重要参数（变量）</li>
+<li>HashMap中的主要参数 = 容量、加载因子、扩容阈值</li>
+<li>具体介绍如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">// 1. 容量（capacity）： HashMap中数组的长度</div><div class="line">// a. 容量范围：必须是2的幂 &amp; &lt;最大容量（2的30次方）</div><div class="line">// b. 初始容量 = 哈希表创建时的容量</div><div class="line">  // 默认容量 = 16 = 1&lt;&lt;4 = 00001中的1向左移4位 = 10000 = 十进制的2^4=16</div><div class="line">  static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;</div><div class="line">  // 最大容量 =  2的30次方（若传入的容量过大，将被最大值替换）</div><div class="line">  static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</div><div class="line"></div><div class="line">// 2. 加载因子(Load factor)：HashMap在其容量自动增加前可达到多满的一种尺度</div><div class="line">// a. 加载因子越大、填满的元素越多 = 空间利用率高、但冲突的机会加大、查找效率变低（因为链表变长了）</div><div class="line">// b. 加载因子越小、填满的元素越少 = 空间利用率小、冲突的机会减小、查找效率高（链表不长）</div><div class="line">  // 实际加载因子</div><div class="line">  final float loadFactor;</div><div class="line">  // 默认加载因子 = 0.75</div><div class="line">  static final float DEFAULT_LOAD_FACTOR = 0.75f;</div><div class="line"></div><div class="line">// 3. 扩容阈值（threshold）：当哈希表的大小 ≥ 扩容阈值时，就会扩容哈希表（即扩充HashMap的容量） </div><div class="line">// a. 扩容 = 对哈希表进行resize操作（即重建内部数据结构），从而哈希表将具有大约两倍的桶数</div><div class="line">// b. 扩容阈值 = 容量 x 加载因子</div><div class="line">  int threshold;</div><div class="line"></div><div class="line">// 4. 其他</div><div class="line"> // 存储数据的Entry类型 数组，长度 = 2的幂</div><div class="line"> // HashMap的实现方式 = 拉链法，Entry数组上的每个元素本质上是一个单向链表</div><div class="line">  transient Entry&lt;K,V&gt;[] table = (Entry&lt;K,V&gt;[]) EMPTY_TABLE;  </div><div class="line"> // HashMap的大小，即 HashMap中存储的键值对的数量</div><div class="line">  transient int size;</div></pre></td></tr></table></figure>
+<p>参考示意图：<br><img src="http://upload-images.jianshu.io/upload_images/944365-b9838a128d807d58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>此处 详细说明 加载因子</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-b85819e2f8a3c30a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><ul>
+<li>本次的源码分析主要是根据 使用步骤</li>
+<li>进行相关函数的详细分析<br>主要分析内容如下</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-657a1a0984467dcb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h4 id="步骤1：声明1个-HashMap的对象"><a href="#步骤1：声明1个-HashMap的对象" class="headerlink" title="步骤1：声明1个 HashMap的对象"></a>步骤1：声明1个 HashMap的对象</h4><p>具体源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * 函数使用原型</div><div class="line">  */</div><div class="line">  Map&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;();</div><div class="line"></div><div class="line"> /**</div><div class="line">   * 源码分析：主要是HashMap的构造函数 = 4个</div><div class="line">   * 仅贴出关于HashMap构造函数的源码</div><div class="line">   */</div><div class="line">  public class HashMap&lt;K,V&gt;</div><div class="line">      extends AbstractMap&lt;K,V&gt;</div><div class="line">      implements Map&lt;K,V&gt;, Cloneable, Serializable&#123;</div><div class="line"></div><div class="line">    // 省略上节阐述的参数</div><div class="line"></div><div class="line">  /**</div><div class="line">     * 构造函数1：默认构造函数（无参）</div><div class="line">     * 加载因子 &amp; 容量 = 默认 = 0.75、16</div><div class="line">     */</div><div class="line">    public HashMap() &#123;</div><div class="line">        // 实际上是调用构造函数3：指定“容量大小”和“加载因子”的构造函数</div><div class="line">        // 传入的指定容量 &amp; 加载因子 = 默认</div><div class="line">        this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR); </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 构造函数2：指定“容量大小”的构造函数</div><div class="line">     * 加载因子 = 默认 = 0.75 、容量 = 指定大小</div><div class="line">     */</div><div class="line">    public HashMap(int initialCapacity) &#123;</div><div class="line">        // 实际上是调用指定“容量大小”和“加载因子”的构造函数</div><div class="line">        // 只是在传入的加载因子参数 = 默认加载因子</div><div class="line">        this(initialCapacity, DEFAULT_LOAD_FACTOR);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 构造函数3：指定“容量大小”和“加载因子”的构造函数</div><div class="line">     * 加载因子 &amp; 容量 = 自己指定</div><div class="line">     */</div><div class="line">    public HashMap(int initialCapacity, float loadFactor) &#123;</div><div class="line"></div><div class="line">        // HashMap的最大容量只能是MAXIMUM_CAPACITY，哪怕传入的 &gt; 最大容量</div><div class="line">        if (initialCapacity &gt; MAXIMUM_CAPACITY)</div><div class="line">            initialCapacity = MAXIMUM_CAPACITY;</div><div class="line"></div><div class="line">        // 设置 加载因子</div><div class="line">        this.loadFactor = loadFactor;</div><div class="line">        // 设置 扩容阈值 = 初始容量</div><div class="line">        // 注：此处不是真正的阈值，是为了扩展table，该阈值后面会重新计算，下面会详细讲解  </div><div class="line">        threshold = initialCapacity;   </div><div class="line"></div><div class="line">        init(); // 一个空方法用于未来的子对象扩展</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 构造函数4：包含“子Map”的构造函数</div><div class="line">     * 即 构造出来的HashMap包含传入Map的映射关系</div><div class="line">     * 加载因子 &amp; 容量 = 默认</div><div class="line">     */</div><div class="line"></div><div class="line">    public HashMap(Map&lt;? extends K, ? extends V&gt; m) &#123;</div><div class="line"></div><div class="line">        // 设置容量大小 &amp; 加载因子 = 默认</div><div class="line">        this(Math.max((int) (m.size() / DEFAULT_LOAD_FACTOR) + 1,</div><div class="line">                DEFAULT_INITIAL_CAPACITY), DEFAULT_LOAD_FACTOR);</div><div class="line"></div><div class="line">        // 该方法用于初始化 数组 &amp; 阈值，下面会详细说明</div><div class="line">        inflateTable(threshold);</div><div class="line"></div><div class="line">        // 将传入的子Map中的全部元素逐个添加到HashMap中</div><div class="line">        putAllForCreate(m);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>即 初始化数组（table）、扩容阈值（threshold）</p>
+<p>注：</p>
+<ul>
+<li>此处仅用于接收初始容量大小（capacity）、加载因子(Load factor)，但仍无真正初始化哈希表，即初始化存储数组table</li>
+<li>此处先给出结论：真正初始化哈希表（初始化存储数组table）是在第1次添加键值对时，即第1次调用put（）时。下面会详细说明</li>
+</ul>
+<p>至此，关于HashMap的构造函数讲解完毕。</p>
+<h4 id="步骤2：向HashMap添加数据（成对-放入-键-值对）"><a href="#步骤2：向HashMap添加数据（成对-放入-键-值对）" class="headerlink" title="步骤2：向HashMap添加数据（成对 放入 键 - 值对）"></a>步骤2：向HashMap添加数据（成对 放入 键 - 值对）</h4><p>添加数据的流程如下 </p>
+<blockquote>
+<p>注：为了让大家有个感性的认识，只是简单的画出存储流程，更加详细 &amp; 具体的存储流程会在下面源码分析中给出</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-1861c88e179eba74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>源码分析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">   * 函数使用原型</div><div class="line">   */</div><div class="line">   map.put(&quot;Android&quot;, 1);</div><div class="line">        map.put(&quot;Java&quot;, 2);</div><div class="line">        map.put(&quot;iOS&quot;, 3);</div><div class="line">        map.put(&quot;数据挖掘&quot;, 4);</div><div class="line">        map.put(&quot;产品经理&quot;, 5);</div><div class="line"></div><div class="line">   /**</div><div class="line">     * 源码分析：主要分析： HashMap的put函数</div><div class="line">     */</div><div class="line">    public V put(K key, V value)</div><div class="line">（分析1）// 1. 若 哈希表未初始化（即 table为空) </div><div class="line">        // 则使用 构造函数时设置的阈值(即初始容量) 初始化 数组table  </div><div class="line">        if (table == EMPTY_TABLE) &#123; </div><div class="line">        inflateTable(threshold); </div><div class="line">    &#125;  </div><div class="line">        // 2. 判断key是否为空值null</div><div class="line">（分析2）// 2.1 若key == null，则将该键-值 存放到数组table 中的第1个位置，即table [0]</div><div class="line">        // （本质：key = Null时，hash值 = 0，故存放到table[0]中）</div><div class="line">        // 该位置永远只有1个value，新传进来的value会覆盖旧的value</div><div class="line">        if (key == null)</div><div class="line">            return putForNullKey(value);</div><div class="line"></div><div class="line">（分析3） // 2.2 若 key ≠ null，则计算存放数组 table 中的位置（下标、索引）</div><div class="line">        // a. 根据键值key计算hash值</div><div class="line">        int hash = hash(key);</div><div class="line">        // b. 根据hash值 最终获得 key对应存放的数组Table中位置</div><div class="line">        int i = indexFor(hash, table.length);</div><div class="line"></div><div class="line">        // 3. 判断该key对应的值是否已存在（通过遍历 以该数组元素为头结点的链表 逐个判断）</div><div class="line">        for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) &#123;</div><div class="line">            Object k;</div><div class="line">（分析4）// 3.1 若该key已存在（即 key-value已存在 ），则用 新value 替换 旧value</div><div class="line">            if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</div><div class="line">                V oldValue = e.value;</div><div class="line">                e.value = value;</div><div class="line">                e.recordAccess(this);</div><div class="line">                return oldValue; //并返回旧的value</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        modCount++;</div><div class="line"></div><div class="line">（分析5）// 3.2 若 该key不存在，则将“key-value”添加到table中</div><div class="line">        addEntry(hash, key, value, i);</div><div class="line">        return null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>根据源码分析所作出的流程图</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-c0902e9237c84c0d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>下面，我将根据上述流程的5个分析点进行详细讲解</p>
+<h5 id="分析1：初始化哈希表"><a href="#分析1：初始化哈希表" class="headerlink" title="分析1：初始化哈希表"></a>分析1：初始化哈希表</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"> /**</div><div class="line">     * 函数使用原型</div><div class="line">     */</div><div class="line">      if (table == EMPTY_TABLE) &#123; </div><div class="line">        inflateTable(threshold); </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">   /**</div><div class="line">     * 源码分析：inflateTable(threshold); </div><div class="line">     */</div><div class="line">     private void inflateTable(int toSize) &#123;  </div><div class="line"></div><div class="line">    // 1. 将传入的容量大小转化为：&gt;传入容量大小的最小的2的次幂</div><div class="line">    // 即如果传入的是容量大小是19，那么转化后，初始化容量大小为32（即2的5次幂）</div><div class="line">    int capacity = roundUpToPowerOf2(toSize);-&gt;&gt;分析1   </div><div class="line"></div><div class="line">    // 2. 重新计算阈值 threshold = 容量 * 加载因子  </div><div class="line">    threshold = (int) Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + 1);  </div><div class="line"></div><div class="line">    // 3. 使用计算后的初始容量（已经是2的次幂） 初始化数组table（作为数组长度）</div><div class="line">    // 即 哈希表的容量大小 = 数组大小（长度）</div><div class="line">    table = new Entry[capacity]; //用该容量初始化table  </div><div class="line"></div><div class="line">    initHashSeedAsNeeded(capacity);  </div><div class="line">&#125;  </div><div class="line"></div><div class="line">    /**</div><div class="line">     * 分析1：roundUpToPowerOf2(toSize)</div><div class="line">     * 作用：将传入的容量大小转化为：&gt;传入容量大小的最小的2的幂</div><div class="line">     * 特别注意：容量大小必须为2的幂，该原因在下面的讲解会详细分析</div><div class="line">     */</div><div class="line"></div><div class="line">     private static int roundUpToPowerOf2(int number) &#123;  </div><div class="line"></div><div class="line">       //若 容量超过了最大值，初始化容量设置为最大值 ；否则，设置为：&gt;传入容量大小的最小的2的次幂</div><div class="line">       return number &gt;= MAXIMUM_CAPACITY  ? </div><div class="line">            MAXIMUM_CAPACITY  : (number &gt; 1) ? Integer.highestOneBit((number - 1) &lt;&lt; 1) : 1;</div></pre></td></tr></table></figure>
+<h5 id="分析2：当-key-null时，将该-key-value-的存储位置规定为数组table-中的第1个位置，即table-0"><a href="#分析2：当-key-null时，将该-key-value-的存储位置规定为数组table-中的第1个位置，即table-0" class="headerlink" title="分析2：当 key ==null时，将该 key-value 的存储位置规定为数组table 中的第1个位置，即table [0]"></a>分析2：当 key ==null时，将该 key-value 的存储位置规定为数组table 中的第1个位置，即table [0]</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">   /**</div><div class="line">     * 函数使用原型</div><div class="line">     */</div><div class="line">      if (key == null)</div><div class="line">           return putForNullKey(value);</div><div class="line"></div><div class="line">   /**</div><div class="line">     * 源码分析：putForNullKey(value)</div><div class="line">     */</div><div class="line">      private V putForNullKey(V value) &#123;  </div><div class="line">        // 遍历以table[0]为首的链表，寻找是否存在key==null 对应的键值对</div><div class="line">        // 1. 若有：则用新value 替换 旧value；同时返回旧的value值</div><div class="line">        for (Entry&lt;K,V&gt; e = table[0]; e != null; e = e.next) &#123;  </div><div class="line">          if (e.key == null) &#123;   </div><div class="line">            V oldValue = e.value;  </div><div class="line">            e.value = value;  </div><div class="line">            e.recordAccess(this);  </div><div class="line">            return oldValue;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    modCount++;  </div><div class="line"></div><div class="line">    // 2 .若无key==null的键，那么调用addEntry（），将空键 &amp; 对应的值封装到Entry中，并放到table[0]中</div><div class="line">    addEntry(0, null, value, 0); </div><div class="line">    // 注：</div><div class="line">    // a. addEntry（）的第1个参数 = hash值 = 传入0</div><div class="line">    // b. 即 说明：当key = null时，也有hash值 = 0，所以HashMap的key 可为null</div><div class="line">    // c. 对比HashTable，由于HashTable对key直接hashCode（），若key为null时，会抛出异常，所以HashTable的key不可为null</div><div class="line">    // d. 此处只需知道是将 key-value 添加到HashMap中即可，关于addEntry（）的源码分析将等到下面再详细说明，</div><div class="line">    return null;  </div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从此处可以看出：</p>
+<ul>
+<li>HashMap的键key 可为null（区别于 HashTable的key 不可为null）</li>
+<li>HashMap的键key 可为null且只能为1个，但值value可为null且为多个</li>
+</ul>
+<h5 id="分析3：计算存放数组-table-中的位置（即-数组下标-or-索引）"><a href="#分析3：计算存放数组-table-中的位置（即-数组下标-or-索引）" class="headerlink" title="分析3：计算存放数组 table 中的位置（即 数组下标 or 索引）"></a>分析3：计算存放数组 table 中的位置（即 数组下标 or 索引）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * 函数使用原型</div><div class="line">     * 主要分为2步：计算hash值、根据hash值再计算得出最后数组位置</div><div class="line">     */</div><div class="line">        // a. 根据键值key计算hash值 -&gt;&gt; 分析1</div><div class="line">        int hash = hash(key);</div><div class="line">        // b. 根据hash值 最终获得 key对应存放的数组Table中位置 -&gt;&gt; 分析2</div><div class="line">        int i = indexFor(hash, table.length);</div><div class="line"></div><div class="line">   /**</div><div class="line">     * 源码分析1：hash(key)</div><div class="line">     * 该函数在JDK 1.7 和 1.8 中的实现不同，但原理一样 = 扰动函数 = 使得根据key生成的哈希码（hash值）分布更加均匀、更具备随机性，避免出现hash值冲突（即指不同key但生成同1个hash值）</div><div class="line">     * JDK 1.7 做了9次扰动处理 = 4次位运算 + 5次异或运算</div><div class="line">     * JDK 1.8 简化了扰动函数 = 只做了2次扰动 = 1次位运算 + 1次异或运算</div><div class="line">     */</div><div class="line"></div><div class="line">     // JDK 1.7实现：将 键key 转换成 哈希码（hash值）操作  = 使用hashCode() + 4次位运算 + 5次异或运算（9次扰动）</div><div class="line">     static final int hash(int h) &#123;</div><div class="line">        h ^= k.hashCode(); </div><div class="line">        h ^= (h &gt;&gt;&gt; 20) ^ (h &gt;&gt;&gt; 12);</div><div class="line">        return h ^ (h &gt;&gt;&gt; 7) ^ (h &gt;&gt;&gt; 4);</div><div class="line">     &#125;</div><div class="line"></div><div class="line">      // JDK 1.8实现：将 键key 转换成 哈希码（hash值）操作 = 使用hashCode() + 1次位运算 + 1次异或运算（2次扰动）</div><div class="line">      // 1. 取hashCode值： h = key.hashCode() </div><div class="line">     //  2. 高位参与低位的运算：h ^ (h &gt;&gt;&gt; 16)  </div><div class="line">      static final int hash(Object key) &#123;</div><div class="line">           int h;</div><div class="line">            return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</div><div class="line">            // a. 当key = null时，hash值 = 0，所以HashMap的key 可为null      </div><div class="line">            // 注：对比HashTable，HashTable对key直接hashCode（），若key为null时，会抛出异常，所以HashTable的key不可为null</div><div class="line">            // b. 当key ≠ null时，则通过先计算出 key的 hashCode()（记为h），然后 对哈希码进行 扰动处理： 按位 异或（^） 哈希码自身右移16位后的二进制</div><div class="line">     &#125;</div><div class="line"></div><div class="line">   /**</div><div class="line">     * 函数源码分析2：indexFor(hash, table.length)</div><div class="line">     * JDK 1.8中实际上无该函数，但原理相同，即具备类似作用的函数</div><div class="line">     */</div><div class="line">      static int indexFor(int h, int length) &#123;  </div><div class="line">          return h &amp; (length-1); </div><div class="line">          // 将对哈希码扰动处理后的结果 与运算(&amp;) （数组长度-1），最终得到存储在数组table的位置（即数组下标、索引）</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>总结 计算存放在数组 table 中的位置（即数组下标、索引）的过程</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-84e9503fb49c46ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>在了解 如何计算存放数组table 中的位置 后，所谓 知其然 而 需知其所以然，下面我将讲解为什么要这样计算，即主要解答以下3个问题： </p>
+<ol>
+<li>为什么不直接采用经过hashCode（）处理的哈希码 作为 存储数组table的下标位置？ </li>
+<li>为什么采用 哈希码 与运算(&amp;) （数组长度-1） 计算数组下标？ </li>
+<li>为什么在计算数组下标前，需对哈希码进行二次处理：扰动处理？</li>
+</ol>
+<p>在回答这3个问题前，请大家记住一个核心思想：</p>
+<blockquote>
+<p>所有处理的根本目的，都是为了提高 存储key-value的数组下标位置 的随机性 &amp; 分布均匀性，尽量避免出现hash值冲突。即：对于不同key，存储的数组下标位置要尽可能不一样</p>
+</blockquote>
+<h4 id="问题1：为什么不直接采用经过hashCode（）处理的哈希码-作为-存储数组table的下标位置？"><a href="#问题1：为什么不直接采用经过hashCode（）处理的哈希码-作为-存储数组table的下标位置？" class="headerlink" title="问题1：为什么不直接采用经过hashCode（）处理的哈希码 作为 存储数组table的下标位置？"></a>问题1：为什么不直接采用经过hashCode（）处理的哈希码 作为 存储数组table的下标位置？</h4><ul>
+<li>结论：容易出现 哈希码 与 数组大小范围不匹配的情况，即 计算出来的哈希码可能 不在数组大小范围内，从而导致无法匹配存储位置</li>
+<li>原因描述：</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-d18ee0697a1a1b53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<ul>
+<li>为了解决 “哈希码与数组大小范围不匹配” 的问题，HashMap给出了解决方案：哈希码 与运算（&amp;） （数组长度-1）；请继续问题2</li>
+</ul>
+<h4 id="问题2：为什么采用-哈希码-与运算-amp-（数组长度-1）-计算数组下标？"><a href="#问题2：为什么采用-哈希码-与运算-amp-（数组长度-1）-计算数组下标？" class="headerlink" title="问题2：为什么采用 哈希码 与运算(&amp;) （数组长度-1） 计算数组下标？"></a>问题2：为什么采用 哈希码 与运算(&amp;) （数组长度-1） 计算数组下标？</h4><ul>
+<li>结论：容易出现 哈希码 与 数组大小范围不匹配的情况，即 计算出来的哈希码可能 不在数组大小范围内，从而导致无法匹配存储位置</li>
+<li>原因描述</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-d18ee0697a1a1b53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h4 id="问题3：为什么在计算数组下标前，需对哈希码进行二次处理：扰动处理？"><a href="#问题3：为什么在计算数组下标前，需对哈希码进行二次处理：扰动处理？" class="headerlink" title="问题3：为什么在计算数组下标前，需对哈希码进行二次处理：扰动处理？"></a>问题3：为什么在计算数组下标前，需对哈希码进行二次处理：扰动处理？</h4><ul>
+<li><p>结论：加大哈希码低位的随机性，使得分布更均匀，从而提高对应数组存储下标位置的随机性 &amp; 均匀性，最终减少Hash冲突</p>
+</li>
+<li><p>具体描述</p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-20d396364b968713.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>至此，关于怎么计算 key-value 值存储在HashMap数组位置 &amp; 为什么要这么计算，讲解完毕。</p>
+<h4 id="分析4：若对应的key已存在，则-使用-新value-替换-旧value"><a href="#分析4：若对应的key已存在，则-使用-新value-替换-旧value" class="headerlink" title="分析4：若对应的key已存在，则 使用 新value 替换 旧value"></a>分析4：若对应的key已存在，则 使用 新value 替换 旧value</h4><blockquote>
+<p>注：当发生 Hash冲突时，为了保证 键key的唯一性哈希表并不会马上在链表中插入新数据，而是先查找该 key是否已存在，若已存在，则替换即可</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * 函数使用原型</div><div class="line">     */</div><div class="line">// 2. 判断该key对应的值是否已存在（通过遍历 以该数组元素为头结点的链表 逐个判断）</div><div class="line">        for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) &#123;</div><div class="line">            Object k;</div><div class="line">            // 2.1 若该key已存在（即 key-value已存在 ），则用 新value 替换 旧value</div><div class="line">            if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</div><div class="line">                V oldValue = e.value;</div><div class="line">                e.value = value;</div><div class="line">                e.recordAccess(this);</div><div class="line">                return oldValue; //并返回旧的value</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        modCount++;</div><div class="line"></div><div class="line">        // 2.2 若 该key不存在，则将“key-value”添加到table中</div><div class="line">        addEntry(hash, key, value, i);</div><div class="line">        return null;</div></pre></td></tr></table></figure>
+<h4 id="分析5：若对应的key不存在，则将该“key-value”添加到数组table的对应位置中"><a href="#分析5：若对应的key不存在，则将该“key-value”添加到数组table的对应位置中" class="headerlink" title="分析5：若对应的key不存在，则将该“key-value”添加到数组table的对应位置中"></a>分析5：若对应的key不存在，则将该“key-value”添加到数组table的对应位置中</h4><p>函数源码分析如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div></pre></td><td class="code"><pre><div class="line"> /**</div><div class="line">        * 函数使用原型</div><div class="line">        */</div><div class="line">       // 2. 判断该key对应的值是否已存在</div><div class="line">        for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) &#123;</div><div class="line">            Object k;</div><div class="line">            // 2.1 若该key对应的值已存在，则用新的value取代旧的value</div><div class="line">            if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</div><div class="line">                V oldValue = e.value;</div><div class="line">                e.value = value;</div><div class="line">                e.recordAccess(this); </div><div class="line">                return oldValue; </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        modCount++;</div><div class="line"></div><div class="line">        // 2.2 若 该key对应的值不存在，则将“key-value”添加到table中</div><div class="line">        addEntry(hash, key, value, i);</div><div class="line"></div><div class="line">   /**</div><div class="line">     * 源码分析：addEntry(hash, key, value, i)</div><div class="line">     * 作用：添加键值对（Entry ）到 HashMap中</div><div class="line">     */</div><div class="line">      void addEntry(int hash, K key, V value, int bucketIndex) &#123;  </div><div class="line">          // 参数3 = 插入数组table的索引位置 = 数组下标</div><div class="line"></div><div class="line">          // 1. 插入前，先判断容量是否足够</div><div class="line">          // 1.1 若不足够，则进行扩容（2倍）、重新计算Hash值、重新计算存储数组下标</div><div class="line">          if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) &#123;  </div><div class="line">            resize(2 * table.length); // a. 扩容2倍  --&gt; 分析1</div><div class="line">            hash = (null != key) ? hash(key) : 0;  // b. 重新计算该Key对应的hash值</div><div class="line">            bucketIndex = indexFor(hash, table.length);  // c. 重新计算该Key对应的hash值的存储数组下标位置</div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    // 1.2 若容量足够，则创建1个新的数组元素（Entry） 并放入到数组中--&gt; 分析2</div><div class="line">    createEntry(hash, key, value, bucketIndex);  </div><div class="line">&#125;  </div><div class="line"></div><div class="line"> /**</div><div class="line">   * 分析1：resize(2 * table.length)</div><div class="line">   * 作用：当容量不足时（容量 &gt; 阈值），则扩容（扩到2倍）</div><div class="line">   */ </div><div class="line">   void resize(int newCapacity) &#123;  </div><div class="line"></div><div class="line">    // 1. 保存旧数组（old table） </div><div class="line">    Entry[] oldTable = table;  </div><div class="line"></div><div class="line">    // 2. 保存旧容量（old capacity ），即数组长度</div><div class="line">    int oldCapacity = oldTable.length; </div><div class="line"></div><div class="line">    // 3. 若旧容量已经是系统默认最大容量了，那么将阈值设置成整型的最大值，退出    </div><div class="line">    if (oldCapacity == MAXIMUM_CAPACITY) &#123;  </div><div class="line">        threshold = Integer.MAX_VALUE;  </div><div class="line">        return;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    // 4. 根据新容量（2倍容量）新建1个数组，即新table  </div><div class="line">    Entry[] newTable = new Entry[newCapacity];  </div><div class="line"></div><div class="line">    // 5. 将旧数组上的数据（键值对）转移到新table中，从而完成扩容 -&gt;&gt;分析1.1 </div><div class="line">    transfer(newTable); </div><div class="line"></div><div class="line">    // 6. 新数组table引用到HashMap的table属性上</div><div class="line">    table = newTable;  </div><div class="line"></div><div class="line">    // 7. 重新设置阈值  </div><div class="line">    threshold = (int)(newCapacity * loadFactor); </div><div class="line">&#125; </div><div class="line"></div><div class="line"> /**</div><div class="line">   * 分析1.1：transfer(newTable); </div><div class="line">   * 作用：将旧数组上的数据（键值对）转移到新table中，从而完成扩容</div><div class="line">   * 过程：按旧链表的正序遍历链表、在新链表的头部依次插入</div><div class="line">   */ </div><div class="line">void transfer(Entry[] newTable) &#123;</div><div class="line">      // 1. src引用了旧数组</div><div class="line">      Entry[] src = table; </div><div class="line"></div><div class="line">      // 2. 获取新数组的大小 = 获取新容量大小                 </div><div class="line">      int newCapacity = newTable.length;</div><div class="line"></div><div class="line">      // 3. 通过遍历 旧数组，将旧数组上的数据（键值对）转移到新数组中</div><div class="line">      for (int j = 0; j &lt; src.length; j++) &#123; </div><div class="line">          // 3.1 取得旧数组的每个元素  </div><div class="line">          Entry&lt;K,V&gt; e = src[j];           </div><div class="line">          if (e != null) &#123;</div><div class="line">              // 3.2 释放旧数组的对象引用（for循环后，旧数组不再引用任何对象）</div><div class="line">              src[j] = null; </div><div class="line"></div><div class="line">              do &#123; </div><div class="line">                  // 3.3 遍历 以该数组元素为首 的链表</div><div class="line">                  // 注：转移链表时，因是单链表，故要保存下1个结点，否则转移后链表会断开</div><div class="line">                  Entry&lt;K,V&gt; next = e.next; </div><div class="line">                 // 3.4 重新计算每个元素的存储位置</div><div class="line">                 int i = indexFor(e.hash, newCapacity); </div><div class="line">                 // 3.5 将元素放在数组上：采用单链表的头插入方式 = 在链表头上存放数据 = 将数组位置的原有数据放在后1个指针、将需放入的数据放到数组位置中</div><div class="line">                 // 即 扩容后，可能出现逆序：按旧链表的正序遍历链表、在新链表的头部依次插入</div><div class="line">                 e.next = newTable[i]; </div><div class="line">                 newTable[i] = e;  </div><div class="line">                 // 3.6 访问下1个Entry链上的元素，如此不断循环，直到遍历完该链表上的所有节点</div><div class="line">                 e = next;             </div><div class="line">             &#125; while (e != null);</div><div class="line">             // 如此不断循环，直到遍历完数组上的所有数据元素</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> /**</div><div class="line">   * 分析2：createEntry(hash, key, value, bucketIndex);  </div><div class="line">   * 作用： 若容量足够，则创建1个新的数组元素（Entry） 并放入到数组中</div><div class="line">   */  </div><div class="line">void createEntry(int hash, K key, V value, int bucketIndex) &#123; </div><div class="line"></div><div class="line">    // 1. 把table中该位置原来的Entry保存  </div><div class="line">    Entry&lt;K,V&gt; e = table[bucketIndex];</div><div class="line"></div><div class="line">    // 2. 在table中该位置新建一个Entry：将原头结点位置（数组上）的键值对 放入到（链表）后1个节点中、将需插入的键值对 放入到头结点中（数组上）-&gt; 从而形成链表</div><div class="line">    // 即 在插入元素时，是在链表头插入的，table中的每个位置永远只保存最新插入的Entry，旧的Entry则放入到链表中（即 解决Hash冲突）</div><div class="line">    table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);  </div><div class="line"></div><div class="line">    // 3. 哈希表的键值对数量计数增加</div><div class="line">    size++;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>此处有2点需特别注意：键值对的添加方式 &amp; 扩容机制</p>
+</blockquote>
+<p>参考：</p>
+<ul>
+<li><a href="https://blog.csdn.net/cy_cai/article/details/53939174" target="_blank" rel="external">开放定址法(线性探测)，拉链法 -Hash算法</a>，</li>
+<li>转载：<a href="https://blog.csdn.net/carson_ho/article/details/79373026" target="_blank" rel="external">Java：手把手带你源码分析 HashMap 1.7</a></li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java进阶/">Java进阶</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Vector、ArrayList、LinkedList的理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/21/Vector、ArrayList、LinkedList的理解/" class="article-date">
+      <time datetime="2017-09-21T15:04:44.000Z" itemprop="datePublished">2017-09-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/21/Vector、ArrayList、LinkedList的理解/">Vector、ArrayList、LinkedList的理解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>最近感悟：天将降大任于斯人也，必先苦其心志，劳其筋骨，饿其体肤，空乏其身，行拂乱其所为，所以动心忍性，曾益其所不能。</p>
+<h4 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h4><p>对比Vector、ArrayList、LinkedList有何区别？</p>
+<h4 id="知识点补充"><a href="#知识点补充" class="headerlink" title="知识点补充"></a>知识点补充</h4><ol>
+<li>集合框架的整体设计（并发包这里没有添加进来）<br><img src="http://upload-images.jianshu.io/upload_images/1870398-a50f3abbd64147bf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></li>
+</ol>
+<ul>
+<li>[x] List：也就是我们介绍的<strong>有序集合</strong>，它提供了方便的访问、插入、删除操作。</li>
+<li>[x] Set：Set是不允许重复元素的，也就是不存在两个对象equals返回true。我们日常开发中很多需要保证元素唯一性的场合。</li>
+<li>[x] Queue/Deque：Java提供的标准队列实现，支持FIFO、LIL等特定行为。</li>
+</ul>
+<ol>
+<li>Set基本特征和典型使用场景。</li>
+</ol>
+<ul>
+<li>[x] TreeSet：TreeSet代码里实现实际默认是利用TreeMap实现的,所有插入的元素以键的形式插入到TreeMap里面，支持自然排序访问，但是插入、删除、包含等操作相对低效（Log(n)时间）。</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">    * Constructs a new, empty tree set, sorted according to the</div><div class="line">    * natural ordering of its elements.  All elements inserted into</div><div class="line">    * the set must implement the &#123;@link Comparable&#125; interface.</div><div class="line">    * Furthermore, all such elements must be &lt;i&gt;mutually</div><div class="line">    * comparable&lt;/i&gt;: &#123;@code e1.compareTo(e2)&#125; must not throw a</div><div class="line">    * &#123;@code ClassCastException&#125; for any elements &#123;@code e1&#125; and</div><div class="line">    * &#123;@code e2&#125; in the set.  If the user attempts to add an element</div><div class="line">    * to the set that violates this constraint (for example, the user</div><div class="line">    * attempts to add a string element to a set whose elements are</div><div class="line">    * integers), the &#123;@code add&#125; call will throw a</div><div class="line">    * &#123;@code ClassCastException&#125;.</div><div class="line">    */</div><div class="line">   public TreeSet() &#123;</div><div class="line">       this(new TreeMap&lt;E,Object&gt;());</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>这里有一个典型的例子，在开发相关支付请求参数进行签名的时候会对请求参数进行进行自然排序，如支付宝支付：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public static Map&lt;String, String&gt; getSortedMap(RequestParametersHolder requestHolder) &#123;</div><div class="line">        Map&lt;String, String&gt; sortedParams = new TreeMap&lt;String, String&gt;();</div><div class="line">        AlipayHashMap appParams = requestHolder.getApplicationParams();</div><div class="line">        if (appParams != null &amp;&amp; appParams.size() &gt; 0) &#123;</div><div class="line">            sortedParams.putAll(appParams);</div><div class="line">        &#125;</div><div class="line">        AlipayHashMap protocalMustParams = requestHolder.getProtocalMustParams();</div><div class="line">        if (protocalMustParams != null &amp;&amp; protocalMustParams.size() &gt; 0) &#123;</div><div class="line">            sortedParams.putAll(protocalMustParams);</div><div class="line">        &#125;</div><div class="line">        AlipayHashMap protocalOptParams = requestHolder.getProtocalOptParams();</div><div class="line">        if (protocalOptParams != null &amp;&amp; protocalOptParams.size() &gt; 0) &#123;</div><div class="line">            sortedParams.putAll(protocalOptParams);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return sortedParams;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>HashSet通过Hash算法，理想情况下，如果哈希散列正常，可以提供常数时间的添加、删除、包含等操作，但是它<strong>不保证有序</strong>。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">@ReactMethod</div><div class="line">    public void setPushTime(ReadableMap map) &#123;</div><div class="line">        try &#123;</div><div class="line">            mContext = getCurrentActivity();</div><div class="line">            ReadableArray array = map.getArray(&quot;days&quot;);</div><div class="line">            Set&lt;Integer&gt; days = new HashSet&lt;Integer&gt;();</div><div class="line">            for (int i=0; i &lt; array.size(); i++) &#123;</div><div class="line">                days.add(array.getInt(i));</div><div class="line">            &#125;</div><div class="line">            int startHour = map.getInt(&quot;startHour&quot;);</div><div class="line">            int endHour = map.getInt(&quot;endHour&quot;);</div><div class="line">            JPushInterface.setPushTime(mContext, days, startHour, endHour);</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>LinkedHashSet：内部构建了一个记录插入顺序的双向链表，因此提供了按照插入顺序遍历的能力，与此同时，也提供了常数时间的添加、插入、删除、包含操作。性能略低于HashSet，因为需要维护链表的开销。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">  * Constructs a new empty instance of &#123;@code LinkedHashSet&#125;.</div><div class="line">  */</div><div class="line"> public LinkedHashSet() &#123;</div><div class="line">     super(new LinkedHashMap&lt;E, HashSet&lt;E&gt;&gt;());</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>从源码中可以看出，HashSet其实以HashMap为基础实现的。</p>
+<ol>
+<li>在遍历元素的时候，HashSet性能受自身容量影响，所以初始化的时候，除非有必要，不然不要将其背后的HashMap容量设置过大。而对于LinkedHashMap遍历性能只和元素个数有关系。</li>
+<li><p>上面所说的集合都是线程不安全的，除了并发包中线程安全容器，在Collections也提供了一些线程安全工具类（简单粗暴的synchronized保证）来保证线程安全。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div></pre></td><td class="code"><pre><div class="line">static class SynchronizedCollection&lt;E&gt; implements Collection&lt;E&gt;, Serializable &#123;</div><div class="line">        private static final long serialVersionUID = 3053995032091335093L;</div><div class="line">        final Collection&lt;E&gt; c;</div><div class="line">        final Object mutex;</div><div class="line"></div><div class="line">        SynchronizedCollection(Collection&lt;E&gt; var1) &#123;</div><div class="line">            this.c = (Collection)Objects.requireNonNull(var1);</div><div class="line">            this.mutex = this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        SynchronizedCollection(Collection&lt;E&gt; var1, Object var2) &#123;</div><div class="line">            this.c = (Collection)Objects.requireNonNull(var1);</div><div class="line">            this.mutex = Objects.requireNonNull(var2);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public int size() &#123;</div><div class="line">            Object var1 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.size();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean isEmpty() &#123;</div><div class="line">            Object var1 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.isEmpty();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean contains(Object var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.contains(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public Object[] toArray() &#123;</div><div class="line">            Object var1 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.toArray();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public &lt;T&gt; T[] toArray(T[] var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.toArray(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public Iterator&lt;E&gt; iterator() &#123;</div><div class="line">            return this.c.iterator();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean add(E var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.add(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean remove(Object var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.remove(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean containsAll(Collection&lt;?&gt; var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.containsAll(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean addAll(Collection&lt;? extends E&gt; var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.addAll(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean removeAll(Collection&lt;?&gt; var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.removeAll(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean retainAll(Collection&lt;?&gt; var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.retainAll(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public void clear() &#123;</div><div class="line">            Object var1 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                this.c.clear();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public String toString() &#123;</div><div class="line">            Object var1 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.toString();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public void forEach(Consumer&lt;? super E&gt; var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                this.c.forEach(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public boolean removeIf(Predicate&lt;? super E&gt; var1) &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                return this.c.removeIf(var1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public Spliterator&lt;E&gt; spliterator() &#123;</div><div class="line">            return this.c.spliterator();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public Stream&lt;E&gt; stream() &#123;</div><div class="line">            return this.c.stream();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public Stream&lt;E&gt; parallelStream() &#123;</div><div class="line">            return this.c.parallelStream();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        private void writeObject(ObjectOutputStream var1) throws IOException &#123;</div><div class="line">            Object var2 = this.mutex;</div><div class="line">            synchronized(this.mutex) &#123;</div><div class="line">                var1.defaultWriteObject();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>集合中提供的默认排序算法，具体是什么排序方式和设计思路。（这个在后续讲解算法的时候会详细介绍）</p>
+</li>
+<li>Java9中标准类库中提供了一系列静态工厂方法。比如List.of()、Set.of()，大大简化了构建小的容器实例的代码量。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;String&gt; simpleList = List.of(&quot;hello&quot;,&quot;world&quot;);</div></pre></td></tr></table></figure>
+<h4 id="回答问题"><a href="#回答问题" class="headerlink" title="回答问题"></a>回答问题</h4><p>这三者都是实现集合框架中的List,也就是所谓的有序集合，具体功能上基本类似，比如：都能按照位置进行定位、都能插入和删除，都提供迭代器以遍历内容。但是在具体行为、性能、线程安全又有很大的差别。<br>Vector是Java早期提供的线程安全的动态数组，如果不需要线程安全，并不建议使用，毕竟同步是消耗性能的。Vector使用动态数组来保存数据，可以根据需要自动增加容量，当数组已经满的时候，会创建新的数组，并拷贝原有的数组数据。<br>ArrayList是应用更加广泛的集合，内部使用动态数组实现，线程不安全，所以效率会比较高。同样，根据需要自动增加容量，但是和Vector不一样，扩容的时候增加50%，而Vector是增加一倍。<br>LinkedList内部使用双向链表实现，便于插入和删除，不利于查询，也是线程不安全的。</p>
+<p>参考：</p>
+<ul>
+<li>集合中部分源码</li>
+<li>极客时间APP核心技术第七讲|  List<string> simpleList = List.of(“hello”,”world”);</string></li>
+<li>自己写的Demo中部分代码</li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java进阶/">Java进阶</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？/" class="article-date">
+      <time datetime="2017-03-23T13:07:27.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？/">为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>最近在研究APP瘦身，碰巧又遇到armeabi、armeabi-v7a、arm64-v8a等ABI相关的知识点，决心记录下来以作分享。</p>
+</blockquote>
+<h2 id="目前现状"><a href="#目前现状" class="headerlink" title="目前现状"></a>目前现状</h2><p>首先我们分析下国内的淘宝、微信，以及国外的Facebook、Twitter都使用了哪些ABI。</p>
+<p>我们对这4家APK进行Analyze，可以发现Facebook和Twitter只使用了armeabi-v7a，而微信和淘宝只使用了armeabi，分析结果如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/1870398-7047c15b7121ffde.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WechatIMG17.jpeg">大厂并没有按照我们的理解使用不同的ABI针对不同的CPU?其实笔者发现携程、饿了么、百度糯米都是只使用了armeabi，阿里系的淘票票使用了armeabi、x86（如果你有兴趣，可以通过爬取分析一下应用市场的前100名都使用了哪些ABI）。</p>
+<h2 id="知识点回顾"><a href="#知识点回顾" class="headerlink" title="知识点回顾"></a>知识点回顾</h2><p>  首先，我们来看下Google老大哥是怎么介绍的ABI的，翻译官方文档：</p>
+<blockquote>
+<p><em>不同 Android 手机使用不同的 CPU，因此支持不同的指令集</em></p>
+<p><em>CPU 与指令集的每种组合都有其自己的应用二进制界面（或 ABI）</em> </p>
+<p><em>ABI 可以非常精确地定义应用的机器代码在运行时如何与系统交互</em></p>
+<p><em>您必须为应用要使用的每个 CPU 架构指定 ABI</em></p>
+</blockquote>
+<h4 id="表-1-ABI-和支持的指令集。"><a href="#表-1-ABI-和支持的指令集。" class="headerlink" title="表 1. ABI 和支持的指令集。"></a>表 1. ABI 和支持的指令集。</h4><p>  <img src="http://upload-images.jianshu.io/upload_images/1870398-6a708bfab4ef24be.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WechatIMG18.jpeg"><br>各版本分析如下： </p>
+<ul>
+<li>mips / mips64: 极少用于手机可以忽</li>
+<li>x86 / x86_64: x86 架构的手机都会包含由 Intel 提供的称为 Houdini 的指令集动态转码工具，实现对 arm .so 的兼容，再考虑 x86 1% 以下的市场占有率，x86 相关的两个 .so 也是可以忽略的</li>
+<li>armeabi: ARM v5 这是相当老旧的一个版本，缺少对浮点数计算的硬件支持，在需要大量计算时有性能瓶颈</li>
+<li>armeabi-v7a: ARM v7 目前主流版本</li>
+<li>arm64-v8a: 64位支持</li>
+</ul>
+<h2 id="具体含义"><a href="#具体含义" class="headerlink" title="具体含义"></a>具体含义</h2><p>如果你基础比较好的话，看完Google老大哥的介绍的话，就明白了：不同的 CPU 支持不同的指令集。当我们需要我们APP支持尽可能多的不同CPU的时候，只需要将不同版本的so文件放置在不同的目录下，APK安装运行的时候会根据自己需要而自己选取。</p>
+<p>但是这样却带来一个问题，APK文件较大，影响用户下载。</p>
+<p>那我们是否可以只放置一些呢？</p>
+<p>必然可以！</p>
+<p>我们继续看Google老大哥是怎么说的：</p>
+<blockquote>
+<ul>
+<li><em>为实现最佳性能，应直接针对主要 ABI进行编译。例如，基于 ARMv5TE的典型设备只会定义主要 ABI：armeabi</em></li>
+<li><em>相反，基于ARMv7的典型设备将主要ABI定义为armeabi-v7a，而将辅助ABI定义为armeabi，因为它可以运行为每个ABI生成的应用原生二进制文件</em></li>
+<li><em>许多基于x86的设备也可行 armeabi-v7a 和 armeabi NDK 二进制文件</em></li>
+<li><em>对于这些设备，主要ABI将是 x86，辅助ABI是armeabi-v7a</em></li>
+<li><em>基于 MIPS的典型设备只定义主要ABI：mips</em></li>
+<li><p><em>安装应用时，软件包管理器服务将扫描APK，查找以下形式的任何共享库：</em>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;   lib/&lt;primary-abi&gt;/lib&lt;name&gt;.so</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><em>如果未找到，并且您已定义辅助 ABI，该服务将扫描以下形式的共享库</em>：  </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;     lib/&lt;secondary-abi&gt;/lib&lt;name&gt;.so</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><em>找到所需的库时，软件包管理器会将它们复制到应用的 data 目录 (data/data/<package_name>/lib/) 下的/lib/lib<name>.so</name></package_name></em>   </p>
+</li>
+</ul>
+</blockquote>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>上面说，如果根本没有共享对象文件，应用也会构建并安装，但在运行时会崩溃。所以有时候我们遇到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">Exception:Java.lang.UnsatisfiedLinkError: dlopen failed: library “/***.so” not found </div><div class="line">``` </div><div class="line">此时我们首先要想到的，是不是so文件没有放置,或者是在armeabi放置a.so,b.so，但是在armeabi-v7a只放置了b.so,没有放置a.so。</div><div class="line"></div><div class="line">这里强调一下：虽然arm64-v8a是可以向下兼容的，但是也是兼容的有限制的：</div><div class="line"></div><div class="line">其下有armeabi-v7a，armeabi ；armeabi-v7a向下兼容armeabi。对于一个cpu是arm64-v8a架构的手机，它运行app时，进入jnilibs去读取库文件时，先看有没有arm64-v8a文件夹，如果没有该文件夹，去找armeabi-v7a文件夹，如果没有，再去找armeabi文件夹，如果连这个文件夹也没有，就抛出异常； 如果有arm64-v8a文件夹，那么就去找特定名称的.so文件。</div><div class="line">如果有arm64-v8a文件夹，那么就去找特定名称的.so文件，注意：如果没有找到，不会再往下（armeabi-v7a文件夹）找了，而是直接抛出异常。</div><div class="line"></div><div class="line">#### 注意：</div><div class="line"></div><div class="line">1. 如果没有找到，不会再往下（armeabi-v7a文件夹）找了，而是直接抛出异常。</div><div class="line">2. 如果你的项目用到了第三方依赖，如果只保留一个ABI的时候，建议在Build中加入ndk.abiFilters</div><div class="line">3. </div><div class="line">    例如：第三方aar文件，如果这个sdk对abi的支持比较全，可能会包含armeabi、armeabi-v7a、x86、arm64-v8a、x86_64五种abi，而你应用的其它so只支持armeabi、armeabi-v7a、x86三种，直接引用sdk的aar，会自动编译出支持5种abi的包。但是应用的其它so缺少对其它两种abi的支持，那么如果应用运行于arm64-v8a、x86_64为首选abi的设备上时，就会==crash==了哦。</div><div class="line">``` </div><div class="line">defaultConfig &#123;  </div><div class="line">    ndk &#123;  </div><div class="line">        abiFilters &quot;armeabi&quot;// 指定ndk需要兼容的ABI(这样其他依赖包里x86,armeabi,arm-v8之类的so会被过滤掉) </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li><p>如果你希望APK针对不同CPU有不同的版本，你可以使用胖二进制的方式，在不同的目录下面放置不同的so文件。这样兼容性更广、性能好些，但是APK大些；</p>
+</li>
+<li><p>如果你希望APK小一些，你可以像淘宝、微信、FaceBook、Twitter一样，一个api闯天下，至于选择armeabi、armeabi-v7a看你市场用户了。目前主流手机cpu多属于armeabi-v7a；</p>
+</li>
+<li><p>当然，你也可以动态检查系统环境，如果是x86就去下载相关库，然后加载……这样可以减少apk体积。</p>
+</li>
+</ol>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"><br>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android进阶/">Android进阶</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-微信小程序公开内测了" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/22/微信小程序公开内测了/" class="article-date">
+      <time datetime="2016-11-22T14:07:39.000Z" itemprop="datePublished">2016-11-22</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/22/微信小程序公开内测了/">微信小程序公开内测了</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="https://upload-images.jianshu.io/upload_images/1870398-80eaa58a6979ef0a.jpg?imageMogr2/auto-orient/" alt="image"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小程序/">微信小程序</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-微信小程序-应用号-微信-web-开发者工具破解版" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/22/微信小程序-应用号-微信-web-开发者工具破解版/" class="article-date">
+      <time datetime="2016-09-22T14:07:56.000Z" itemprop="datePublished">2016-09-22</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/22/微信小程序-应用号-微信-web-开发者工具破解版/">微信小程序 (应用号) 微信 web 开发者工具破解版</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>MAC 官方版：<a href="https://yunpan.cn/ckvBk8WXK742d" target="_blank" rel="external">https://yunpan.cn/ckvBk8WXK742d</a> （提取码：421d）<br>windows官方版：<a href="https://yunpan.cn/ckvBEzAbn9CPX" target="_blank" rel="external">https://yunpan.cn/ckvBEzAbn9CPX</a> （提取码：7ca5）</p>
+<p>破解文件，直接替换就行，Windows，Mac：<a href="https://yunpan.cn/ckvBRK4hydtsg" target="_blank" rel="external">https://yunpan.cn/ckvBRK4hydtsg</a> （提取码：7c8b）</p>
+<p>如果大家特别懒，直接下载我已经替换好的。</p>
+<p>Mac破解版：<a href="https://yunpan.cn/ckvBbavJRwt25" target="_blank" rel="external">https://yunpan.cn/ckvBbavJRwt25</a> （提取码：a869）<br>Windows破解版：<a href="https://yunpan.cn/ckvMx4hncQSvN" target="_blank" rel="external">https://yunpan.cn/ckvMx4hncQSvN</a> （提取码：111a）</p>
+<p>demo下载：<a href="https://yunpan.cn/ckvvQVGgak6tx" target="_blank" rel="external">https://yunpan.cn/ckvvQVGgak6tx</a> （提取码：7141）</p>
+<p>开发文档：<a href="http://notedown.cn/weixin/api/" target="_blank" rel="external">http://notedown.cn/weixin/api/</a></p>
+<p>原文链接：破解版本：<a href="https://github.com/gavinkwoe/weapp-ide-crack" target="_blank" rel="external">https://github.com/gavinkwoe/weapp-ide-crack</a></p>
+<p>原文链接：<a href="http://www.diycode.cc/topics/308" target="_blank" rel="external">http://www.diycode.cc/topics/308</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信小程序/">微信小程序</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-事件分发机制之-Button的onTouch-事件分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/21/事件分发机制之-Button的onTouch-事件分析/" class="article-date">
+      <time datetime="2016-07-21T07:08:12.000Z" itemprop="datePublished">2016-07-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/21/事件分发机制之-Button的onTouch-事件分析/">事件分发机制之-Button的onTouch()事件分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##基础知识：<br>1.本篇文章就不分析晦涩难懂的源码了（加上源码后文章内容太长，建议有耐心的读者自己查看源码来验证文章的分析结果）。在这里通过简单的代码直接打印日志让你清晰的认识Button的OnTouch事件传递机制（和onClick，onLongClick事件发生先后顺序）。<br>2.在onTouch事件中：down事件返回值标记此次事件是否为点击事件（返回false，是点击事件；返回true，不记为点击事件），而up事件标记此次事件结束时间，也就是判断是否为长按。</p>
+<p>####一 . onTouch返回false </p>
+<p> 1.首先是onTouch事件的down事件发生，此时，如果长按，触发onLongClick事件；<br> 2.然后是onTouch事件的up事件发生，up完毕，最后触发onClick事件。</p>
+<p>日志：<br><img src="http://upload-images.jianshu.io/upload_images/1870398-b37e76e47d4d3240.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="不长按.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-d1a5d837ecac54e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="长按.png"></p>
+<p>####二 . onTouch返回true </p>
+<p> 1.首先是onTouch事件的down事件发生，然后是onTouch事件的up事件发生；<br> 2.期间不触发onClick和onLongClick事件</p>
+<p>日志：<br><img src="http://upload-images.jianshu.io/upload_images/1870398-dd1fc3aa9be08123.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="不长按.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-37ff6cf8aef25c87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="长按.png"></p>
+<p>####三 . onTouch：down返回true，up返回false：结果同二<br> 1.首先是onTouch事件的down事件发生，然后是onTouch事件的up事件发生；<br> 2.期间不触发onClick和onLongClick事件</p>
+<p>日志：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-7518b32fbe0a20dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="不长按.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8419cec2c182e9e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="长按.png"></p>
+<p>机制分析：</p>
+<ol>
+<li><p>onTouch事件中：down事件返回值标记此次事件是否为点击事件（返回false，是点击事件；返回true，不记为点击事件），</p>
+</li>
+<li><p>而up事件标记此次事件结束时间，也就是判断是否为长按。</p>
+</li>
+</ol>
+<p>3.只要当down返回true时候，系统将不把本次事件记录为点击事件，也就不会触发onClick或者onLongClick事件了。</p>
+<p> 4.因此尽管当up的时候返回false，系统也不会继续触发onClick事件了。</p>
+<p>####四 . onTouch：down返回false，up返回true：<br> 1.首先是onTouch事件的down事件发生，此时：<br> 2.长按，触发onLongClick事件，然后是onTouch事件的up事件发生，完毕。<br> 3.短按，先触发onTouch的up事件， 到一定时间后，自动触发onLongClick事件。</p>
+<p>日志：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-5aceb319936448c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="不长按.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-1b222c8cd274dc1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="长按.png"></p>
+<p>机制分析：</p>
+<ol>
+<li><p>onTouch事件中：down事件返回值标记此次事件是否为点击事件（返回false，是点击事件；返回true，不记为点击事件），</p>
+</li>
+<li><p>而up事件标记此次事件结束时间，也就是判断是否为长按。</p>
+</li>
+</ol>
+<p>3.只要当down返回true时候，系统将把本次事件记录为点击事件，而up返回了true,表示一直没有结束，一直长按中，也就不会触发onClick事件了。</p>
+<p>源代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div></pre></td><td class="code"><pre><div class="line">package com.example.h.myapplication;</div><div class="line"></div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.os.Bundle;</div><div class="line">import android.util.Log;</div><div class="line">import android.view.MotionEvent;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.Button;</div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    private final String  TAG = MainActivity.class.getSimpleName();</div><div class="line">    private Button bntTest1,bntTest2,bntTest3,bntTest4;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        bntTest1 = (Button) findViewById(R.id.bnt_test1);</div><div class="line">        bntTest2 = (Button) findViewById(R.id.bnt_test2);</div><div class="line">        bntTest3 = (Button) findViewById(R.id.bnt_test3);</div><div class="line">        bntTest4 = (Button) findViewById(R.id.bnt_test4);</div><div class="line"></div><div class="line">        bntTest1.setOnLongClickListener(new View.OnLongClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onLongClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest1--onOnLongClick()触发----&quot;);</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest1.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest1---onClick()触发----&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest1.setOnTouchListener(new View.OnTouchListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onTouch(View v, MotionEvent event) &#123;</div><div class="line">               // Log.e(TAG,&quot;--bntTest1---MotionEvent触发----&quot;+event.getAction());</div><div class="line">                switch (event.getAction())&#123;</div><div class="line">                    case MotionEvent.ACTION_DOWN:</div><div class="line">                        Log.e(TAG,&quot;--bntTest1---MotionEvent.ACTION_DOWN:触发----&quot;);</div><div class="line">                        break;</div><div class="line">                    case MotionEvent.ACTION_UP:</div><div class="line">                        Log.e(TAG,&quot;--bntTest1---MotionEvent.ACTION_UP:触发----&quot;);</div><div class="line">                        break;</div><div class="line">                &#125;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line"></div><div class="line">        bntTest2.setOnLongClickListener(new View.OnLongClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onLongClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest2--onOnLongClick()触发----&quot;);</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest2.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest2---onClick()触发----&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest2.setOnTouchListener(new View.OnTouchListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onTouch(View v, MotionEvent event) &#123;</div><div class="line">                switch (event.getAction())&#123;</div><div class="line">                    case MotionEvent.ACTION_DOWN:</div><div class="line">                        Log.e(TAG,&quot;--bntTest2---MotionEvent.ACTION_DOWN:触发----&quot;);</div><div class="line">                        break;</div><div class="line">                    case MotionEvent.ACTION_UP:</div><div class="line">                        Log.e(TAG,&quot;--bntTest2---MotionEvent.ACTION_UP:触发----&quot;);</div><div class="line">                        break;</div><div class="line">                &#125;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        bntTest3.setOnLongClickListener(new View.OnLongClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onLongClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest3--onOnLongClick()触发----&quot;);</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest3.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest3---onClick()触发----&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest3.setOnTouchListener(new View.OnTouchListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onTouch(View v, MotionEvent event) &#123;</div><div class="line">                switch (event.getAction())&#123;</div><div class="line">                    case MotionEvent.ACTION_DOWN:</div><div class="line">                        Log.e(TAG,&quot;--bntTest3---MotionEvent.ACTION_DOWN:触发----&quot;);</div><div class="line">                        return true;</div><div class="line">                    case MotionEvent.ACTION_UP:</div><div class="line">                        Log.e(TAG,&quot;--bntTest3---MotionEvent.ACTION_UP:触发----&quot;);</div><div class="line">                       return false;</div><div class="line">                &#125;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        bntTest4.setOnLongClickListener(new View.OnLongClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onLongClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest4--onOnLongClick()触发----&quot;);</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest4.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                Log.e(TAG,&quot;--bntTest4---onClick()触发----&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        bntTest4.setOnTouchListener(new View.OnTouchListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onTouch(View v, MotionEvent event) &#123;</div><div class="line">                switch (event.getAction())&#123;</div><div class="line">                    case MotionEvent.ACTION_DOWN:</div><div class="line">                        Log.e(TAG,&quot;--bntTest4---MotionEvent.ACTION_DOWN:触发----&quot;);</div><div class="line">                      return false;</div><div class="line">                    case MotionEvent.ACTION_UP:</div><div class="line">                        Log.e(TAG,&quot;--bntTest4---MotionEvent.ACTION_UP:触发----&quot;);</div><div class="line">                       return true;</div><div class="line">                &#125;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>##结语<br>本篇文章分析了Android事件分发机制之Button的OnTouch事件，为了方便读者理解，只需要记住down事件返回值标记此次事件是否为点击事件（返回false，是点击事件；返回true，不记为点击事件），而up事件标记此次事件结束时间这个关键点就好了。</p>
+<p>##项目地址<br><a href="https://github.com/ruanjiankeji/ButtonEventAnalysis" target="_blank" rel="external">https://github.com/ruanjiankeji/ButtonEventAnalysis</a></p>
+<blockquote>
+<p>如有不足，欢迎小伙伴指正，相互学习；如果觉得还可以，欢迎文章star或者github上star、follow</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Androd进阶/">Androd进阶</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    </nav>
+  
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 黄尘
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

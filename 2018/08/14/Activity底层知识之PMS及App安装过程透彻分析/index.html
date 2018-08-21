@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="黄尘" />
+
+
+
+<meta name="description" content="前言：
+PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。
+
+PackageManagerService及客户端的类家族如图：
+
+在下载并安装App的过程，会把Apk存放在data/app目录下。
+Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activity底层知识之PMS及App安装过程透彻分析.md">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/index.html">
+<meta property="og:site_name" content="黄尘的博客">
+<meta property="og:description" content="前言：
+PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。
+
+PackageManagerService及客户端的类家族如图：
+
+在下载并安装App的过程，会把Apk存放在data/app目录下。
+Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005tUZzHgy1fuaqb4pi7ej30fm077mx4.jpg">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/13430/201705/13430-20170526223853482-683221082.png">
+<meta property="og:image" content="https://box.kancloud.cn/361c74acb0fc44c590c3a2d8134b5873_2764x5616.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-08-21T06:44:21.133Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activity底层知识之PMS及App安装过程透彻分析.md">
+<meta name="twitter:description" content="前言：
+PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。
+
+PackageManagerService及客户端的类家族如图：
+
+在下载并安装App的过程，会把Apk存放在data/app目录下。
+Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005tUZzHgy1fuaqb4pi7ej30fm077mx4.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="黄尘的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Activity底层知识之PMS及App安装过程透彻分析.md | 黄尘的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">黄尘</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/photo">相册</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Androd进阶/">Androd进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android进阶/">Android进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC机制/">GC机制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-虚拟机/">Java 虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java并发/">Java并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java进阶/">Java进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信小程序/">微信小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构和算法/">数据结构和算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义View/">自定义View</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">黄尘</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">黄尘</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/photo">相册</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Activity底层知识之PMS及App安装过程透彻分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/" class="article-date">
+      <time datetime="2018-08-14T15:00:33.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Activity底层知识之PMS及App安装过程透彻分析.md
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。</p>
+</blockquote>
+<p>PackageManagerService及客户端的类家族如图：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fuaqb4pi7ej30fm077mx4.jpg" alt=""></p>
+<p>在下载并安装App的过程，会把Apk存放在data/app目录下。</p>
+<p>Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会对解压造成影响——木马其实就是这个思路，在可执行文件exe尾巴上挂一个木马病毒，执行exe的同时也会执行这个木马，然后你就中招了。</p>
+<p>我们可以把木马思想运用在Android多渠道打包上。在比较老的Android 4.4版本中，我们会在Apk尾巴上追加几个字节，来标记Apk的渠道。Apk启动的时候，从apk中的尾巴上读取这个渠道值。</p>
+<p>后来Google也发现这个安全漏洞了，在新版本的系统中，就会在Apk安装的时候，检查Apk的实际大小，看这个值与Apk的头部记录的压缩包大小，是否相等，不相等就会报错说安装失败。</p>
+<blockquote>
+<p>每次从apk中读取资源，并不是先解压再找图片资源，而是解析apk中的resources.arsc文件，这个文件中存储资源的所有信息，包括资源在apk中地址、大小等。不解压apk的好处自然是节省空间。</p>
+</blockquote>
+<h2 id="App的安装流程"><a href="#App的安装流程" class="headerlink" title="App的安装流程"></a>App的安装流程</h2><p>Android系统使用PMS解析这个Apk中的manifest文件，包括：</p>
+<ul>
+<li><p>四大组件的信息，比如说，前面讲过的静态Receiver。比如说默认启动的Activity。</p>
+</li>
+<li><p>分配用户Id和用户组Id。用户Id是唯一的，因为Android是一个Linux系统。用户组Id指的是各种权限，每个权限都在一个用户组中，比如读写SD卡，比如网络访问，分配了哪些用户组Id，就拥有了哪些权限。</p>
+</li>
+<li><p>在Launcher生成一个icon，icon中保存着默认启动的Activity的信息。</p>
+</li>
+<li><p>App安装过程的最后，是把上面这些信息记录在一个xml文件中，以备下次安装时再次使用。</p>
+</li>
+</ul>
+<p>在Android手机系统每次启动的时候，都会使用PMS，把Android系统的所有apk都安装一遍，一共四个步骤。<br><img src="http://images2015.cnblogs.com/blog/13430/201705/13430-20170526223853482-683221082.png" alt="image"></p>
+<ul>
+<li><p>第1步，因为结束安装的时候，都会把安装信息保存在xml文件中，所以Android系统再次启动时，再次重新安装所有的Apk，就可以直接读取之前保存的xml文件了。</p>
+</li>
+<li><p>第2步，从5个目录中读取并安装所有的apk。</p>
+</li>
+<li>第3步和第4步，与单独安装一个App的步骤是一样的。</li>
+</ul>
+<p>应用程序的完整安装过程图：<br><img src="https://box.kancloud.cn/361c74acb0fc44c590c3a2d8134b5873_2764x5616.jpg" alt="image"></p>
+<h2 id="PackageParser"><a href="#PackageParser" class="headerlink" title="PackageParser"></a>PackageParser</h2><blockquote>
+<p>Android 安装一个APK的时候首先会解析APK，而解析APK则需要用到一个工具类，这个工具类就是PackageParser</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Parser for package files (APKs) on disk. This supports apps packaged either</div><div class="line"> * as a single &quot;monolithic&quot; APK, or apps packaged as a &quot;cluster&quot; of multiple</div><div class="line"> * APKs in a single directory.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Apps packaged as multiple APKs always consist of a single &quot;base&quot; APK (with a</div><div class="line"> * &#123;@code null&#125; split name) and zero or more &quot;split&quot; APKs (with unique split</div><div class="line"> * names). Any subset of those split APKs are a valid install, as long as the</div><div class="line"> * following constraints are met:</div><div class="line"> * &lt;ul&gt;</div><div class="line"> * &lt;li&gt;All APKs must have the exact same package name, version code, and signing</div><div class="line"> * certificates.</div><div class="line"> * &lt;li&gt;All APKs must have unique split names.</div><div class="line"> * &lt;li&gt;All installations must contain a single base APK.</div><div class="line"> * &lt;/ul&gt;</div><div class="line"> *</div><div class="line"> * @hide</div><div class="line"> */</div><div class="line">public class PackageParser &#123;</div></pre></td></tr></table></figure>
+<p>大体意思如下：</p>
+<p>解析磁盘上的APK安装包文件。它既能解析一个”单一”APK文件，也能解析一个”集群”APK文件(即一个APK文件里面包含多个APK文件)。<br>一个”集群”APK有一个”基准”APK(base APK)组成和其他一些”分割”APK(“split” APKs)构成，其中这些”分割”APK用一些数字来分割。这些”分割”APK的必须都是有效的安装，同时必须满足下面的几个条件：</p>
+<ul>
+<li>所有的APK必须具有完全相同的软件包名称，版本代码和签名证书</li>
+<li>所有的APK必须具有唯一的拆分名称</li>
+<li>所有安装必须包含一个单一的APK。</li>
+</ul>
+<p>所以我们知道PackageParse类，它主要用来解析手机上的APK文件(支持Single APK和MultipleAPK)，解析一个APK主要是分为两个步骤：</p>
+<ul>
+<li>将APK解析成Package：即解析APK文件为Package对象的过程。</li>
+<li>将Package转化为PackageInfo：即由Package对象生成Package对象生成PackageInfo的过程。</li>
+</ul>
+<p>在插件化编程中，我们反射PackageParser，一般用来获取AndroidManifest中的四大组件信息。</p>
+<p>参考：</p>
+<ul>
+<li>Android系统源代码情景分析（第三版） 罗升阳著</li>
+<li>Android插件化开发指能 包建强著</li>
+<li>项目源码代码分析</li>
+<li><a href="https://www.jianshu.com/p/69fb6f9a6ac7" target="_blank" rel="external">APK安装流程详解9——PackageParser解析APK(上)</a></li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/">Activity底层知识之PMS及App安装过程透彻分析.md</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">黄尘</a></p>
+        <p><span>发布时间:</span>2018-08-14, 23:00:33</p>
+        <p><span>最后更新:</span>2018-08-21, 14:44:21</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/" title="Activity底层知识之PMS及App安装过程透彻分析.md">http://yoursite.com/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/　　作者: 黄尘" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/08/15/接口和抽象类的理解，Java8做了啥修改？/">
+                    接口和抽象类的理解，Java8做了啥修改？
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/05/如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？/">
+                    如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言："><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#App的安装流程"><span class="toc-number">2.</span> <span class="toc-text">App的安装流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PackageParser"><span class="toc-number">3.</span> <span class="toc-text">PackageParser</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Activity底层知识之PMS及App安装过程透彻分析.md　| 黄尘的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/08/15/接口和抽象类的理解，Java8做了啥修改？/" title="上一篇: 接口和抽象类的理解，Java8做了啥修改？">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/05/如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？/" title="下一篇: 如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/19/Android底层知识Window和WindowManager深入分析/">Android底层知识Window和WindowManager深入分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/15/接口和抽象类的理解，Java8做了啥修改？/">接口和抽象类的理解，Java8做了啥修改？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/">Activity底层知识之PMS及App安装过程透彻分析.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？/">如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/04/Activity底层知识之Binder透彻分析/">Activity底层知识之Binder透彻分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/Activity底层知识之Activity启动透彻分析/">Activity底层知识之Activity启动透彻分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/31/深入理解并发类库中提供线程安全队列/">深入理解并发类库中提供线程安全队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/25/对Android类加载器最全面的分析/">对Android类加载器最全面的分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/16/红黑树的理解（硬骨头也会变成软骨头）/">红黑树的理解（硬骨头也会变成软骨头）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/13/强引用、软引用、弱引用、幻象引用再不理解就晚了/">强引用、软引用、弱引用、幻象引用再不理解就晚了</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/21/自定义Gradle-Plugin-插件详解/">自定义Gradle-Plugin 插件详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/Android进阶–动态代理是基于什么原理？/">Android进阶–动态代理是基于什么原理？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/21/Android–进阶对Java平台的理解？Java是解释执行吗？/">Android–进阶对Java平台的理解？Java是解释执行吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Android进阶–Exception和Error的理解/">Android进阶–Exception和Error的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/">Android进阶–String、StringBuffer、StringBuilder的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/Android进阶–final、finally、finalize的理解/">Android进阶–final、finally、finalize的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/21/Kotlin单例模式多种写法大分析/">Kotlin单例模式多种写法大分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/30/synchronized和ReentrantLock的理解（上）/">synchronized和ReentrantLock的理解（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/Java并发类库提供的线程池有哪几种？分别有什么特点？/">Java并发类库提供的线程池有哪几种？分别有什么特点？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/Android进阶–int和Integer的理解/">Android进阶–int和Integer的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/10/Java文件拷贝方式？哪一种最高效？/">Java文件拷贝方式？哪一种最高效？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/FTP-作为Android开发，你应当了解/">FTP-作为Android开发，你应当了解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/25/HashMap、HashTable、TreeMap的理解/">HashMap、HashTable、TreeMap的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/21/Android中Gradle深入理解/">Android中Gradle深入理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/10/HashMap源码1-7分析/">HashMap源码1.7分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/21/Vector、ArrayList、LinkedList的理解/">Vector、ArrayList、LinkedList的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/23/为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？/">为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/22/微信小程序公开内测了/">微信小程序公开内测了</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/22/微信小程序-应用号-微信-web-开发者工具破解版/">微信小程序 (应用号) 微信 web 开发者工具破解版</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/事件分发机制之-Button的onTouch-事件分析/">事件分发机制之-Button的onTouch()事件分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/24/Android-实现文字按照路径曲线显示/">Android 实现文字按照路径曲线显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/酷炫的圆周动画/">酷炫的圆周动画</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 黄尘
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

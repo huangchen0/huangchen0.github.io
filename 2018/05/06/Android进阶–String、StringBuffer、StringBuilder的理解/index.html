@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="黄尘" />
+
+
+
+<meta name="description" content="问题:理解 Java的字符串，String、StringBuffer、StringBuilder 有什么区别？
+知识点
+字符串设计和实现考量String是Immutable(线程安全、字符串常量池复用)。Immutable对象在拷贝时候不需要额外复制数据。至于为什么imumutable，源码如下：
+
+123456789//关键点 final public final class String">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android进阶–String、StringBuffer、StringBuilder的理解">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/index.html">
+<meta property="og:site_name" content="黄尘的博客">
+<meta property="og:description" content="问题:理解 Java的字符串，String、StringBuffer、StringBuilder 有什么区别？
+知识点
+字符串设计和实现考量String是Immutable(线程安全、字符串常量池复用)。Immutable对象在拷贝时候不需要额外复制数据。至于为什么imumutable，源码如下：
+
+123456789//关键点 final public final class String">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-08-21T07:24:36.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android进阶–String、StringBuffer、StringBuilder的理解">
+<meta name="twitter:description" content="问题:理解 Java的字符串，String、StringBuffer、StringBuilder 有什么区别？
+知识点
+字符串设计和实现考量String是Immutable(线程安全、字符串常量池复用)。Immutable对象在拷贝时候不需要额外复制数据。至于为什么imumutable，源码如下：
+
+123456789//关键点 final public final class String">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="黄尘的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Android进阶–String、StringBuffer、StringBuilder的理解 | 黄尘的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">黄尘</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/photo">相册</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Androd进阶/">Androd进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android进阶/">Android进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC机制/">GC机制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-虚拟机/">Java 虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java并发/">Java并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java进阶/">Java进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kotlin/">Kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信小程序/">微信小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构和算法/">数据结构和算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义View/">自定义View</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">黄尘</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">黄尘</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Just an Android programmer, learn something, share something.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/photo">相册</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Android进阶–String、StringBuffer、StringBuilder的理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/" class="article-date">
+      <time datetime="2018-05-06T14:05:40.000Z" itemprop="datePublished">2018-05-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android进阶–String、StringBuffer、StringBuilder的理解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java进阶/">Java进阶</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h3><p>理解 Java的字符串，String、StringBuffer、StringBuilder 有什么区别？</p>
+<h5 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h5><ol>
+<li>字符串设计和实现考量<br>String是Immutable(线程安全、字符串常量池复用)。<strong>Immutable对象在拷贝时候不需要额外复制数据</strong>。至于为什么imumutable，源码如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//关键点 final </div><div class="line">public final class String</div><div class="line">    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence &#123;</div><div class="line"></div><div class="line">    // The associated character storage is managed by the runtime. We only</div><div class="line">    // keep track of the length here.</div><div class="line">    //关键点final private</div><div class="line">    // private final char value[];</div><div class="line">    private final int count;</div></pre></td></tr></table></figure>
+<ol>
+<li>StringBuffer、StringBuilder底层都是利用可修改的数组（JDK 9之后是byte)数组，都继承了AbstractStringBuilder，里面包含了基本操作。区别StringBuffer增加了synchronized。相关源码如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//AbstractStringBuilder 没有加final 也没private修饰</div><div class="line">abstract class AbstractStringBuilder implements Appendable, CharSequence &#123;</div><div class="line">    char[] value;</div><div class="line">    int count;</div><div class="line">    private static final int MAX_ARRAY_SIZE = 2147483639;</div><div class="line"></div><div class="line">    AbstractStringBuilder() &#123;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">//StringBuilder截取部分源码</div><div class="line">static final long serialVersionUID = 4383685877147921099L;</div><div class="line"></div><div class="line">    public StringBuilder() &#123;</div><div class="line">        super(16);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder(int var1) &#123;</div><div class="line">        super(var1);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder(String var1) &#123;</div><div class="line">        super(var1.length() + 16);</div><div class="line">        this.append(var1);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder(CharSequence var1) &#123;</div><div class="line">        this(var1.length() + 16);</div><div class="line">        this.append(var1);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder append(Object var1) &#123;</div><div class="line">        return this.append(String.valueOf(var1));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder append(String var1) &#123;</div><div class="line">        super.append(var1);</div><div class="line">        return this;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder append(StringBuffer var1) &#123;</div><div class="line">        super.append(var1);</div><div class="line">        return this;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder append(CharSequence var1) &#123;</div><div class="line">        super.append(var1);</div><div class="line">        return this;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public StringBuilder append(CharSequence var1, int var2, int var3) &#123;</div><div class="line">        super.append(var1, var2, var3);</div><div class="line">        return this;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">//StringBuffer部分源码 多了synchronized</div><div class="line">public StringBuffer(CharSequence seq) &#123;</div><div class="line">        this(seq.length() + 16);</div><div class="line">        append(seq);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public synchronized int length() &#123;</div><div class="line">        return count;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public synchronized int capacity() &#123;</div><div class="line">        return value.length;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    public synchronized void ensureCapacity(int minimumCapacity) &#123;</div><div class="line">        if (minimumCapacity &gt; value.length) &#123;</div><div class="line">            expandCapacity(minimumCapacity);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>字符串缓存<br>String在Java 6 以后提供了intern（）方法，目的是提示JVM把相应字符串缓存起来，以便重复使用。<blockquote>
+<p>注意：Java 6这种历史版本，并不推荐大量使用intern()，因为缓存的字符串是存在“永久代”中，这个空间比较有限。也基本不会被FULLGC之外的垃圾收集照顾到。所以，使用不当，容易OOM。后续版本中，被放到堆中，设置永久代在Java 8中被元数据区替代了。</p>
+</blockquote>
+</li>
+</ol>
+<p>intern()感兴趣可以参考文章：<a href="https://www.cnblogs.com/Qian123/p/5707154.html" target="_blank" rel="external">Java提高篇——理解String 及 String.intern() 在实际中的应用</a></p>
+<ol>
+<li>String自身也有相关优化<br>有兴趣可以自己查看相关文章，主要是char数组换成了byte数组加上一个标志编码所谓的coder。</li>
+</ol>
+<h5 id="回答问题"><a href="#回答问题" class="headerlink" title="回答问题:"></a>回答问题:</h5><h6 id="String的创建机理"><a href="#String的创建机理" class="headerlink" title="String的创建机理"></a>String的创建机理</h6><p>由于String在Java世界中使用过于频繁，Java为了避免在一个系统中使用大量的Java对象，引入了字符串常量池的概念。其<strong>运行机制是:创建一个字符串的时候，首先检查池中是否有相等的字符串对象，如果有就不需要创建，直接从池中找到对象引用，如果没有的话，新建字符串对象，返回对象引用</strong>。但是，通过new方法创建的不会检查常量池是否存在，而是直接在堆中或者栈中创建一个新的对象，也不会把对象放入池中。上面所说的只适用于直接给String引用赋值的情况。</p>
+<blockquote>
+<p>注意：String是immutable<br>Strng提供了inter()方法可以将Strng对象添加到池中，并且返回该对象的引用。(如果由equals()确定池中有该字符串，那就直接返回)。</p>
+</blockquote>
+<p>当两个String对象拥有相等的值的时候，他们只引用字符串中同一个拷贝。当同一个字符串大量出现的时候，可以大量节省内存空间。</p>
+<h5 id="StringBuffer-StringBuilder"><a href="#StringBuffer-StringBuilder" class="headerlink" title="StringBuffer/StringBuilder"></a>StringBuffer/StringBuilder</h5><p>StringBuffer/StringBuilder相同点：</p>
+<ul>
+<li>String/StringBuilder相对于String的话，他们值是可以改变的，并且值改变后，他们引用不会变。他们在构造的时候使用一个默认的数组，在后续加入数据后超过默认大小后会创建更大的数组，并且将原来数组的内容复制过来，再丢弃旧的数组。因此，项目开发的时候，对于较大对象的扩容会性能，因此，能预估大小，最好不过。</li>
+</ul>
+<p>StringBuffer/StringBuilder不同点：</p>
+<ul>
+<li>另外StringBuffer是线程安全(方法定义前面使用了synchronize)，StringBuilder不是。StringBuffer性能要低于StringBuilder。<h5 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h5>String 适用于常量声明。如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public static final int DEVICE_NOT_AVAILABLE_ERROR_CODE = 390004;// 设备未启用或者被锁住</div></pre></td></tr></table></figure>
+<p>StringBuffer，适用于频繁进行字符串运算(如拼接、替换、删除等)，并且运行在多线程环境下，建议使用，比如Http参数解析和封装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * 获取POST请求的base url</div><div class="line">     *</div><div class="line">     * @param requestHolder</div><div class="line">     * @return</div><div class="line">     * @throws AlipayApiException</div><div class="line">     */</div><div class="line">    private String getRequestUrl(RequestParametersHolder requestHolder) throws AlipayApiException &#123;</div><div class="line">        StringBuffer urlSb = new StringBuffer(serverUrl);</div><div class="line">        try &#123;</div><div class="line">            String sysMustQuery = WebUtils.buildQuery(requestHolder.getProtocalMustParams(),</div><div class="line">                    charset);</div><div class="line">            String sysOptQuery = WebUtils.buildQuery(requestHolder.getProtocalOptParams(), charset);</div><div class="line"></div><div class="line">            urlSb.append(&quot;?&quot;);</div><div class="line">            urlSb.append(sysMustQuery);</div><div class="line">            if (sysOptQuery != null &amp; sysOptQuery.length() &gt; 0) &#123;</div><div class="line">                urlSb.append(&quot;&amp;&quot;);</div><div class="line">                urlSb.append(sysOptQuery);</div><div class="line">            &#125;</div><div class="line">        &#125; catch (IOException e) &#123;</div><div class="line">            throw new AlipayApiException(e);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return urlSb.toString();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>StringBuilder，适用于频繁进行字符串运算(如拼接、替换、删除等)，并且运行在单线程环境下，建议使用，比如Json的封装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">         * Extracts absolute path form a given URI. E.g., passing</div><div class="line">         * &lt;code&gt;http://google.com:80/execute?query=cat#top&lt;/code&gt;</div><div class="line">         * will result in &lt;code&gt;/execute?query=cat#top&lt;/code&gt;.</div><div class="line">         *</div><div class="line">         * @param uri URI which absolute path has to be extracted,</div><div class="line">         * @return the absolute path of the URI,</div><div class="line">         */</div><div class="line">        private String getAbsolutePathFromAbsoluteURI(URI uri) &#123;</div><div class="line">            String rawPath = uri.getRawPath();</div><div class="line">            String rawQuery = uri.getRawQuery();</div><div class="line">            String rawFragment = uri.getRawFragment();</div><div class="line">            StringBuilder absolutePath = new StringBuilder();</div><div class="line"></div><div class="line">            if (rawPath != null) &#123;</div><div class="line">                absolutePath.append(rawPath);</div><div class="line">            &#125; else &#123;</div><div class="line">                absolutePath.append(&quot;/&quot;);</div><div class="line">            &#125;</div><div class="line">            if (rawQuery != null) &#123;</div><div class="line">                absolutePath.append(&quot;?&quot;).append(rawQuery);</div><div class="line">            &#125;</div><div class="line">            if (rawFragment != null) &#123;</div><div class="line">                absolutePath.append(&quot;#&quot;).append(rawFragment);</div><div class="line">            &#125;</div><div class="line">            return absolutePath.toString();</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/Qian123/p/5707154.html" target="_blank" rel="external">Java提高篇——理解String 及 String.intern() 在实际中的应用</a></li>
+<li>String、StringBuffer、StringBuilder部分源码</li>
+<li>自己开发Demo中部分代码</li>
+<li>极客时间APP核心技术第五讲|String、StringBuffer、StringBuilder有什么区别？</li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"><br>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/">Android进阶–String、StringBuffer、StringBuilder的理解</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">黄尘</a></p>
+        <p><span>发布时间:</span>2018-05-06, 22:05:40</p>
+        <p><span>最后更新:</span>2018-08-21, 15:24:36</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/" title="Android进阶–String、StringBuffer、StringBuilder的理解">http://yoursite.com/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/　　作者: 黄尘" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/05/10/Android进阶–Exception和Error的理解/">
+                    Android进阶–Exception和Error的理解
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/04/23/Android进阶–final、finally、finalize的理解/">
+                    Android进阶–final、finally、finalize的理解
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题"><span class="toc-number">1.</span> <span class="toc-text">问题:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#知识点"><span class="toc-number">1.0.1.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#回答问题"><span class="toc-number">1.0.2.</span> <span class="toc-text">回答问题:</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#String的创建机理"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">String的创建机理</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#StringBuffer-StringBuilder"><span class="toc-number">1.0.3.</span> <span class="toc-text">StringBuffer/StringBuilder</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#应用场景："><span class="toc-number">1.0.4.</span> <span class="toc-text">应用场景：</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Android进阶–String、StringBuffer、StringBuilder的理解　| 黄尘的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/05/10/Android进阶–Exception和Error的理解/" title="上一篇: Android进阶–Exception和Error的理解">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/04/23/Android进阶–final、finally、finalize的理解/" title="下一篇: Android进阶–final、finally、finalize的理解">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/19/Android底层知识Window和WindowManager深入分析/">Android底层知识Window和WindowManager深入分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/15/接口和抽象类的理解，Java8做了啥修改？/">接口和抽象类的理解，Java8做了啥修改？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析/">Activity底层知识之PMS及App安装过程透彻分析.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？/">如何保证集合是线程安全的？ConcurrentHashMap如何实现高效的线程安全？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/04/Activity底层知识之Binder透彻分析/">Activity底层知识之Binder透彻分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/Activity底层知识之Activity启动透彻分析/">Activity底层知识之Activity启动透彻分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/31/深入理解并发类库中提供线程安全队列/">深入理解并发类库中提供线程安全队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/25/对Android类加载器最全面的分析/">对Android类加载器最全面的分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/16/红黑树的理解（硬骨头也会变成软骨头）/">红黑树的理解（硬骨头也会变成软骨头）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/13/强引用、软引用、弱引用、幻象引用再不理解就晚了/">强引用、软引用、弱引用、幻象引用再不理解就晚了</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/21/自定义Gradle-Plugin-插件详解/">自定义Gradle-Plugin 插件详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/Android进阶–动态代理是基于什么原理？/">Android进阶–动态代理是基于什么原理？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/21/Android–进阶对Java平台的理解？Java是解释执行吗？/">Android–进阶对Java平台的理解？Java是解释执行吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Android进阶–Exception和Error的理解/">Android进阶–Exception和Error的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/06/Android进阶–String、StringBuffer、StringBuilder的理解/">Android进阶–String、StringBuffer、StringBuilder的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/Android进阶–final、finally、finalize的理解/">Android进阶–final、finally、finalize的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/21/Kotlin单例模式多种写法大分析/">Kotlin单例模式多种写法大分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/30/synchronized和ReentrantLock的理解（上）/">synchronized和ReentrantLock的理解（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/Java并发类库提供的线程池有哪几种？分别有什么特点？/">Java并发类库提供的线程池有哪几种？分别有什么特点？</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/Android进阶–int和Integer的理解/">Android进阶–int和Integer的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/10/Java文件拷贝方式？哪一种最高效？/">Java文件拷贝方式？哪一种最高效？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/FTP-作为Android开发，你应当了解/">FTP-作为Android开发，你应当了解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/25/HashMap、HashTable、TreeMap的理解/">HashMap、HashTable、TreeMap的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/21/Android中Gradle深入理解/">Android中Gradle深入理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/10/HashMap源码1-7分析/">HashMap源码1.7分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/21/Vector、ArrayList、LinkedList的理解/">Vector、ArrayList、LinkedList的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/23/为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？/">为何Twitter区别于微信、淘宝，只使用了armeabi-v7a？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/22/微信小程序公开内测了/">微信小程序公开内测了</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/22/微信小程序-应用号-微信-web-开发者工具破解版/">微信小程序 (应用号) 微信 web 开发者工具破解版</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/事件分发机制之-Button的onTouch-事件分析/">事件分发机制之-Button的onTouch()事件分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/24/Android-实现文字按照路径曲线显示/">Android 实现文字按照路径曲线显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/12/酷炫的圆周动画/">酷炫的圆周动画</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 黄尘
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
