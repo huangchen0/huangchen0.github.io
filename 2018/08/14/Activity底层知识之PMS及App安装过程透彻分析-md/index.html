@@ -15,19 +15,40 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="前言：
+PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。
+
+PackageManagerService及客户端的类家族如图：
+
+在下载并安装App的过程，会把Apk存放在data/app目录下。
+Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/01/02/hello-world/index.html">
+<meta property="og:title" content="Activity底层知识之PMS及App安装过程透彻分析.md">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/index.html">
 <meta property="og:site_name" content="黄尘的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2017-01-02T13:23:31.000Z">
+<meta property="og:description" content="前言：
+PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。
+
+PackageManagerService及客户端的类家族如图：
+
+在下载并安装App的过程，会把Apk存放在data/app目录下。
+Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005tUZzHgy1fuaqb4pi7ej30fm077mx4.jpg">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/13430/201705/13430-20170526223853482-683221082.png">
+<meta property="og:image" content="https://box.kancloud.cn/361c74acb0fc44c590c3a2d8134b5873_2764x5616.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-08-21T06:41:07.372Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Activity底层知识之PMS及App安装过程透彻分析.md">
+<meta name="twitter:description" content="前言：
+PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。
+
+PackageManagerService及客户端的类家族如图：
+
+在下载并安装App的过程，会把Apk存放在data/app目录下。
+Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005tUZzHgy1fuaqb4pi7ej30fm077mx4.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +80,7 @@ Quick">
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Hello World | 黄尘的博客</title>
+<title>Activity底层知识之PMS及App安装过程透彻分析.md | 黄尘的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -267,11 +288,11 @@ Quick">
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Activity底层知识之PMS及App安装过程透彻分析-md" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/02/hello-world/" class="article-date">
-      <time datetime="2017-01-02T13:23:31.000Z" itemprop="datePublished">2017-01-02</time>
+      <a href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/" class="article-date">
+      <time datetime="2018-08-14T15:00:33.000Z" itemprop="datePublished">2018-08-14</time>
 </a>
 
 
@@ -286,7 +307,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Activity底层知识之PMS及App安装过程透彻分析.md
     </h1>
   
 
@@ -296,6 +317,10 @@ Quick">
         
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -303,15 +328,70 @@ Quick">
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。</p>
+</blockquote>
+<p>PackageManagerService及客户端的类家族如图：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fuaqb4pi7ej30fm077mx4.jpg" alt=""></p>
+<p>在下载并安装App的过程，会把Apk存放在data/app目录下。</p>
+<p>Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会对解压造成影响——木马其实就是这个思路，在可执行文件exe尾巴上挂一个木马病毒，执行exe的同时也会执行这个木马，然后你就中招了。</p>
+<p>我们可以把木马思想运用在Android多渠道打包上。在比较老的Android 4.4版本中，我们会在Apk尾巴上追加几个字节，来标记Apk的渠道。Apk启动的时候，从apk中的尾巴上读取这个渠道值。</p>
+<p>后来Google也发现这个安全漏洞了，在新版本的系统中，就会在Apk安装的时候，检查Apk的实际大小，看这个值与Apk的头部记录的压缩包大小，是否相等，不相等就会报错说安装失败。</p>
+<blockquote>
+<p>每次从apk中读取资源，并不是先解压再找图片资源，而是解析apk中的resources.arsc文件，这个文件中存储资源的所有信息，包括资源在apk中地址、大小等。不解压apk的好处自然是节省空间。</p>
+</blockquote>
+<h2 id="App的安装流程"><a href="#App的安装流程" class="headerlink" title="App的安装流程"></a>App的安装流程</h2><p>Android系统使用PMS解析这个Apk中的manifest文件，包括：</p>
+<ul>
+<li><p>四大组件的信息，比如说，前面讲过的静态Receiver。比如说默认启动的Activity。</p>
+</li>
+<li><p>分配用户Id和用户组Id。用户Id是唯一的，因为Android是一个Linux系统。用户组Id指的是各种权限，每个权限都在一个用户组中，比如读写SD卡，比如网络访问，分配了哪些用户组Id，就拥有了哪些权限。</p>
+</li>
+<li><p>在Launcher生成一个icon，icon中保存着默认启动的Activity的信息。</p>
+</li>
+<li><p>App安装过程的最后，是把上面这些信息记录在一个xml文件中，以备下次安装时再次使用。</p>
+</li>
+</ul>
+<p>在Android手机系统每次启动的时候，都会使用PMS，把Android系统的所有apk都安装一遍，一共四个步骤。<br><img src="http://images2015.cnblogs.com/blog/13430/201705/13430-20170526223853482-683221082.png" alt="image"></p>
+<ul>
+<li><p>第1步，因为结束安装的时候，都会把安装信息保存在xml文件中，所以Android系统再次启动时，再次重新安装所有的Apk，就可以直接读取之前保存的xml文件了。</p>
+</li>
+<li><p>第2步，从5个目录中读取并安装所有的apk。</p>
+</li>
+<li>第3步和第4步，与单独安装一个App的步骤是一样的。</li>
+</ul>
+<p>应用程序的完整安装过程图：<br><img src="https://box.kancloud.cn/361c74acb0fc44c590c3a2d8134b5873_2764x5616.jpg" alt="image"></p>
+<h2 id="PackageParser"><a href="#PackageParser" class="headerlink" title="PackageParser"></a>PackageParser</h2><blockquote>
+<p>Android 安装一个APK的时候首先会解析APK，而解析APK则需要用到一个工具类，这个工具类就是PackageParser</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Parser for package files (APKs) on disk. This supports apps packaged either</div><div class="line"> * as a single &quot;monolithic&quot; APK, or apps packaged as a &quot;cluster&quot; of multiple</div><div class="line"> * APKs in a single directory.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Apps packaged as multiple APKs always consist of a single &quot;base&quot; APK (with a</div><div class="line"> * &#123;@code null&#125; split name) and zero or more &quot;split&quot; APKs (with unique split</div><div class="line"> * names). Any subset of those split APKs are a valid install, as long as the</div><div class="line"> * following constraints are met:</div><div class="line"> * &lt;ul&gt;</div><div class="line"> * &lt;li&gt;All APKs must have the exact same package name, version code, and signing</div><div class="line"> * certificates.</div><div class="line"> * &lt;li&gt;All APKs must have unique split names.</div><div class="line"> * &lt;li&gt;All installations must contain a single base APK.</div><div class="line"> * &lt;/ul&gt;</div><div class="line"> *</div><div class="line"> * @hide</div><div class="line"> */</div><div class="line">public class PackageParser &#123;</div></pre></td></tr></table></figure>
+<p>大体意思如下：</p>
+<p>解析磁盘上的APK安装包文件。它既能解析一个”单一”APK文件，也能解析一个”集群”APK文件(即一个APK文件里面包含多个APK文件)。<br>一个”集群”APK有一个”基准”APK(base APK)组成和其他一些”分割”APK(“split” APKs)构成，其中这些”分割”APK用一些数字来分割。这些”分割”APK的必须都是有效的安装，同时必须满足下面的几个条件：</p>
+<ul>
+<li>所有的APK必须具有完全相同的软件包名称，版本代码和签名证书</li>
+<li>所有的APK必须具有唯一的拆分名称</li>
+<li>所有安装必须包含一个单一的APK。</li>
+</ul>
+<p>所以我们知道PackageParse类，它主要用来解析手机上的APK文件(支持Single APK和MultipleAPK)，解析一个APK主要是分为两个步骤：</p>
+<ul>
+<li>将APK解析成Package：即解析APK文件为Package对象的过程。</li>
+<li>将Package转化为PackageInfo：即由Package对象生成Package对象生成PackageInfo的过程。</li>
+</ul>
+<p>在插件化编程中，我们反射PackageParser，一般用来获取AndroidManifest中的四大组件信息。</p>
+<p>参考：</p>
+<ul>
+<li>Android系统源代码情景分析（第三版） 罗升阳著</li>
+<li>Android插件化开发指能 包建强著</li>
+<li>项目源码代码分析</li>
+<li><a href="https://www.jianshu.com/p/69fb6f9a6ac7" target="_blank" rel="external">APK安装流程详解9——PackageParser解析APK(上)</a></li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
 
       
     </div>
@@ -320,13 +400,13 @@ Quick">
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/01/02/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/">Activity底层知识之PMS及App安装过程透彻分析.md</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">黄尘</a></p>
-        <p><span>发布时间:</span>2017-01-02, 21:23:31</p>
-        <p><span>最后更新:</span>2017-01-02, 21:23:31</p>
+        <p><span>发布时间:</span>2018-08-14, 23:00:33</p>
+        <p><span>最后更新:</span>2018-08-21, 14:41:07</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/01/02/hello-world/" title="Hello World">http://yoursite.com/2017/01/02/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/01/02/hello-world/　　作者: 黄尘" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/" title="Activity底层知识之PMS及App安装过程透彻分析.md">http://yoursite.com/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/　　作者: 黄尘" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -339,15 +419,15 @@ Quick">
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/08/12/Activity底层知识之Binder透彻分析/">
-                    Activity底层知识之Binder透彻分析
+                <a href="/2018/08/16/Activity底层知识之Activity启动透彻分析/">
+                    Activity底层知识之Activity启动透彻分析
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/06/12/酷炫的圆周动画/">
-                    酷炫的圆周动画
+                <a href="/2018/08/12/Activity底层知识之Binder透彻分析/">
+                    Activity底层知识之Binder透彻分析
                 </a>
             </div>
         
@@ -359,7 +439,7 @@ Quick">
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言："><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#App的安装流程"><span class="toc-number">2.</span> <span class="toc-text">App的安装流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PackageParser"><span class="toc-number">3.</span> <span class="toc-text">PackageParser</span></a></li></ol>
         
     </div>
     <style>
@@ -395,7 +475,7 @@ Quick">
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Hello World　| 黄尘的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Activity底层知识之PMS及App安装过程透彻分析.md　| 黄尘的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -415,7 +495,7 @@ Quick">
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/08/12/Activity底层知识之Binder透彻分析/" title="上一篇: Activity底层知识之Binder透彻分析">
+            <a href="/2018/08/16/Activity底层知识之Activity启动透彻分析/" title="上一篇: Activity底层知识之Activity启动透彻分析">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -423,7 +503,7 @@ Quick">
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/06/12/酷炫的圆周动画/" title="下一篇: 酷炫的圆周动画">
+            <a href="/2018/08/12/Activity底层知识之Binder透彻分析/" title="下一篇: Activity底层知识之Binder透彻分析">
                 <i class="fa fa-angle-right"></i>
             </a>
         

@@ -186,7 +186,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li></ul>
                     </div>
                 </section>
                 
@@ -270,8 +270,8 @@
     <article id="post-Android底层知识Window和WindowManager深入分析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/05/21/Android底层知识Window和WindowManager深入分析/" class="article-date">
-      <time datetime="2018-05-21T14:33:34.000Z" itemprop="datePublished">2018-05-21</time>
+      <a href="/2018/08/19/Android底层知识Window和WindowManager深入分析/" class="article-date">
+      <time datetime="2018-08-19T14:33:34.000Z" itemprop="datePublished">2018-08-19</time>
 </a>
 
 
@@ -286,7 +286,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/21/Android底层知识Window和WindowManager深入分析/">Android底层知识Window和WindowManager深入分析</a>
+      <a class="article-title" href="/2018/08/19/Android底层知识Window和WindowManager深入分析/">Android底层知识Window和WindowManager深入分析</a>
     </h1>
   
 
@@ -402,6 +402,474 @@
       
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Activity底层知识之Activity启动透彻分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/16/Activity底层知识之Activity启动透彻分析/" class="article-date">
+      <time datetime="2018-08-16T15:38:04.000Z" itemprop="datePublished">2018-08-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/16/Activity底层知识之Activity启动透彻分析/">Activity底层知识之Activity启动透彻分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对于我们做电商APP的开发人员来说，Activity是四大组件中使用最多的，当然也是最复杂的。那Activity是如何启动的？点击手机上APP图标又发生了什么呢？今天我们就一一解析。</p>
+<h2 id="APP是怎么启动的？"><a href="#APP是怎么启动的？" class="headerlink" title="APP是怎么启动的？"></a>APP是怎么启动的？</h2><p>当我们点击某个APP图标的时候，这里假设是电商APP-永辉生活。这个APP的首页（或启动页）就展示在我们面前了。看似简单的操作，其实里面是Activity和AMS反反复复的通信过程。</p>
+<p>这里补充一下，我们点击的应用图标的界面其实是一个Activity，官方用语Launcher。launcher其实就是一个app，它的作用用来显示和管理手机上其他App。目前市场上有很多第三方的launcher应用，比如“小米桌面”、“91桌面”等等（因此我们可以对桌面图标进行分组，调用网络请求等）。</p>
+<p>首先回顾一下我们是怎么定义默认启动的Activity的呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;activity</div><div class="line">            android:name=&quot;.guide.NullDefaultActivity&quot;</div><div class="line">            android:configChanges=&quot;keyboardHidden|orientation&quot;</div><div class="line">            android:screenOrientation=&quot;landscape&quot;</div><div class="line">            android:theme=&quot;@style/SplashTheme&quot;&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;</div><div class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div></pre></td></tr></table></figure>
+<p>这些配置信息在APP安装的时候（或者Android系统启动的时候），通过PMS(PackageManagerService)从永辉生活APK的配置文件（AndroidManifest)文件中读取到的。所以点击永辉生活应用图标就启动了永辉生活。</p>
+<h3 id="启动APP就这么简单吗？"><a href="#启动APP就这么简单吗？" class="headerlink" title="启动APP就这么简单吗？"></a>启动APP就这么简单吗？</h3><p>并非如此。上述只是一个最简单描述。我们通过Launcher启动一个新的Activity是启动一个新的进程，Launcher和永辉生活 APP属于不同的进程。它们之间的通信是通过Binder完成通信的。我们的AMS登场了。<br>我们这里就以永辉生活APP为例，整体流程分为7个阶段。</p>
+<ol>
+<li>Launcher通知AMS，要启动永辉生活APP，并告诉要启动哪个页面（这里我们是引导页）</li>
+<li>AMS通知Launcher，“好了，我知道了，谢谢你了，你可以休息了”。同时把要启动的引导页信息记录下来。</li>
+<li>Launcher进入paused状态，同时通知AMS，“那我休息了，接下来我就不管了”。<blockquote>
+<p>1-3阶段上面是Launcher和AMS之间的通信。</p>
+</blockquote>
+</li>
+<li>AMS检查永辉生活APP是否已经启动了。是的话，就唤起永辉生活APP，如果不是的话，就开启一个新的进程。AMS在新进程创建一个ActivityThread对象，启动其中的main函数。</li>
+<li>永辉生活APP启动后，通知AMS，“我启动好了”。</li>
+<li>AMS翻出第二阶段的保存的值，告诉永辉生活APP，启动哪个页面。</li>
+<li>永辉生活APP启动引导页，创建Context并与引导页Activity相关联。然后调用引导页onCreate相关联。<blockquote>
+<p>4-7阶段，永辉生活APP与AMS相互通信。</p>
+</blockquote>
+</li>
+</ol>
+<p>这边涉及到一堆类。</p>
+<ul>
+<li>ActivityThread： 应用的启动入口类，当应用启动，会首先执行其main方法，开启主线程消息循环机制。</li>
+<li>ApplicationThread： ActivityThread的内部类，主要与系统进程AMS通信，从而对应用进程的具体Activity操作进行管理。</li>
+<li>Instrumentation： ActivityThread的属性变量，主要辅助ActivityThread类调用Activity的生命周期相关方法。</li>
+<li>ActivityManagerService(AMS)： Activity管理系统服务类，主要是对所有的Activity进行管理。</li>
+<li>ActivityStack，Activity在AMS的栈管理，用来记录已经启动的Activity的先后关系，状态信息等。通过ActivityStack决定是否需要启动新的进程。</li>
+<li>ActivityRecord，ActivityStack的管理对象，每个Activity在AMS对应一个ActivityRecord，来记录Activity的状态以及其他的管理信息。其实就是服务器端的Activity对象的映像。</li>
+<li>TaskRecord，AMS抽象出来的一个“任务”的概念，是记录ActivityRecord的栈，一个“Task”包含若干个ActivityRecord。AMS用TaskRecord确保Activity启动和退出的顺序。如果你清楚Activity的4种launchMode，那么对这个概念应该不陌生。</li>
+</ul>
+<h3 id="第1阶段：Launcher通知AMS"><a href="#第1阶段：Launcher通知AMS" class="headerlink" title="第1阶段：Launcher通知AMS"></a>第1阶段：Launcher通知AMS</h3><p>Launcher通知AMS的流程图：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu9k0wdxtgj31sk0twgp9.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * Launches the intent referred by the clicked shortcut.</div><div class="line">     *</div><div class="line">     * @param v The view representing the clicked shortcut.</div><div class="line">     */</div><div class="line">    public void onClick(View v) &#123;</div><div class="line">        Object tag = v.getTag();</div><div class="line">        if (tag instanceof ApplicationInfo) &#123;</div><div class="line">            // Open shortcut</div><div class="line">            final Intent intent = ((ApplicationInfo) tag).intent;</div><div class="line">            startActivitySafely(intent);</div><div class="line">        &#125; else if (tag instanceof FolderInfo) &#123;</div><div class="line">            handleFolderClick((FolderInfo) tag);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    void startActivitySafely(Intent intent) &#123;</div><div class="line">        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</div><div class="line">        try &#123;</div><div class="line">            startActivity(intent);</div><div class="line">        &#125; catch (ActivityNotFoundException e) &#123;</div><div class="line">            Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();</div><div class="line">        &#125; catch (SecurityException e) &#123;</div><div class="line">            Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();</div><div class="line">            e(LOG_TAG, &quot;Launcher does not have the permission to launch &quot; + intent +</div><div class="line">                    &quot;. Make sure to create a MAIN intent-filter for the corresponding activity &quot; +</div><div class="line">                    &quot;or use the exported attribute for this activity.&quot;, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>继续跟进：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    public void startActivity(Intent intent, @Nullable Bundle options) &#123;</div><div class="line">        if (options != null) &#123;</div><div class="line">            startActivityForResult(intent, -1, options);</div><div class="line">        &#125; else &#123;</div><div class="line">            startActivityForResult(intent, -1);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>后调用的还是这个重载方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) &#123;</div><div class="line">        if (mParent == null) &#123;</div><div class="line">            Instrumentation.ActivityResult ar =</div><div class="line">                mInstrumentation.execStartActivity(</div><div class="line">                    this, mMainThread.getApplicationThread(), mToken, this,</div><div class="line">                    intent, requestCode, options);</div><div class="line">            if (ar != null) &#123;</div><div class="line">                mMainThread.sendActivityResult(</div><div class="line">                    mToken, mEmbeddedID, requestCode, ar.getResultCode(),</div><div class="line">                    ar.getResultData());</div><div class="line">            &#125;</div><div class="line">            if (requestCode &gt;= 0) &#123;</div><div class="line">                mStartedActivity = true;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            cancelInputsAndStartExitTransition(options);</div><div class="line">            </div><div class="line">        &#125; else &#123;</div><div class="line">            if (options != null) &#123;</div><div class="line">                mParent.startActivityFromChild(this, intent, requestCode, options);</div><div class="line">            &#125; else &#123;</div><div class="line">          mParent.startActivityFromChild(this, intent, requestCode);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>可以发现这里调用了mInstrumentation.execStartActivity方法，这里先简单介绍一下Instrumentation对象，他是Android系统中应用程序端操作Activity的具体操作类，这里的操作段是相对于ActivityManagerService服务端来说的。也就是说当我们在执行对Activity的具体操作时，比如回调生命周期的各个方法都是借助于Instrumentation类来实现的。</p>
+<p>我们发现有个mMainThread变量，这是一个ActivityThread变量，就是主线程，也就是UI线程，它是APP启动时候创建的，它代表了一个应用程序。</p>
+<p>它里面有个main函数，这个是由Android系统底层提供的。源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public static void main(String[] args) &#123;</div><div class="line">       //省略部分代码</div><div class="line"></div><div class="line">        Looper.prepareMainLooper();</div><div class="line"></div><div class="line">        ActivityThread thread = new ActivityThread();</div><div class="line">        thread.attach(false);</div><div class="line"></div><div class="line">        if (sMainThreadHandler == null) &#123;</div><div class="line">            sMainThreadHandler = thread.getHandler();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (false) &#123;</div><div class="line">            Looper.myLooper().setMessageLogging(new</div><div class="line">                    LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // End of event ActivityThreadMain.</div><div class="line">        Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</div><div class="line">        Looper.loop();</div><div class="line"></div><div class="line">        throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>上面代码传递了两个很重要的参数：</p>
+<ul>
+<li>通过ActivityThread的getApplicationThread方法取到一个Binder对象，它的类型为ApplicationThread，它代表着Launcher所在的App进程。</li>
+<li>mToken，这也是个Binder对象，它代表了Launcher这个Activity，这里也通过Instrumentation传给AMS，AMS一查电话簿，就知道是谁向AMS发起请求了。</li>
+</ul>
+<p>这两个参数是伏笔，传递给AMS，以后AMS想反过来通知Launcher，就能通过这两个参数，找到Launcher。</p>
+<p>Instrumentation的execStartActivity方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public ActivityResult execStartActivity(</div><div class="line">            Context who, IBinder contextThread, IBinder token, Activity target,</div><div class="line">            Intent intent, int requestCode, Bundle options) &#123;</div><div class="line">        ....................................................</div><div class="line">        </div><div class="line">        try &#123;</div><div class="line">            ....................................</div><div class="line">            int result = ActivityManagerNative.getDefault()</div><div class="line">                .startActivity(whoThread, who.getBasePackageName(), intent,</div><div class="line">                        intent.resolveTypeIfNeeded(who.getContentResolver()),</div><div class="line">                        token, target != null ? target.mEmbeddedID : null,</div><div class="line">                        requestCode, 0, null, options);</div><div class="line">            checkStartActivityResult(result, intent);</div><div class="line">        &#125; catch (RemoteException e) &#123;</div><div class="line">            throw new RuntimeException(&quot;Failure from system&quot;, e);</div><div class="line">        &#125;</div><div class="line">        return null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>AMN的getDefault方法</p>
+<ul>
+<li>ServiceManager是一个容器类。</li>
+<li>AMN的getDefault方法返回类型为IActivityManager，而不是AMP。IActivityManager是一个实现了IInterface的接口，里面定义了四大组件所有的生命周期。</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu9kvv3utaj31ls128jv7.jpg" alt="image"></p>
+<p>AMP的startActivity方法</p>
+<p>看到这里，你会发现AMP的startActivity方法，和AIDL的Proxy方法，是一模一样的，写入数据到另一个进程，也就是AMS，然后等待AMS返回结果。</p>
+<h3 id="第2阶段-AMS处理Laucner传递过来的信息"><a href="#第2阶段-AMS处理Laucner传递过来的信息" class="headerlink" title="第2阶段 AMS处理Laucner传递过来的信息"></a>第2阶段 AMS处理Laucner传递过来的信息</h3><ul>
+<li>首先Binder，也就是AMN/AMP，和AMS通信，肯定每次是做不同的事情，就比如说这次Launcher要启动永辉生活App，那么会发送类型为START_ACTIVITY——TRANSACTION的请求给AMS，同时会告诉AMS要启动哪个Activity。</li>
+<li>AMS说，好，我知道了，然后它会干一件很有趣的事情，就是检查永辉生活App中的Manifest文件，是否存在要启动的Activity。如果不存在，就抛出Activity not found的错误，各位做App的同学对这个异常应该再熟悉不过了，经常写了个Activity而忘记在Manifest中声明了，就报这个错，就是因为AMS在这里做检查。不管是新启动一个App的首页，还是在App内部跳转到另一个Activity，都会做这个检查。</li>
+<li>接下来AMS会通知Launcher<blockquote>
+<p>Binder的双方进行通信是平等的，谁发消息，谁就是Client，接收的一方就是Server。Client这边会调用Server的代理对象。</p>
+</blockquote>
+</li>
+</ul>
+<p>那么当AMS想给Launcher发消息，又该怎么办呢？前面不是把Launcher以及它所在的进程给传过来了吗？它在AMS这边保存为一个ActivityRecord对象，这个对象里面有一个ApplicationThreadProxy，单单从名字看就出卖了它，这就是一个Binder代理对象。它的Binder真身，也就是ApplicationThread。</p>
+<p>站在AIDL的角度，来画这张图，是这样的：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu9l9qijowj31ko12w0xm.jpg" alt="image"></p>
+<h3 id="第3阶段：Launcher开始休息，然后通知AMS，“我休息了”"><a href="#第3阶段：Launcher开始休息，然后通知AMS，“我休息了”" class="headerlink" title="第3阶段：Launcher开始休息，然后通知AMS，“我休息了”"></a>第3阶段：Launcher开始休息，然后通知AMS，“我休息了”</h3><p>先来感受一下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu9leejz88j31zo0togpk.jpg" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">// we use token to identify this activity without having to send the</div><div class="line">      // activity itself back to the activity manager. (matters more with ipc)</div><div class="line">      @Override</div><div class="line">      public final void scheduleLaunchActivity(Intent intent, IBinder token, int ident,</div><div class="line">              ActivityInfo info, Configuration curConfig, Configuration overrideConfig,</div><div class="line">              CompatibilityInfo compatInfo, String referrer, IVoiceInteractor voiceInteractor,</div><div class="line">              int procState, Bundle state, PersistableBundle persistentState,</div><div class="line">              List&lt;ResultInfo&gt; pendingResults, List&lt;ReferrerIntent&gt; pendingNewIntents,</div><div class="line">              boolean notResumed, boolean isForward, ProfilerInfo profilerInfo) &#123;</div><div class="line"></div><div class="line">          updateProcessState(procState, false);</div><div class="line"></div><div class="line">          ActivityClientRecord r = new ActivityClientRecord();</div><div class="line"></div><div class="line">          r.token = token;</div><div class="line">          r.ident = ident;</div><div class="line">          r.intent = intent;</div><div class="line">          r.referrer = referrer;</div><div class="line">          r.voiceInteractor = voiceInteractor;</div><div class="line">          r.activityInfo = info;</div><div class="line">          r.compatInfo = compatInfo;</div><div class="line">          r.state = state;</div><div class="line">          r.persistentState = persistentState;</div><div class="line"></div><div class="line">          r.pendingResults = pendingResults;</div><div class="line">          r.pendingIntents = pendingNewIntents;</div><div class="line"></div><div class="line">          r.startsNotResumed = notResumed;</div><div class="line">          r.isForward = isForward;</div><div class="line"></div><div class="line">          r.profilerInfo = profilerInfo;</div><div class="line"></div><div class="line">          r.overrideConfig = overrideConfig;</div><div class="line">          updatePendingConfiguration(curConfig);</div><div class="line"></div><div class="line">          sendMessage(H.LAUNCH_ACTIVITY, r);</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void handleMessage(Message msg) &#123;</div><div class="line">           if (DEBUG_MESSAGES) Slog.v(TAG, &quot;&gt;&gt;&gt; handling: &quot; + codeToString(msg.what));</div><div class="line">           switch (msg.what) &#123;</div><div class="line">               case LAUNCH_ACTIVITY: &#123;</div><div class="line">                   Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;activityStart&quot;);</div><div class="line">                   final ActivityClientRecord r = (ActivityClientRecord) msg.obj;</div><div class="line"></div><div class="line">                   r.packageInfo = getPackageInfoNoCheck(</div><div class="line">                           r.activityInfo.applicationInfo, r.compatInfo);</div><div class="line">                   handleLaunchActivity(r, null, &quot;LAUNCH_ACTIVITY&quot;);</div><div class="line">                   Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</div><div class="line">               &#125; break;</div></pre></td></tr></table></figure>
+<p>AMS给Activity发送的所有消息，以及给其它三大组件发送的所有消息，都从H这里经过。<strong>插件化就可以在这里动手脚。</strong><br>H对于PAUSE_ACTIVITY消息的处理，如上面的代码，是调用ActivityThread的handlePauseActivity方法。这个方法干两件事：</p>
+<ul>
+<li>ActivityThread里面有一个mActivities集合，保存当前App也就是Launcher中所有打开的Activity，把它找出来，让它休眠。</li>
+<li>通过AMP通知AMS，我真的休眠了。<br>你可能会找不到H和APT这两个类文件，那是因为它们都是ActivityThread的内嵌类。</li>
+</ul>
+<h3 id="第4阶段：AMS启动新的进程"><a href="#第4阶段：AMS启动新的进程" class="headerlink" title="第4阶段：AMS启动新的进程"></a>第4阶段：AMS启动新的进程</h3><p>AMS接下来要启动永辉生活App的首页，因为永辉生活App不在后台进程中，所以要启动一个新的进程。这里调用的是Process.start方法，并且指定了ActivityThread的main函数为入口函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Process.ProcessStartResult startResult = Process.start(entryPoint,</div><div class="line">                  app.processName, uid, uid, gids, debugFlags, mountExternal,</div><div class="line">                  app.info.targetSdkVersion, app.info.seinfo, requiredAbi, instructionSet,</div><div class="line">                  app.info.dataDir, entryPointArgs);</div></pre></td></tr></table></figure>
+<h3 id="第5阶段：新的进程启动，以ActivityThread的main函数为入口"><a href="#第5阶段：新的进程启动，以ActivityThread的main函数为入口" class="headerlink" title="第5阶段：新的进程启动，以ActivityThread的main函数为入口"></a>第5阶段：新的进程启动，以ActivityThread的main函数为入口</h3><p>启动新进程，其实就是启动一个新的APP。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu9luus0h1j31kc0o4dhh.jpg" alt="image"></p>
+<p>在启动新进程的时候，为这个进程创建ActivityThread对象，这就是我们耳熟能详的主线程（UI线程）。</p>
+<p>创建好UI线程后，立刻进入ActivityThread的main函数，接下来要做2件具有重大意义的事情：</p>
+<p>1）创建一个主线程Looper，也就是MainLooper。看见没，MainLooper就是在这里创建的。<br>2）创建Application。记住，Application是在这里生成的。</p>
+<h3 id="第6阶段-AMS告诉新App启动哪个Activity"><a href="#第6阶段-AMS告诉新App启动哪个Activity" class="headerlink" title="第6阶段 AMS告诉新App启动哪个Activity"></a>第6阶段 AMS告诉新App启动哪个Activity</h3><p>还记得第1阶段，Launcher发送给AMS要启动永辉生活App的哪个Activity吗？这个信息被AMS存下来了。</p>
+<p>那么在第6阶段，AMS从过去的记录中翻出来要启动哪个Activity，然后通过ActivityThreadProxy告诉App。</p>
+<h3 id="第7阶段-启动永辉生活APP首页Activity"><a href="#第7阶段-启动永辉生活APP首页Activity" class="headerlink" title="第7阶段 启动永辉生活APP首页Activity"></a>第7阶段 启动永辉生活APP首页Activity</h3><p>万事俱备只欠东风，收场的来了</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu9m8tm8g1j31x40vgjvp.jpg" alt="image"></p>
+<p>handleLaunchActivity方法都做哪些事呢？</p>
+<ul>
+<li>通过Instrumentation的newActivity方法，创建出来要启动的Activity实例。</li>
+<li>为这个Activity创建一个上下文Context对象，并与Activity进行关联。</li>
+<li>通过Instrumentation的callActivityOnCreate方法，执行Activity的onCreate方法，从而启动Activity。看到这里是不是很熟悉很亲切？</li>
+</ul>
+<p>至此，App启动完毕。这个流程是经过了很多次握手， App和ASM，频繁的向对方发送消息，而发送消息的机制，是建立在Binder的基础之上的。</p>
+<p>参考：</p>
+<ul>
+<li>Android系统源代码情景分析（第三版） 罗升阳著</li>
+<li>Android插件化开发指能 包建强著</li>
+<li>项目源码代码分析</li>
+<li><a href="https://juejin.im/entry/579c9f92c4c971005aceeddf" target="_blank" rel="external">launcher 启动流程解析</a></li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Activity底层知识之PMS及App安装过程透彻分析-md" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/" class="article-date">
+      <time datetime="2018-08-14T15:00:33.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/Activity底层知识之PMS及App安装过程透彻分析-md/">Activity底层知识之PMS及App安装过程透彻分析.md</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>PMS，全称PackageManagerService，是用来获取Apk包的信息的。它负责系统中Package的管理，应用程序的安装、卸载、信息查询等。</p>
+</blockquote>
+<p>PackageManagerService及客户端的类家族如图：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fuaqb4pi7ej30fm077mx4.jpg" alt=""></p>
+<p>在下载并安装App的过程，会把Apk存放在data/app目录下。</p>
+<p>Apk是一个zip压缩包，在文件头会记录压缩包的大小，所以后续在文件尾巴就算是追加一部小电影，也不会对解压造成影响——木马其实就是这个思路，在可执行文件exe尾巴上挂一个木马病毒，执行exe的同时也会执行这个木马，然后你就中招了。</p>
+<p>我们可以把木马思想运用在Android多渠道打包上。在比较老的Android 4.4版本中，我们会在Apk尾巴上追加几个字节，来标记Apk的渠道。Apk启动的时候，从apk中的尾巴上读取这个渠道值。</p>
+<p>后来Google也发现这个安全漏洞了，在新版本的系统中，就会在Apk安装的时候，检查Apk的实际大小，看这个值与Apk的头部记录的压缩包大小，是否相等，不相等就会报错说安装失败。</p>
+<blockquote>
+<p>每次从apk中读取资源，并不是先解压再找图片资源，而是解析apk中的resources.arsc文件，这个文件中存储资源的所有信息，包括资源在apk中地址、大小等。不解压apk的好处自然是节省空间。</p>
+</blockquote>
+<h2 id="App的安装流程"><a href="#App的安装流程" class="headerlink" title="App的安装流程"></a>App的安装流程</h2><p>Android系统使用PMS解析这个Apk中的manifest文件，包括：</p>
+<ul>
+<li><p>四大组件的信息，比如说，前面讲过的静态Receiver。比如说默认启动的Activity。</p>
+</li>
+<li><p>分配用户Id和用户组Id。用户Id是唯一的，因为Android是一个Linux系统。用户组Id指的是各种权限，每个权限都在一个用户组中，比如读写SD卡，比如网络访问，分配了哪些用户组Id，就拥有了哪些权限。</p>
+</li>
+<li><p>在Launcher生成一个icon，icon中保存着默认启动的Activity的信息。</p>
+</li>
+<li><p>App安装过程的最后，是把上面这些信息记录在一个xml文件中，以备下次安装时再次使用。</p>
+</li>
+</ul>
+<p>在Android手机系统每次启动的时候，都会使用PMS，把Android系统的所有apk都安装一遍，一共四个步骤。<br><img src="http://images2015.cnblogs.com/blog/13430/201705/13430-20170526223853482-683221082.png" alt="image"></p>
+<ul>
+<li><p>第1步，因为结束安装的时候，都会把安装信息保存在xml文件中，所以Android系统再次启动时，再次重新安装所有的Apk，就可以直接读取之前保存的xml文件了。</p>
+</li>
+<li><p>第2步，从5个目录中读取并安装所有的apk。</p>
+</li>
+<li>第3步和第4步，与单独安装一个App的步骤是一样的。</li>
+</ul>
+<p>应用程序的完整安装过程图：<br><img src="https://box.kancloud.cn/361c74acb0fc44c590c3a2d8134b5873_2764x5616.jpg" alt="image"></p>
+<h2 id="PackageParser"><a href="#PackageParser" class="headerlink" title="PackageParser"></a>PackageParser</h2><blockquote>
+<p>Android 安装一个APK的时候首先会解析APK，而解析APK则需要用到一个工具类，这个工具类就是PackageParser</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Parser for package files (APKs) on disk. This supports apps packaged either</div><div class="line"> * as a single &quot;monolithic&quot; APK, or apps packaged as a &quot;cluster&quot; of multiple</div><div class="line"> * APKs in a single directory.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Apps packaged as multiple APKs always consist of a single &quot;base&quot; APK (with a</div><div class="line"> * &#123;@code null&#125; split name) and zero or more &quot;split&quot; APKs (with unique split</div><div class="line"> * names). Any subset of those split APKs are a valid install, as long as the</div><div class="line"> * following constraints are met:</div><div class="line"> * &lt;ul&gt;</div><div class="line"> * &lt;li&gt;All APKs must have the exact same package name, version code, and signing</div><div class="line"> * certificates.</div><div class="line"> * &lt;li&gt;All APKs must have unique split names.</div><div class="line"> * &lt;li&gt;All installations must contain a single base APK.</div><div class="line"> * &lt;/ul&gt;</div><div class="line"> *</div><div class="line"> * @hide</div><div class="line"> */</div><div class="line">public class PackageParser &#123;</div></pre></td></tr></table></figure>
+<p>大体意思如下：</p>
+<p>解析磁盘上的APK安装包文件。它既能解析一个”单一”APK文件，也能解析一个”集群”APK文件(即一个APK文件里面包含多个APK文件)。<br>一个”集群”APK有一个”基准”APK(base APK)组成和其他一些”分割”APK(“split” APKs)构成，其中这些”分割”APK用一些数字来分割。这些”分割”APK的必须都是有效的安装，同时必须满足下面的几个条件：</p>
+<ul>
+<li>所有的APK必须具有完全相同的软件包名称，版本代码和签名证书</li>
+<li>所有的APK必须具有唯一的拆分名称</li>
+<li>所有安装必须包含一个单一的APK。</li>
+</ul>
+<p>所以我们知道PackageParse类，它主要用来解析手机上的APK文件(支持Single APK和MultipleAPK)，解析一个APK主要是分为两个步骤：</p>
+<ul>
+<li>将APK解析成Package：即解析APK文件为Package对象的过程。</li>
+<li>将Package转化为PackageInfo：即由Package对象生成Package对象生成PackageInfo的过程。</li>
+</ul>
+<p>在插件化编程中，我们反射PackageParser，一般用来获取AndroidManifest中的四大组件信息。</p>
+<p>参考：</p>
+<ul>
+<li>Android系统源代码情景分析（第三版） 罗升阳著</li>
+<li>Android插件化开发指能 包建强著</li>
+<li>项目源码代码分析</li>
+<li><a href="https://www.jianshu.com/p/69fb6f9a6ac7" target="_blank" rel="external">APK安装流程详解9——PackageParser解析APK(上)</a></li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Activity底层知识之Binder透彻分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/12/Activity底层知识之Binder透彻分析/" class="article-date">
+      <time datetime="2018-08-12T15:37:49.000Z" itemprop="datePublished">2018-08-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/12/Activity底层知识之Binder透彻分析/">Activity底层知识之Binder透彻分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>apk是怎么安装的？资源是怎么加载的？AIDL究竟是什么？Binder又是啥？等等这样的疑问，今天起就开始一一揭开。<br>先来一张图（网络图）感受一下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu8ek043uhj318g0vxn2z.jpg" alt=""></p>
+<blockquote>
+<p>今天重点先分析Binder。</p>
+</blockquote>
+<h2 id="知识准备"><a href="#知识准备" class="headerlink" title="知识准备"></a>知识准备</h2><p>在讲解Binder前，我们先了解一些Linux的基础知识。</p>
+<h3 id="进程空间划分"><a href="#进程空间划分" class="headerlink" title="进程空间划分"></a>进程空间划分</h3><ul>
+<li>一个进程空间分为 用户空间 &amp; 内核空间（Kernel），即把进程内 用户 &amp; 内核 隔离开来。</li>
+<li>二者区别：进程间，用户空间的数据不可共享，所以用户空间 = 不可共享空间；进程间，内核空间的数据可共享，所以内核空间 = 可共享空间 。<blockquote>
+<p>所有进程共用1个内核空间</p>
+</blockquote>
+</li>
+<li>进程内 用户空间 &amp; 内核空间 进行交互 需通过 系统调用，主要通过函数：<ul>
+<li>[x]  copy_from_user（）：将用户空间的数据拷贝到内核空间</li>
+<li>[x]   copy_to_user（）：将内核空间的数据拷贝到用户空间</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/944365-13d59058d4e0cba1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h3 id="进程隔离-amp-跨进程通信（-IPC-）"><a href="#进程隔离-amp-跨进程通信（-IPC-）" class="headerlink" title="进程隔离 &amp; 跨进程通信（ IPC ）"></a>进程隔离 &amp; 跨进程通信（ IPC ）</h3><ul>
+<li>进程隔离<br>为了保证 安全性 &amp; 独立性，一个进程 不能直接操作或者访问另一个进程，即Android的进程是相互独立、隔离的</li>
+<li>跨进程通信（ IPC ）<br>即进程间需进行数据交互、通信</li>
+<li>跨进程通信的基本原理</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-12935684e8ec107c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<blockquote>
+<p>a. 而Binder的作用则是：连接 两个进程，实现了mmap()系统调用，主要负责 创建数据接收的缓存空间 &amp; 管理数据接收缓存 </p>
+<p>b. 注：传统的跨进程通信需拷贝数据2次，但Binder机制只需1次，主要是使用到了内存映射。</p>
+</blockquote>
+<h2 id="Binder-跨进程通信机制"><a href="#Binder-跨进程通信机制" class="headerlink" title="Binder 跨进程通信机制"></a>Binder 跨进程通信机制</h2><p><img src="http://upload-images.jianshu.io/upload_images/944365-65a5b17426aed424.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h3 id="模型原理步骤说明"><a href="#模型原理步骤说明" class="headerlink" title="模型原理步骤说明"></a>模型原理步骤说明</h3><p><img src="http://upload-images.jianshu.io/upload_images/944365-d3c78b193c3e8a38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<blockquote>
+<p>以上内容参考：<a href="https://blog.csdn.net/carson_ho/article/details/73560642" target="_blank" rel="external">Android跨进程通信：图文详解 Binder机制 原理</a>，如若侵权，请联系作者删除</p>
+<h2 id="Binder组成"><a href="#Binder组成" class="headerlink" title="Binder组成"></a>Binder组成</h2><p>（划重点了，作为APP开发人员👆上面的内容不是非必须的，下面的知识点是必须掌握的）</p>
+<ul>
+<li>Binder分为Client和Server两个进程<ul>
+<li>[x]   Client和Server是相对的，谁发消息，谁就是Client，谁接受消息，谁就是Server。</li>
+</ul>
+</li>
+<li>Binder组成。</li>
+</ul>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu8els1ra7j31s41scq8q.jpg" alt=""></p>
+<blockquote>
+<p>整个通信过程过程可以看做一个拨打电话进行通信的过程，ServericeManager相当于一个电话局，张三（Client)给李四(Server)打电话，电话局先解析电话号码的地址。有的话就可以拨通，没有的话，就报错。</p>
+<ul>
+<li>Binder通信过程</li>
+</ul>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu8eloxd6kj327g1v0gte.jpg" alt=""></p>
+<h2 id="AIDL原理"><a href="#AIDL原理" class="headerlink" title="AIDL原理"></a>AIDL原理</h2><p>AIDL是Binder的延伸。<br>Android系统中很多系统服务都是AIDL，比如剪切板，双进程守护。这里举例一下双进程守护：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> * This file is auto-generated.  DO NOT MODIFY.</div><div class="line"> * Original file: /Users/huangchen/workspace/web/yhparter/yh-partner-app/android/app/src/main/aidl/com/yonghuivip/partner/Service_1.aidl</div><div class="line"> */</div><div class="line">package com.yonghuivip.partner;</div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">public interface Service_1 extends android.os.IInterface &#123;</div><div class="line">    /**</div><div class="line">     * Local-side IPC implementation stub class.</div><div class="line">     */</div><div class="line">    public static abstract class Stub extends android.os.Binder implements com.yonghuivip.partner.Service_1 &#123;</div><div class="line">        private static final java.lang.String DESCRIPTOR = &quot;com.yonghuivip.partner.Service_1&quot;;</div><div class="line"></div><div class="line">        /**</div><div class="line">         * Construct the stub at attach it to the interface.</div><div class="line">         */</div><div class="line">        public Stub() &#123;</div><div class="line">            this.attachInterface(this, DESCRIPTOR);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        /**</div><div class="line">         * Cast an IBinder object into an com.yonghuivip.partner.Service_1 interface,</div><div class="line">         * generating a proxy if needed.</div><div class="line">         */</div><div class="line">        public static com.yonghuivip.partner.Service_1 asInterface(android.os.IBinder obj) &#123;</div><div class="line">            if ((obj == null)) &#123;</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line">            android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);</div><div class="line">            if (((iin != null) &amp;&amp; (iin instanceof com.yonghuivip.partner.Service_1))) &#123;</div><div class="line">                return ((com.yonghuivip.partner.Service_1) iin);</div><div class="line">            &#125;</div><div class="line">            return new com.yonghuivip.partner.Service_1.Stub.Proxy(obj);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public android.os.IBinder asBinder() &#123;</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        //收到Binder驱动通知后，Server 进程通过回调Binder对象onTransact（）进行数据解包 &amp; 调用目标方法</div><div class="line">        @Override</div><div class="line">        public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException &#123;</div><div class="line">            // code即在transact（）中约定的目标方法的标识符</div><div class="line">            switch (code) &#123;</div><div class="line">                case INTERFACE_TRANSACTION: &#123;</div><div class="line">                    reply.writeString(DESCRIPTOR);</div><div class="line">                    return true;</div><div class="line">                &#125;</div><div class="line">                case TRANSACTION_getName: &#123;</div><div class="line">                    // a. 解包Parcel中的数据</div><div class="line">                    // a1. 解析目标方法对象的标识符</div><div class="line">                    data.enforceInterface(DESCRIPTOR);</div><div class="line">                    // a2. 获得目标方法的参数</div><div class="line">                    java.lang.String _result = this.getName();</div><div class="line">                    reply.writeNoException();</div><div class="line">                    // c. 将计算结果写入到reply</div><div class="line">                    reply.writeString(_result);</div><div class="line">                    return true;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            // 2. 将结算结果返回 到Binder驱动</div><div class="line">            return super.onTransact(code, data, reply, flags);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        private static class Proxy implements com.yonghuivip.partner.Service_1 &#123;</div><div class="line">            private android.os.IBinder mRemote;</div><div class="line"></div><div class="line">            Proxy(android.os.IBinder remote) &#123;</div><div class="line">                mRemote = remote;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public android.os.IBinder asBinder() &#123;</div><div class="line">                return mRemote;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            public java.lang.String getInterfaceDescriptor() &#123;</div><div class="line">                return DESCRIPTOR;</div><div class="line">            &#125;</div><div class="line">            // 注：在发送数据后，Client进程的该线程会暂时被挂起</div><div class="line">// 所以，若Server进程执行的耗时操作，请不要使用主线程，以防止ANR</div><div class="line">            @Override</div><div class="line">            public java.lang.String getName() throws android.os.RemoteException &#123;</div><div class="line">                android.os.Parcel _data = android.os.Parcel.obtain();</div><div class="line">                android.os.Parcel _reply = android.os.Parcel.obtain();</div><div class="line">                java.lang.String _result;</div><div class="line">                try &#123;</div><div class="line">                    _data.writeInterfaceToken(DESCRIPTOR);</div><div class="line">                    //通过 调用代理对象的transact（） 将 上述数据发送到Binder驱动</div><div class="line">                    mRemote.transact(Stub.TRANSACTION_getName, _data, _reply, 0);</div><div class="line">                    _reply.readException();</div><div class="line">                    _result = _reply.readString();</div><div class="line">                &#125; finally &#123;</div><div class="line">                    _reply.recycle();</div><div class="line">                    _data.recycle();</div><div class="line">                &#125;</div><div class="line">                return _result;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        static final int TRANSACTION_getName = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public java.lang.String getName() throws android.os.RemoteException;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>AIDL重要的几个类：</p>
+<ul>
+<li>IBinder</li>
+<li>IInterface</li>
+<li>Stub</li>
+<li>Binder</li>
+<li>Proxy</li>
+</ul>
+<p>AIDL中涉及到的类图：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005tUZzHgy1fu8fvqw1qhj32dk1ysaoc.jpg" alt=""></p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">MyService.asInterface(service).getName()</div><div class="line">``` </div><div class="line">asInteface作用是判断当前进程是否和自己再同一个进程。Stub调用自己的asInterface方法发现不在同一个进程之内，就调用Proxy的getName()</div><div class="line">- Proxy在自己的getName方法中，会使用Parceable来准备数据，把函数名称、函数参数都写入_data，让_reply接受函数返回值，最后调用IBinder的transact，就可以把数据传递给Binder的Server端。</div></pre></td></tr></table></figure>
+<p>//通过 调用代理对象的transact（） 将 上述数据发送到Binder驱动<br>mRemote.transact(Stub.TRANSACTION_getName, _data, _reply, 0);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- Server通过onTransact方法接受Client传递过来的数据，包括函数名称、函数参数，找到对应的函数，这里是getName()，把参数传递过去。所以onTransact方法经历了：读数据、执行要调用的函数、把执行结果再写入数据。</div></pre></td></tr></table></figure>
+<p>//收到Binder驱动通知后，Server 进程通过回调Binder对象onTransact（）进行数据解包 &amp; 调用目标方法</p>
+<pre><code>@Override
+public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+    // code即在transact（）中约定的目标方法的标识符
+    switch (code) {
+        case INTERFACE_TRANSACTION: {
+            reply.writeString(DESCRIPTOR);
+            return true;
+        }
+        case TRANSACTION_getName: {
+            // a. 解包Parcel中的数据
+            // a1. 解析目标方法对象的标识符
+            data.enforceInterface(DESCRIPTOR);
+            // a2. 获得目标方法的参数
+            java.lang.String _result = this.getName();
+            reply.writeNoException();
+            // c. 将计算结果写入到reply
+            reply.writeString(_result);
+            return true;
+        }
+    }
+    // 2. 将结算结果返回 到Binder驱动
+    return super.onTransact(code, data, reply, flags);
+}
+</code></pre><p>```</p>
+</li>
+</ul>
+<blockquote>
+<p>四大组件的启动和后续流程，都是在和AMS打交道，四大组件给AMS发消息，四大组件就是Client Binder , AMS就是Server Binder，反之，角色替换。</p>
+</blockquote>
+<p>参考：</p>
+<ul>
+<li>Android系统源代码情景分析（第三版） 罗升阳著</li>
+<li>Android插件化开发指能 包建强著</li>
+<li>项目Demo代码分析</li>
+<li><a href="https://blog.csdn.net/carson_ho/article/details/73560642" target="_blank" rel="external">Android跨进程通信：图文详解 Binder机制 原理</a></li>
+</ul>
+<blockquote>
+<p>声明：此为原创，转载请联系作者</p>
+</blockquote>
+<hr>
+<p>作者：微信公众号添加公众号-<strong>遛狗的程序员</strong>  ，或者可以扫描以下二维码关注相关技术文章。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-a702fdb2432ef815.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="qrcode_for_gh_1ba0785324d6_430.jpg"> </p>
+<p>当然喜爱技术，乐于分享的你也可以可以添加作者微信号：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1870398-8a29e6df15db4e07.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WXCD.jpeg"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Framework/">Android Framework</a></li></ul>
+    </div>
+
       
       <div class="clearfix"></div>
     </div>
